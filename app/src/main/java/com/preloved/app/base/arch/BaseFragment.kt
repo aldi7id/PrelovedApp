@@ -16,8 +16,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
 
     private var bind: VB? = null
     private val binding: VB get() = bind as VB
-//    @Inject
-    lateinit var viewModelInstance: VM
+    private lateinit var viewModelInstance: VM
 
     fun getViewBinding(): VB = binding
     fun getViewModel(): VM = viewModelInstance
