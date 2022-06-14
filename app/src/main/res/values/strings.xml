@@ -2,4 +2,14 @@
     <string name="app_name">Preloved App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_full_name">Your Full Name</string>
+    <string name="contentbackbutton">backbutton</string>
+    <string name="tv_register">Register</string>
+    <string name="tv_register_detail">Daftarkan diri kamu sebelum menggunakan aplikasi ini</string>
+    <string name="your_valid_email">Your Valid Email</string>
+    <string name="your_unique_password">Your Unique Password</string>
+    <string name="your_phone_number">Your Phone Number</string>
+    <string name="enter_your_address">Enter Your Address</string>
+    <string name="register">Register</string>
+    <string name="sudah_memiliki_akun_login">Sudah memiliki akun? Login</string>
 </resources>
