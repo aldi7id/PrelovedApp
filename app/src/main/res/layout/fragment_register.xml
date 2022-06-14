@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.register.RegisterFragment">
+
+<ImageButton
+    android:id="@+id/backToLogin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_back"
+    android:background="none"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    />
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="@color/black"
+        android:textSize="@dimen/header"
+        android:fontFamily="@font/poppinssemibold"
+        app:layout_constraintStart_toStartOf="@id/backToLogin"
+        app:layout_constraintTop_toBottomOf="@id/backToLogin"
+        />
+    <TextView
+        android:id="@+id/tv_register_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Daftarkan diri kamu sebelum menggunakan aplikasi ini"
+        app:layout_constraintStart_toStartOf="@id/tv_register"
+        app:layout_constraintTop_toBottomOf="@id/tv_register"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Full Name"
+        app:layout_constraintStart_toStartOf="@id/tv_register_detail"
+        app:layout_constraintTop_toBottomOf="@id/tv_register_detail"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Valid Email"
+        app:layout_constraintStart_toStartOf="@id/et_nama"
+        app:layout_constraintTop_toBottomOf="@id/et_nama"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Unique Name"
+        app:layout_constraintStart_toStartOf="@id/et_email"
+        app:layout_constraintTop_toBottomOf="@id/et_email"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_repassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Unique Name"
+        app:layout_constraintStart_toStartOf="@id/et_password"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Phone Number"
+        app:layout_constraintStart_toStartOf="@id/et_repassword"
+        app:layout_constraintTop_toBottomOf="@id/et_repassword"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Full Address"
+        app:layout_constraintStart_toStartOf="@id/et_phone"
+        app:layout_constraintTop_toBottomOf="@id/et_phone"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        app:layout_constraintStart_toStartOf="@id/et_address"
+        app:layout_constraintTop_toBottomOf="@id/et_address"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sudah memiliki akun? Login"
+        app:layout_constraintStart_toStartOf="@id/btn_register"
+        app:layout_constraintTop_toBottomOf="@id/btn_register"
+        app:layout_constraintEnd_toEndOf="@id/btn_register"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
