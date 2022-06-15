@@ -1,13 +1,7 @@
 package com.preloved.app.ui.register
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
+import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.databinding.FragmentRegisterBinding
 
 
@@ -19,12 +13,31 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
         observeData()
     }
 
-
-
+    override fun checkFormValidation(): Boolean {
+        TODO("Not yet implemented")
+    }
 
 
     override fun observeData() {
 
+    }
+    private fun registerAction(
+        full_name : String,
+        email : String,
+        password: String,
+        phone_number: Long,
+        address : String,
+        image_url : Any
+    ){
+        val request = RegisterRequest(
+            fullName = full_name,
+            email = email,
+            password = password,
+            address = address,
+            phoneNumber = phone_number,
+            imageUrl = image_url,
+            id = null
+        )
     }
 
 

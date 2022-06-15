@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName
 data class User(
     @SerializedName("address")
     val address: String,
-    @SerializedName("createdAt")
-    val createdAt: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("full_name")
@@ -20,6 +18,4 @@ data class User(
     val password: String,
     @SerializedName("phone_number")
     val phoneNumber: Long,
-    @SerializedName("updatedAt")
-    val updatedAt: String
 )
