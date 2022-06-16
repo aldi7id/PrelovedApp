@@ -13,7 +13,7 @@ data class RegisterRequest(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("image_url")
-    val imageUrl: Any,
+    val imageUrl: Any?,
     @SerializedName("password")
     val password: String,
     @SerializedName("phone_number")
