@@ -12,4 +12,8 @@
     <string name="enter_your_address">Enter Your Address</string>
     <string name="register">Register</string>
     <string name="sudah_memiliki_akun_login">Sudah memiliki akun? Login</string>
+    <string name="akun">Akun</string>
+    <string name="ubah_profile">Ubah Profile</string>
+    <string name="keluar">Keluar</string>
+    <string name="version_app">Version 1.0.0</string>
 </resources>

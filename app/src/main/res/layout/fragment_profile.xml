@@ -19,14 +19,14 @@
             android:src="@drawable/ic_back"
             android:background="@color/white"
             android:layout_marginTop="20dp"
-            />
+            android:contentDescription="@string/keluar" />
 
         <TextView
             android:id="@+id/tv_akun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppinssemibold"
-            android:text="Akun"
+            android:text="@string/akun"
             android:textColor="@color/black"
             android:textSize="@dimen/header"
 
@@ -43,21 +43,21 @@
             android:layout_marginTop="21dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_akun"
             app:layout_constraintStart_toStartOf="@+id/tv_akun"
-            app:layout_constraintTop_toBottomOf="@id/tv_akun" />
+            app:layout_constraintTop_toBottomOf="@id/tv_akun"
+            android:contentDescription="@string/contentbackbutton" />
 
         <TextView
             android:id="@+id/tv_change_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ubah Profile"
+            android:text="@string/ubah_profile"
             app:layout_constraintTop_toBottomOf="@id/iv_profile"
             android:fontFamily="@font/poppinssemibold"
             android:textSize="@dimen/content"
             android:textColor="@color/black"
-            android:drawableStart="@drawable/ic_pencil"
             android:drawablePadding="20dp"
             android:layout_marginTop="40dp"
-            />
+            app:drawableStartCompat="@drawable/ic_pencil" />
         <View
             android:id="@+id/line1"
             app:layout_constraintTop_toBottomOf="@id/tv_change_profile"
@@ -69,15 +69,14 @@
             android:id="@+id/tv_exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Keluar"
+            android:text="@string/keluar"
             app:layout_constraintTop_toBottomOf="@id/line1"
             android:fontFamily="@font/poppinssemibold"
             android:textSize="@dimen/content"
             android:textColor="@color/black"
-            android:drawableStart="@drawable/ic_exit"
             android:drawablePadding="20dp"
             android:layout_marginTop="20dp"
-            />
+            app:drawableStartCompat="@drawable/ic_exit" />
         <View
             android:id="@+id/line2"
             app:layout_constraintTop_toBottomOf="@id/tv_exit"
@@ -85,6 +84,18 @@
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
             android:background="@android:color/darker_gray"/>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version_app"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
