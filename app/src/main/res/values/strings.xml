@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Preloved App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="content_login">Selamat Datang di PreLoved, Login sebelum masuk ke aplikasi</string>
+    <string name="no_have_account">Belum memiliki akun? <b><font color='#EE839F'>Register</font></b></string>
 </resources>

@@ -15,8 +15,9 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", BASE_URL)
+        buildConfigField("String", "LOGIN", POST_LOGIN)
     }
 
     buildTypes {
@@ -72,6 +73,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     implementation 'androidx.activity:activity-ktx:1.4.0'
+
+    //chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     def koin_version = "3.2.0"
     // Koin main features for Android
