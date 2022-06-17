@@ -1,9 +1,13 @@
 package com.preloved.app.ui.login
 
-class LoginRepository(
+import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.model.request.auth.LoginRequest
+import com.preloved.app.data.network.model.response.LoginResponse
 
+class LoginRepository(
+    private val userDataSource: UserDataSource
 ): LoginContract.Repository {
-    override fun postLoginDataUser(email: String, password: String) {
-        return
+    override suspend fun postLoginDataUser(loginRequest: LoginRequest): LoginResponse {
+        return userDataSource.postLogin(loginRequest)
     }
 }
