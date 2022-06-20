@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
+import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,9 +14,9 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val registerRepository: RegisterRepository
 ): BaseViewModellmpl(), RegisterContract.ViewModel {
-    private val registerUserLiveData = MutableLiveData<Resource<User>>()
+    private val registerUserLiveData = MutableLiveData<Resource<LoginResponse>>()
 
-    override fun getRegisterUserLiveData(): LiveData<Resource<User>> = registerUserLiveData
+    override fun getRegisterUserLiveData(): LiveData<Resource<LoginResponse>> = registerUserLiveData
 
     override fun registerUser(registerRequest: RegisterRequest) {
         registerUserLiveData.value = Resource.Loading()

@@ -10,6 +10,8 @@ data class RegisterRequest(
     val email: String,
     @SerializedName("full_name")
     val fullName: String,
+    @SerializedName("city")
+    val city: String,
     @SerializedName("id")
     val id: Int?,
     @SerializedName("image_url")

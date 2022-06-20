@@ -1,6 +1,7 @@
 package com.preloved.app
 
 import android.app.Application
+import com.preloved.app.di.dataSourceModule
 import com.preloved.app.di.networkModule
 import com.preloved.app.di.repositoryModule
 import com.preloved.app.di.viewModelModule
@@ -17,7 +18,8 @@ class PrelovedApp: Application() {
             modules(
                 networkModule,
                 repositoryModule,
-                viewModelModule
+                viewModelModule,
+                dataSourceModule
             )
         }
     }

@@ -164,14 +164,36 @@
             />
 
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tf_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:placeholderTextColor="@color/secondary"
+            app:layout_constraintTop_toBottomOf="@id/tf_phone"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_your_city"
+                android:fontFamily="@font/poppinsmedium"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:inputType="text"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tf_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:placeholderTextColor="@color/secondary"
-        app:layout_constraintTop_toBottomOf="@id/tf_phone"
+        app:layout_constraintTop_toBottomOf="@id/tf_city"
         >
 
         <com.google.android.material.textfield.TextInputEditText

@@ -12,4 +12,8 @@
     <string name="enter_your_address">Enter Your Address</string>
     <string name="register">Register</string>
     <string name="sudah_memiliki_akun_login">Sudah memiliki akun? Login</string>
+    <string name="enter_your_city">Enter Your City</string>
+    <string name="ubah">Ubah</string>
+    <string name="add">add</string>
+    <string name="ubah_profile">Ubah Profile</string>
 </resources>
