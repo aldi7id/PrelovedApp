@@ -82,4 +82,8 @@ dependencies {
     implementation "io.insert-koin:koin-androidx-navigation:$koin_version"
 
     implementation 'com.google.android.material:material:1.6.1'
+
+    //Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 }

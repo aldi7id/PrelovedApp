@@ -34,6 +34,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                         email = etEmail.text.toString(),
                         password = etPassword.text.toString(),
                         phoneNumber = etPhone.text.toString().toLong(),
+                        city = etCity.text.toString(),
                         address = etAddress.text.toString(),
                         imageUrl = null
                     )
@@ -75,6 +76,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                 etPhone.text.toString().isEmpty() -> {
                     tfPhone.error = "Please fill your phone number"
                     tfPhone.isErrorEnabled = true
+                    isValid = false
+                }
+                etCity.text.toString().isEmpty() -> {
+                    tfCity.error = "Please fill your city"
+                    tfCity.isErrorEnabled = true
                     isValid = false
                 }
                 etAddress.text.toString().isEmpty() -> {
