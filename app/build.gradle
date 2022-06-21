@@ -86,4 +86,5 @@ dependencies {
     //Chucker
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 }
