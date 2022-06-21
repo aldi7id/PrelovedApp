@@ -21,7 +21,12 @@ interface EditProfileContract {
         fun getChangeProfileResultLiveData(): MutableLiveData<Resource<UserResponse>>
         fun getProfileLiveData(): MutableLiveData<Resource<UserResponse>>
         fun getProfileData()
-        fun updateProfileData(userResponse: UserResponse)
+        fun updateProfileData(email: String,
+                              nama: String,
+                              city: String,
+                              address: String,
+                              phone: String,
+                              profilePhoto: File? = null)
         fun logout()
     }
 
@@ -29,6 +34,11 @@ interface EditProfileContract {
         fun clearSession()
         suspend fun saveCacheProfileData(response: UserResponse)
         suspend fun getProfileData(): UserResponse
-        suspend fun updateProfileData(userResponse: UserResponse): UserResponse
+        suspend fun updateProfileData(email: String,
+                                      nama: String,
+                                      city: String,
+                                      address: String,
+                                      phone: String,
+                                      profilePhoto: File? = null): UserResponse
     }
 }

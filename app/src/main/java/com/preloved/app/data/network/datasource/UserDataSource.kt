@@ -15,7 +15,13 @@ interface UserDataSource {
 
     suspend fun getProfileData(): UserResponse
 
-    suspend fun updateProfileData(userResponse: UserResponse) : UserResponse
+    suspend fun updateProfileData(
+        email: String,
+        nama: String,
+        city: String,
+        address: String,
+        phone: String,
+        profilePhoto: File? = null ) : UserResponse
 
 
 }

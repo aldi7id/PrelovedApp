@@ -26,8 +26,13 @@ class EditProfileRepository(
         return response
     }
 
-    override suspend fun updateProfileData(userResponse: UserResponse): UserResponse {
-        val response = userDataSource.updateProfileData(userResponse)
+    override suspend fun updateProfileData(email: String,
+                                           nama: String,
+                                           city: String,
+                                           address: String,
+                                           phone: String,
+                                           profilePhoto: File?): UserResponse {
+        val response = userDataSource.updateProfileData(email,nama,city,address,phone,profilePhoto)
         saveCacheProfileData(response)
         return response
     }

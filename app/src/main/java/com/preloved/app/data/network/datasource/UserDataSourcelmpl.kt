@@ -7,9 +7,10 @@ import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserDataSource {
@@ -29,26 +30,26 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getUserData()
     }
 
-    override suspend fun updateProfileData(userResponse: UserResponse): UserResponse {
-        return preLovedService.putUserData(userResponse)
+    override suspend fun updateProfileData(email: String,
+                                           nama: String,
+                                           city: String,
+                                           address: String,
+                                           phone: String,
+                                           profilePhoto: File? ): UserResponse {
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("email", email)
+            .addFormDataPart("full_name", nama)
+            .addFormDataPart("phone_number", phone)
+            .addFormDataPart("address", address)
+            .addFormDataPart("city", city)
+        if (profilePhoto != null){
+            val requestFile = profilePhoto.asRequestBody("image/jpg".toMediaType())
+            requestBodyBuilder.addFormDataPart(
+                "image", profilePhoto.name, requestFile
+                )
+        }
+        return preLovedService.putUserData(requestBodyBuilder.build())
     }
 //        {
-//       val requestBodyBuilder = MultipartBody.Builder()
-//           .setType(MultipartBody.FORM)
-//           .addFormDataPart("email", email)
-//           .addFormDataPart("full_name", full_name)
-//           .addFormDataPart("password", password)
-//           .addFormDataPart("phone_number", phone_number)
-//           .addFormDataPart("address", address)
-//           .addFormDataPart("city", city)
-//        if (image_url != null){
-//            requestBodyBuilder.addFormDataPart(
-//                "image_url", image_url.name , RequestBody.create(
-//                    "image/*".toMediaTypeOrNull(),
-//                    image_url
-//                )
-//            )
-//        }
-//        return preLovedService.putUserData(requestBodyBuilder.build())
-//    }
 }

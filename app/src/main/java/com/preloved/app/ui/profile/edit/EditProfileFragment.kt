@@ -29,17 +29,31 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
     override fun checkFormValidation(): Boolean {
         var isFormValid = true
         getViewBinding().apply {
-            val email = etEmail.text.toString()
             val name = etNama.text.toString()
             val phone = etPhone.text.toString()
             val address = etAddress.text.toString()
             val city = etCity.text.toString()
 
             when {
-                email.isEmpty() -> {
+                name.isEmpty() -> {
                     isFormValid = false
-                    tfEmail.isErrorEnabled = true
-                    tfEmail.error = "Isi Email Dlu"
+                    tfNama.isErrorEnabled = true
+                    tfNama.error = "Nama Tidak Boleh Kosong"
+                }
+                phone.isEmpty() || phone.length > 14 -> {
+                    isFormValid = false
+                    tfPhone.isErrorEnabled = true
+                    tfPhone.error = "Nomor HP Tidak Boleh Kosong / Lebih Dari 14 Angka"
+                }
+                city.isEmpty() -> {
+                    isFormValid = false
+                    tfCity.isErrorEnabled = true
+                    tfCity.error = "City Tidak Boleh Kosong"
+                }
+                address.isEmpty() -> {
+                    isFormValid = false
+                    tfAddress.isErrorEnabled = true
+                    tfAddress.error = "Address Tidak Boleh Kosong"
                 }
             }
 
@@ -138,16 +152,12 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
             btnChange.setOnClickListener {
                 if (checkFormValidation()){
                     viewModel.updateProfileData(
-                        UserResponse(
-                            fullName = etNama.text.toString(),
-                            city = etCity.text.toString(),
-                            address = etAddress.text.toString(),
-                            phoneNumber = etPhone.text.toString(),
-                            imageUrl = data.imageUrl,
-                            id = data.id,
-                            password = data.password,
-                            email = data.email
-                        )
+                       email = etEmail.text.toString(),
+                        nama = etNama.text.toString(),
+                        city = etCity.text.toString(),
+                        address = etAddress.text.toString(),
+                        phone = etPhone.text.toString(),
+                        profilePhoto = selectedPicture,
                     )
                 }
             }

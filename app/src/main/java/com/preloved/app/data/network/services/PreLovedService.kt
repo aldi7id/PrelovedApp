@@ -31,7 +31,7 @@ interface PreLovedService {
     suspend fun getUserData(): UserResponse
 
     @PUT("auth/user")
-    suspend fun putUserData(@Body userResponse: UserResponse): UserResponse
+    suspend fun putUserData(@Body data: RequestBody): UserResponse
 
     companion object {
         @JvmStatic

@@ -34,11 +34,16 @@ class EditProfileViewModel(val repository: EditProfileRepository): BaseViewModel
         }
     }
 
-    override fun updateProfileData(userResponse: UserResponse) {
+    override fun updateProfileData(email: String,
+                                   nama: String,
+                                   city: String,
+                                   address: String,
+                                   phone: String,
+                                   profilePhoto: File?) {
         changeProfileResultLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.updateProfileData(userResponse)
+                val response = repository.updateProfileData(email,nama,city,address, phone, profilePhoto)
                 viewModelScope.launch(Dispatchers.Main){
                     changeProfileResultLiveData.value = Resource.Success(response)
                 }
