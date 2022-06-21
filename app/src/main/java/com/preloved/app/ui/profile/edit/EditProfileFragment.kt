@@ -2,6 +2,8 @@ package com.preloved.app.ui.profile.edit
 
 import android.app.Activity
 import android.content.ContextWrapper
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,14 +23,17 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
     private var selectedPicture: File? = null
     override val viewModel: EditProfileViewModel by viewModel()
 
-    override fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         getData()
-//        setOnClickListeners()
+    }
+    override fun initView() {
+        setOnClickListeners()
     }
 
     override fun checkFormValidation(): Boolean {
-        var isFormValid = true
         getViewBinding().apply {
+            var isFormValid = true
             val name = etNama.text.toString()
             val phone = etPhone.text.toString()
             val address = etAddress.text.toString()
@@ -51,14 +56,21 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
                     tfCity.error = "City Tidak Boleh Kosong"
                 }
                 address.isEmpty() -> {
-                    isFormValid = false
                     tfAddress.isErrorEnabled = true
                     tfAddress.error = "Address Tidak Boleh Kosong"
+
+                    isFormValid = false
+                }
+                else -> {
+                    tfAddress.isErrorEnabled = false
+                    tfNama.isErrorEnabled = false
+                    tfCity.isErrorEnabled = false
+                    tfPhone.isErrorEnabled = false
                 }
             }
-
+            return isFormValid
         }
-        return isFormValid
+
     }
 
 
@@ -149,42 +161,26 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
             etAddress.setText(data.address)
             etPhone.setText(data.phoneNumber)
             Glide.with(requireContext()).load(data.imageUrl).circleCrop().into(getViewBinding().ivProfile)
-            btnChange.setOnClickListener {
-                if (checkFormValidation()){
-                    viewModel.updateProfileData(
-                       email = etEmail.text.toString(),
-                        nama = etNama.text.toString(),
-                        city = etCity.text.toString(),
-                        address = etAddress.text.toString(),
-                        phone = etPhone.text.toString(),
-                        profilePhoto = selectedPicture,
-                    )
-                }
-            }
-            flProfilePict.setOnClickListener {
-                ImagePicker.with(this@EditProfileFragment)
-                    .crop()
-                    .saveDir(
-                        File(
-                            getActivity()?.getExternalCacheDir(),
-                            "ImagePicker"
-                        )
-                    )
-                    .compress(1024)
-                    .maxResultSize(1080,1080)
-                    .createIntent {
-                        startForProfileImageResult.launch(it)
-                    }
-            }
+//            tfAddress.error = null
+//            tfNama.error = null
+//            tfPhone.error = null
+//            tfCity.error = null
         }
     }
     override fun setOnClickListeners() {
         getViewBinding().apply {
-//        btnChange.setOnClickListener {
-//            if (checkFormValidation()){
-////                viewModel.updateProfileData()
-//            }
-//        }
+            btnChange.setOnClickListener {
+            if (checkFormValidation()){
+                viewModel.updateProfileData(
+                    email = etEmail.text.toString(),
+                    nama = etNama.text.toString(),
+                    city = etCity.text.toString(),
+                    address = etAddress.text.toString(),
+                    phone = etPhone.text.toString(),
+                    profilePhoto = selectedPicture,
+                )
+            }
+        }
             flProfilePict.setOnClickListener {
                 ImagePicker.with(this@EditProfileFragment)
                     .crop()
