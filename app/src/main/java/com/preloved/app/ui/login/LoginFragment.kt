@@ -1,6 +1,8 @@
 package com.preloved.app.ui.login
 
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
@@ -28,13 +30,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
         viewModel.postLoginUserResult().observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-
+                    showError(false)
                 }
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), "${it.data?.accessToken}", Toast.LENGTH_SHORT).show()
+                    showError(false)
+                    Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    showError(true, it.message)
                 }
             }
         }
