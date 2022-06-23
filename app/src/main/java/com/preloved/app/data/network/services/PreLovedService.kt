@@ -3,13 +3,11 @@ package com.preloved.app.data.network.services
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.BaseAuthResponse
-import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.User
-import com.preloved.app.data.network.model.response.UserResponse
+import com.preloved.app.data.network.model.response.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -22,8 +20,6 @@ interface PreLovedService {
     @POST("auth/register")
     suspend fun postRegisterUser(@Body registerRequest: RegisterRequest): BaseAuthResponse<LoginResponse, String>
 
-//    @GET("auth/user")
-//    suspend fun getUser(@Header("access_token") token: String) : BaseAuthResponse<LoginResponse, String>
     @GET("auth/user")
     suspend fun getSyncUser(): UserResponse
 
@@ -32,6 +28,12 @@ interface PreLovedService {
 
     @PUT("auth/user")
     suspend fun putUserData(@Body data: RequestBody): UserResponse
+
+    @POST("seller/product")
+    suspend fun postProductData(@Body data: RequestBody) : PostProductResponse
+
+    @GET("seller/category")
+    suspend fun getCategoryData() : List<CategoryResponseItem>
 
     companion object {
         @JvmStatic

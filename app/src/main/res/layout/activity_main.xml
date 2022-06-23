@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/editprofilefragment"
-        android:name="com.preloved.app.ui.profile.edit.EditProfileFragment"
+        android:name="com.preloved.app.ui.product.add.AddProductFragment"
         android:label="fragment_editprofile" >
     </fragment>
 

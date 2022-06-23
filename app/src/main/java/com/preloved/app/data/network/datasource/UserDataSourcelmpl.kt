@@ -2,15 +2,14 @@ package com.preloved.app.data.network.datasource
 
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.BaseAuthResponse
-import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.UserResponse
+import com.preloved.app.data.network.model.response.*
 import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
 import java.io.File
 
 class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserDataSource {
@@ -28,6 +27,10 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
 
     override suspend fun getProfileData(): UserResponse {
         return preLovedService.getUserData()
+    }
+
+    override suspend fun getCategoryData(): List<CategoryResponseItem> {
+        return preLovedService.getCategoryData()
     }
 
     override suspend fun updateProfileData(email: String,
@@ -51,5 +54,29 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         }
         return preLovedService.putUserData(requestBodyBuilder.build())
     }
-//        {
+
+    override suspend fun postProductData(
+        name: String,
+        description: String,
+        base_price: Int,
+        category: List<CategoryResponseItem>,
+        location: String,
+        image: File?
+    ): PostProductResponse {
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("name",name)
+            .addFormDataPart("description",description)
+            .addFormDataPart("base_price", base_price.toString())
+            .addFormDataPart("category_ids", category.toTypedArray().map { it.id }.toString())
+            .addFormDataPart("location", location)
+            if (image != null ) {
+                val requestFile = image.asRequestBody("image/jpg".toMediaType())
+                requestBodyBuilder.addFormDataPart(
+                    "image", image.name, requestFile
+                )
+            }
+        return preLovedService.postProductData(requestBodyBuilder.build())
+    }
+
 }

@@ -2,10 +2,8 @@ package com.preloved.app.data.network.datasource
 
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.BaseAuthResponse
-import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.User
-import com.preloved.app.data.network.model.response.UserResponse
+import com.preloved.app.data.network.model.response.*
+import retrofit2.Call
 import java.io.File
 
 interface UserDataSource {
@@ -15,6 +13,8 @@ interface UserDataSource {
 
     suspend fun getProfileData(): UserResponse
 
+    suspend fun getCategoryData(): List<CategoryResponseItem>
+
     suspend fun updateProfileData(
         email: String,
         nama: String,
@@ -23,5 +23,13 @@ interface UserDataSource {
         phone: String,
         profilePhoto: File? = null ) : UserResponse
 
+    suspend fun postProductData(
+        name: String,
+        description: String,
+        base_price : Int,
+        category: List<CategoryResponseItem>,
+        location: String,
+        image : File? = null
+    ) : PostProductResponse
 
 }
