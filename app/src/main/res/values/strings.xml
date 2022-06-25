@@ -6,4 +6,9 @@
     <string name="password">Password</string>
     <string name="content_login">Selamat Datang di PreLoved, Login sebelum masuk ke aplikasi</string>
     <string name="no_have_account">Belum memiliki akun? <b><font color='#EE839F'>Register</font></b></string>
+    <string name="home">Beranda</string>
+    <string name="notification">Notifikasi</string>
+    <string name="sell">Jual</string>
+    <string name="sale">Jualan</string>
+    <string name="account">Akun</string>
 </resources>

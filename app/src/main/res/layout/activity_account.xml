@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.HomeActivity">
+    tools:context=".ui.activity.AccountActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView4"
+        android:id="@+id/fragmentContainerView8"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/home_nav" />
-
-
+        app:navGraph="@navigation/account_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
