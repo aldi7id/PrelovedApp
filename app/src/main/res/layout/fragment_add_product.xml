@@ -121,7 +121,7 @@
        android:id="@+id/et_deskripsi"
        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
        android:layout_width="match_parent"
-       android:layout_height="217dp"
+       android:layout_height="wrap_content"
        android:fontFamily="@font/poppinsmedium"
        android:hint="Deskripsi Produk"
        android:inputType="textMultiLine"
