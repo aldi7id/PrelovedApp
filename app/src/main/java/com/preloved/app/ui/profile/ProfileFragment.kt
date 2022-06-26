@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.databinding.FragmentProfileBinding
+import com.preloved.app.ui.register.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class ProfileFragment(override val viewModel: ProfileViewModel) : BaseFragment<FragmentProfileBinding, ProfileViewModel>(
+class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(
     FragmentProfileBinding::inflate
 ), ProfileContract.View {
+
+    override val viewModel: ProfileViewModel by viewModel()
     override fun initView() {
 
     }
