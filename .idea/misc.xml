@@ -4,7 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/border_primary_fill_5.xml" value="0.135" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/border_white_fill_10.xml" value="0.135" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_banner_app.xml" value="0.135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_sell.xml" value="0.1185" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/selected_tab.xml" value="0.135" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/tab_color_selector.xml" value="0.135" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/task_color_selector.xml" value="0.135" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/unselected_tab.xml" value="0.135" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_account.xml" value="0.1621376811594203" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
@@ -12,8 +19,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_sale.xml" value="0.1621376811594203" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_sell.xml" value="0.1621376811594203" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/card_item_category.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_account.xml" value="0.18" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_home.xml" value="0.1621376811594203" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_all.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_food.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_home.xml" value="0.27020506634499397" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_notification.xml" value="0.1621376811594203" />
         <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_register.xml" value="0.2" />

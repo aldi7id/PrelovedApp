@@ -11,4 +11,6 @@
     <string name="sell">Jual</string>
     <string name="sale">Jualan</string>
     <string name="account">Akun</string>
+    <string name="search_hint">Cari barangmu di PreLoved...</string>
+    <string name="category">Kategori</string>
 </resources>

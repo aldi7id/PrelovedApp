@@ -1,4 +1,4 @@
-package com.preloved.app.data.network.datasource
+package com.preloved.app.data.network.datasource.user
 
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.response.LoginResponse

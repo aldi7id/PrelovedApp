@@ -3,7 +3,7 @@ package com.preloved.app.ui.login
 import com.preloved.app.base.arch.BaseRepositorylmpl
 import com.preloved.app.data.local.datasource.LocalDataSource
 import com.preloved.app.data.local.datastore.DatastorePreferences
-import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.datasource.user.UserDataSource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.response.LoginResponse
 

@@ -30,4 +30,14 @@
         android:name="com.preloved.app.ui.homepage.sell.SellFragment"
         android:label="fragment_sell"
         tools:layout="@layout/fragment_sell" />
+    <fragment
+        android:id="@+id/categoryFoodFragment"
+        android:name="com.preloved.app.ui.homepage.home.category.food.CategoryFoodFragment"
+        android:label="fragment_category_food"
+        tools:layout="@layout/fragment_category_food" />
+    <fragment
+        android:id="@+id/categoryAllFragment"
+        android:name="com.preloved.app.ui.homepage.home.category.all.CategoryAllFragment"
+        android:label="fragment_category_all"
+        tools:layout="@layout/fragment_category_all" />
 </navigation>
