@@ -3,41 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/splashFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.preloved.app.ui.homepage.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/splashFragment"
+        android:name="com.preloved.app.ui.fragment.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
-        android:id="@+id/notificationFragment"
-        android:name="com.preloved.app.ui.homepage.notification.NotificationFragment"
-        android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        android:id="@+id/mainFragment"
+        android:name="com.preloved.app.ui.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.preloved.app.ui.homepage.account.AccountFragment"
-        android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        android:id="@+id/loginFragment"
+        android:name="com.preloved.app.ui.fragment.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/saleFragment"
-        android:name="com.preloved.app.ui.homepage.sale.SaleFragment"
-        android:label="fragment_sale"
-        tools:layout="@layout/fragment_sale" />
-    <fragment
-        android:id="@+id/sellFragment"
-        android:name="com.preloved.app.ui.homepage.sell.SellFragment"
-        android:label="fragment_sell"
-        tools:layout="@layout/fragment_sell" />
-    <fragment
-        android:id="@+id/categoryFoodFragment"
-        android:name="com.preloved.app.ui.homepage.home.category.food.CategoryFoodFragment"
-        android:label="fragment_category_food"
-        tools:layout="@layout/fragment_category_food" />
-    <fragment
-        android:id="@+id/categoryAllFragment"
-        android:name="com.preloved.app.ui.homepage.home.category.all.CategoryAllFragment"
-        android:label="fragment_category_all"
-        tools:layout="@layout/fragment_category_all" />
+        android:id="@+id/registerFragment"
+        android:name="com.preloved.app.ui.fragment.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

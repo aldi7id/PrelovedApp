@@ -1,7 +1,8 @@
 package com.preloved.app.data.network.service
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.preloved.app.data.network.model.request.auth.LoginRequest
+import com.preloved.app.data.network.model.request.category.CategoryResponse
+import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,14 +13,14 @@ import java.util.concurrent.TimeUnit
 interface CategoryService {
 
     @GET("category")
-    suspend fun getCategoryAll() :LoginRequest
+    suspend fun getCategoryAll(): CategoryResponse
 
     @GET("category/{id}")
-    suspend fun getCategoryByID (@Path("id") categoryID : Int) : LoginRequest
+    suspend fun getCategoryByID(@Path("id") categoryID: Int): CategoryDetailResponse
 
     companion object {
         @JvmStatic
-        operator fun invoke(chuckerInterceptor: ChuckerInterceptor): CategoryService{
+        operator fun invoke(chuckerInterceptor: ChuckerInterceptor): CategoryService {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(chuckerInterceptor)
                 .addInterceptor {

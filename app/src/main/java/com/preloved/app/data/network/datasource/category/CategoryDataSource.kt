@@ -1,19 +1,20 @@
 package com.preloved.app.data.network.datasource.category
 
-import com.preloved.app.data.network.model.request.auth.LoginRequest
+import com.preloved.app.data.network.model.request.category.CategoryResponse
+import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
 
 interface CategoryDataSource {
 
-    suspend fun getCategoryAll(): LoginRequest
-    suspend fun getCategoryFood(foodId: Int): LoginRequest
-    suspend fun getCategoryFashion(fashionId : Int) : LoginRequest
-    suspend fun getCategoryHealthty(healthtyId : Int) : LoginRequest
-    suspend fun getCategorySport(sportId : Int) : LoginRequest
-    suspend fun getCategoryHobi(hobiId : Int) : LoginRequest
-    suspend fun getCategoryElectronic(electronicId : Int) : LoginRequest
-    suspend fun getCategoryVehicle(vehicleId : Int) : LoginRequest
-    suspend fun getCategorySale(saleId : Int) : LoginRequest
-    suspend fun getCategorySell(sellId : Int) : LoginRequest
-    suspend fun getCategoryAccessories(accessoriesId : Int) : LoginRequest
+    suspend fun getCategoryAll(): CategoryResponse
+    suspend fun getCategoryFood(foodId: Int): CategoryDetailResponse
+    suspend fun getCategoryFashion(fashionId : Int) : CategoryDetailResponse
+    suspend fun getCategoryHealthty(healthtyId : Int) : CategoryDetailResponse
+    suspend fun getCategorySport(sportId : Int) : CategoryDetailResponse
+    suspend fun getCategoryHobi(hobiId : Int) : CategoryDetailResponse
+    suspend fun getCategoryElectronic(electronicId : Int) : CategoryDetailResponse
+    suspend fun getCategoryVehicle(vehicleId : Int) : CategoryDetailResponse
+    suspend fun getCategorySale(saleId : Int) : CategoryDetailResponse
+    suspend fun getCategorySell(sellId : Int) : CategoryDetailResponse
+    suspend fun getCategoryAccessories(accessoriesId : Int) : CategoryDetailResponse
 
 }
