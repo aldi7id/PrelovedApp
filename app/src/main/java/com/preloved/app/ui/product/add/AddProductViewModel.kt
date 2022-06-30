@@ -16,6 +16,8 @@ import java.lang.Exception
 class AddProductViewModel(val repository: AddProductRepository) : BaseViewModellmpl(), AddProductContract.ViewModel {
     private val categoryLiveData = MutableLiveData<Resource<List<CategoryResponseItem>>>()
     private val postProductLiveData = MutableLiveData<Resource<PostProductResponse>>()
+    override fun getChangeProfileResultLiveData(): MutableLiveData<Resource<PostProductResponse>> = postProductLiveData
+
     override fun getCategoryLiveData(): MutableLiveData<Resource<List<CategoryResponseItem>>> = categoryLiveData
 
     override fun getCategoryData() {
@@ -38,7 +40,7 @@ class AddProductViewModel(val repository: AddProductRepository) : BaseViewModell
         name: String,
         description: String,
         base_price: Int,
-        category: List<CategoryResponseItem>,
+        category: Int,
         location: String,
         image: File?
     ) {

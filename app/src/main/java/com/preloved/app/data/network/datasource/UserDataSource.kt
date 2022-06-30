@@ -27,7 +27,7 @@ interface UserDataSource {
         name: String,
         description: String,
         base_price : Int,
-        category: List<CategoryResponseItem>,
+        category: Int,
         location: String,
         image : File? = null
     ) : PostProductResponse

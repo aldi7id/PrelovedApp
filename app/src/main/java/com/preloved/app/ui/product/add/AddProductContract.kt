@@ -16,24 +16,25 @@ interface AddProductContract {
     }
 
     interface ViewModel {
-       // fun getChangeProfileResultLiveData(): MutableLiveData<Resource<UserResponse>>
+        fun getChangeProfileResultLiveData() : MutableLiveData<Resource<PostProductResponse>>
         fun getCategoryLiveData(): MutableLiveData<Resource<List<CategoryResponseItem>>>
         fun getCategoryData()
         fun postProductData(name: String,
                             description: String,
                             base_price : Int,
-                            category: List<CategoryResponseItem>,
+                            category: Int,
                             location: String,
                             image : File? = null)
     }
 
     interface Repository {
         //suspend fun saveCacheProfileData(response: UserResponse)
+
         suspend fun getCategoryData() : List<CategoryResponseItem>
         suspend fun postProductData(name: String,
                             description: String,
                             base_price : Int,
-                            category: List<CategoryResponseItem>,
+                            category: Int,
                             location: String,
                             image : File? = null) : PostProductResponse
     }

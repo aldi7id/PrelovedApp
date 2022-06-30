@@ -59,7 +59,7 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         name: String,
         description: String,
         base_price: Int,
-        category: List<CategoryResponseItem>,
+        category: Int,
         location: String,
         image: File?
     ): PostProductResponse {
@@ -68,15 +68,17 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
             .addFormDataPart("name",name)
             .addFormDataPart("description",description)
             .addFormDataPart("base_price", base_price.toString())
-            .addFormDataPart("category_ids", category.toTypedArray().map { it.id }.toString())
+            .addFormDataPart("category_ids", category.toString())
             .addFormDataPart("location", location)
-            if (image != null ) {
-                val requestFile = image.asRequestBody("image/jpg".toMediaType())
-                requestBodyBuilder.addFormDataPart(
-                    "image", image.name, requestFile
-                )
-            }
+        if (image != null ) {
+            val requestFile = image.asRequestBody("image/jpg".toMediaType())
+            requestBodyBuilder.addFormDataPart(
+                "image", image.name, requestFile
+            )
+        }
         return preLovedService.postProductData(requestBodyBuilder.build())
     }
+
+
 
 }

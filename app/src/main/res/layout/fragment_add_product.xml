@@ -13,6 +13,17 @@
      android:layout_height="wrap_content"
      android:layout_marginHorizontal="30dp"
      >
+  <ProgressBar
+      android:id="@+id/pb_loading"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:visibility="visible"
+      android:visibility="gone"
+      />
  <ImageButton
      android:id="@+id/ib_back"
      android:layout_width="wrap_content"
@@ -45,6 +56,8 @@
      android:layout_height="wrap_content"
      android:layout_marginTop="51dp"
      app:layout_constraintTop_toBottomOf="@id/tv_data_produk"
+     app:counterEnabled="true"
+     app:counterMaxLength="70"
      >
 
 
@@ -59,6 +72,7 @@
       android:textColor="@color/black"
       android:maxLines="1"
       android:inputType="textPersonName"
+
       />
 
  </com.google.android.material.textfield.TextInputLayout>
@@ -114,6 +128,8 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="51dp"
       app:layout_constraintTop_toBottomOf="@id/tf_kategory"
+      app:counterEnabled="true"
+      app:counterMaxLength="1500"
       >
 
 
@@ -132,7 +148,7 @@
   </com.google.android.material.textfield.TextInputLayout>
  <ImageButton
      android:id="@+id/ib_add_image"
-     android:layout_width="match_parent"
+     android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:src="@drawable/ic_add_picture"
      app:layout_constraintTop_toBottomOf="@id/tf_deksipsi"
@@ -150,6 +166,7 @@
       app:layout_constraintStart_toStartOf="parent"
       />
   <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_jual"
       style="@style/ThemeOverlay.Material3.Button"
       android:layout_width="160dp"
       android:layout_height="50dp"
