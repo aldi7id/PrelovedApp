@@ -9,10 +9,10 @@ import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.databinding.FragmentLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
+class LoginFragment() : BaseFragment<FragmentLoginBinding, LoginViewModel>(
     FragmentLoginBinding::inflate
 ), LoginContract.View {
-    private val viewModel: LoginViewModel by viewModel()
+    override val viewModel: LoginViewModel by viewModel()
 
     override fun initView() {
         onClick()
@@ -22,6 +22,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
         getViewBinding().apply {
             btnLogin.setOnClickListener {
                 loginAuthUser()
+            }
+            tvNoHaveAccount.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
         }
     }

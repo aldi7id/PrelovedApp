@@ -16,10 +16,11 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
 
     private var bind: VB? = null
     private val binding: VB get() = bind as VB
-    private lateinit var viewModelInstance: VM
+    //private lateinit var viewModelInstance: VM
+    protected abstract val viewModel : VM
 
     fun getViewBinding(): VB = binding
-    fun getViewModel(): VM = viewModelInstance
+    //fun getViewModel(): VM = viewModelInstance
 
     override fun onCreateView(
         inflater: LayoutInflater,

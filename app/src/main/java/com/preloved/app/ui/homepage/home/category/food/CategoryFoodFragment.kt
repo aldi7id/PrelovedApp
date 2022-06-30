@@ -12,11 +12,13 @@ import com.preloved.app.databinding.FragmentCategoryAllBinding
 import com.preloved.app.databinding.FragmentCategoryFoodBinding
 import com.preloved.app.ui.homepage.home.category.all.CategoryAllContract
 import com.preloved.app.ui.homepage.home.category.all.CategoryAllViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryFoodViewModel>(
     FragmentCategoryFoodBinding::inflate
 ), CategoryFoodContract.View {
+    override val viewModel: CategoryFoodViewModel by viewModel()
     override fun initView() {
         getDataFoodCategory()
         onClick()
@@ -29,13 +31,11 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
     }
 
     override fun getDataFoodCategory() {
-        getViewModel().apply {
 
-        }
     }
 
     override fun observeData() {
-        getViewModel().apply {
+        viewModel.apply {
             getFoodCategoryResult().observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Loading -> {
@@ -51,5 +51,7 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
             }
         }
     }
+
+
 
 }

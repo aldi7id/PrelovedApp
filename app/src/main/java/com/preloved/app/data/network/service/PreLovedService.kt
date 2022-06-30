@@ -2,7 +2,9 @@ package com.preloved.app.data.network.service
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.model.request.auth.LoginRequest
+import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.LoginResponse
+import com.preloved.app.data.network.model.response.RegisterResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,6 +15,10 @@ import java.util.concurrent.TimeUnit
 interface PreLovedService {
     @POST("auth/login")
     suspend fun postLogin(@Body loginRequest: LoginRequest): LoginResponse
+
+    @POST("auth/register")
+    suspend fun postRegisterUser(@Body registerRequest: RegisterRequest): RegisterResponse
+
 
     companion object {
         @JvmStatic

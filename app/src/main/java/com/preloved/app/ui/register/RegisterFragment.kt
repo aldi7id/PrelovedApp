@@ -1,125 +1,141 @@
 package com.preloved.app.ui.register
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
+import com.preloved.app.base.model.Resource
+import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.databinding.FragmentRegisterBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-//class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel>(
-//    FragmentRegisterBinding::inflate
-//), RegisterContract.View {
-//
-//    override fun initView() {
-//        onClick()
-//        observeData()
-//    }
-//
-//    private fun onClick() {
-//        getViewBinding().apply {
-//            tvSignIn.setOnClickListener {
-//                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-//            }
-//            btnRegister.setOnClickListener {
-//                authRegisterUser()
-//            }
-//        }
-//    }
-//
-//    override fun checkFormValidation(): Boolean {
-//        getViewBinding().apply {
-//            var isValid = true
-//
-//            when {
-//                etRegisterName.text.toString().isEmpty() -> {
-//                    tfRegisterName.error = "Fill the name"
-//                    isValid = false
-//                }
-//                etRegisterEmail.text.toString().isEmpty() -> {
-//                    tfRegisterEmail.error = "Fill the email"
-//                    isValid = false
-//                }
-//                etRegisterAge.text.toString().isEmpty() -> {
-//                    tfRegisterAge.error = "Fill the age"
-//                    isValid = false
-//                }
-//                etRegisterPhoneNumber.text.toString().isEmpty() -> {
-//                    tfRegisterPhoneNumber.error = "Fill the phone"
-//                    isValid = false
-//                }
-//                etRegisterUsername.text.toString().isEmpty() -> {
-//                    tfRegisterUsername.error = "Fill the username"
-//                    isValid = false
-//                }
-//                etRegisterPassword.text.toString().isEmpty() -> {
-//                    tfRegisterPassword.error = "Fill the password"
-//                    isValid = false
-//                }
-//                else -> {
-//                    tfRegisterName.error = null
-//                    tfRegisterEmail.error = null
-//                    tfRegisterAge.error = null
-//                    tfRegisterPhoneNumber.error = null
-//                    tfRegisterUsername.error = null
-//                    tfRegisterPassword.error = null
-//                }
-//            }
-//            return isValid
-//        }
-//    }
-//
-//    override fun observeData() {
-//        showLoading(false)
-//        getViewModel().apply {
-//            getRegisterUserLiveData().observe(viewLifecycleOwner) {
-//                when (it) {
-//                    is Resource.Loading -> {
-//                        showLoading(true)
-//                    }
-//                    is Resource.Success -> {
-//                        showLoading(false)
-//                        Toast.makeText(requireContext(), "Register Success", Toast.LENGTH_SHORT)
-//                            .show()
-//                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-//                        getViewModel().getRegisterUserLiveData().removeObservers(viewLifecycleOwner)
-//                    }
-//                    is Resource.Error -> {
-//                        showLoading(false)
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Register Fail, Please make sure the fill",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    private fun authRegisterUser() {
-//        getViewBinding().apply {
-//            if (checkFormValidation()) {
-//                getViewModel().registerUser(
-//                    UserEntity(
-//                        id = null,
-//                        name = etRegisterName.text.toString(),
-//                        profile = null,
-//                        email = etRegisterEmail.text.toString(),
-//                        age = etRegisterAge.text.toString().toInt(),
-//                        phone_number = etRegisterPhoneNumber.text.toString(),
-//                        username = etRegisterUsername.text.toString(),
-//                        password = etRegisterPassword.text.toString()
-//                    )
-//                )
-//            }
-//
-//        }
-//    }
-//
-//}
+class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel>(
+    FragmentRegisterBinding::inflate
+), RegisterContract.View {
+    override val viewModel: RegisterViewModel by viewModel()
+    override fun initView() {
+        observeData()
+        onClick()
+    }
+    private fun onClick() {
+        getViewBinding().apply {
+            btnRegister.setOnClickListener {
+                authRegisterUser()
+            }
+        }
+    }
+
+    private fun authRegisterUser() {
+        getViewBinding().apply {
+            if (checkFormValidation()){
+                viewModel.registerUser(
+                    RegisterRequest(
+                        id = null,
+                        fullName =  etNama.text.toString(),
+                        email = etEmail.text.toString(),
+                        password = etPassword.text.toString(),
+                        phoneNumber = etPhone.text.toString().toLong(),
+                        city = etCity.text.toString(),
+                        address = etAddress.text.toString(),
+                        imageUrl = null
+                    )
+                )
+            }
+        }
+    }
+
+    override fun checkFormValidation(): Boolean {
+        getViewBinding().apply {
+            var isValid = true
+
+            when {
+                etNama.text.toString().isEmpty() -> {
+                    tfNama.error = "Please fill your name"
+                    tfNama.isErrorEnabled = true
+                    isValid = false
+                }
+                etNama.text!!.length < 3 -> {
+                    tfNama.isErrorEnabled = true
+                    tfNama.error = "Minimum Name 3 Character"
+                    isValid = false
+                }
+                etEmail.text.toString().isEmpty() -> {
+                    tfEmail.error = "Please fill your valid email"
+                    tfEmail.isErrorEnabled = true
+                    isValid = false
+                }
+                etPassword.text.toString().isEmpty() -> {
+                    tfPassword.error = "Please fill your password"
+                    tfPassword.isErrorEnabled = true
+                    isValid = false
+                }
+                etRepassword.text.toString().isEmpty() -> {
+                    tfRepassword.error = "Please fill your repassword"
+                    tfRepassword.isErrorEnabled = true
+                    isValid = false
+                }
+                etPhone.text.toString().isEmpty() -> {
+                    tfPhone.error = "Please fill your phone number"
+                    tfPhone.isErrorEnabled = true
+                    isValid = false
+                }
+                etCity.text.toString().isEmpty() -> {
+                    tfCity.error = "Please fill your city"
+                    tfCity.isErrorEnabled = true
+                    isValid = false
+                }
+                etAddress.text.toString().isEmpty() -> {
+                    tfAddress.error = "Please fill your address"
+                    tfAddress.isErrorEnabled = true
+                    isValid = false
+                }
+                etPassword.text.toString() != etRepassword.text.toString() -> {
+                    tfPassword.error = "Password must same"
+                    tfRepassword.error = "Password must same"
+                    tfPassword.isErrorEnabled = true
+                    tfRepassword.isErrorEnabled = true
+                    isValid = false
+                }
+
+                etPassword.text!!.length < 8 -> {
+                    tfPassword.isErrorEnabled = true
+                    tfPassword.error = "Minimum Password 8 Character"
+                    isValid = false
+                }
+                else -> {
+                    tfPassword.error = null
+                    tfRepassword.error = null
+                    tfPhone.error = null
+                    tfNama.error = null
+                    tfEmail.error = null
+                    tfAddress.error = null
+                }
+            }
+            return isValid
+        }
+    }
+
+
+    override fun observeData() {
+        showLoading(false)
+        viewModel.apply {
+            getRegisterUserLiveData().observe(viewLifecycleOwner) {
+                when(it){
+                    is Resource.Loading -> {
+                        showLoading(true)
+                    }
+                    is Resource.Success -> {
+                        showLoading(false)
+                        Toast.makeText(requireContext(), "Register Success", Toast.LENGTH_SHORT).show()
+                        //Navigate To Login
+                    }
+                    is Resource.Error -> {
+                        showLoading(false)
+                        Toast.makeText(requireContext(), "Register Failed, Account Already Exist", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
+
+}

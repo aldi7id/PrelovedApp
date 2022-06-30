@@ -13,4 +13,18 @@
     <string name="account">Akun</string>
     <string name="search_hint">Cari barangmu di PreLoved...</string>
     <string name="category">Kategori</string>
+    <string name="your_full_name">Your Full Name</string>
+    <string name="contentbackbutton">backbutton</string>
+    <string name="tv_register">Register</string>
+    <string name="tv_register_detail">Daftarkan diri kamu sebelum menggunakan aplikasi ini</string>
+    <string name="your_valid_email">Your Valid Email</string>
+    <string name="your_unique_password">Your Unique Password</string>
+    <string name="your_phone_number">Your Phone Number</string>
+    <string name="enter_your_address">Enter Your Address</string>
+    <string name="register">Register</string>
+    <string name="sudah_memiliki_akun_login">Sudah memiliki akun? Login</string>
+    <string name="enter_your_city">Enter Your City</string>
+    <string name="ubah">Ubah</string>
+    <string name="add">add</string>
+    <string name="ubah_profile">Ubah Profile</string>
 </resources>

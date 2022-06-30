@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(
     FragmentSplashBinding::inflate
 ), SplashContract.View {
-    private val viewModel: SplashViewModel by viewModel()
+    override val viewModel: SplashViewModel by viewModel()
 
     override fun initView() {
         handlerSplash()

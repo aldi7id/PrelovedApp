@@ -1,138 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.register.RegisterFragment">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="30dp">
 
-    <ImageButton
-        android:id="@+id/backToLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+<ImageButton
+    android:id="@+id/backToLogin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_back"
+    android:background="@color/white"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginTop="10dp"
+    android:contentDescription="@string/contentbackbutton" />
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinssemibold"
-        android:text="Register"
+        android:text="@string/tv_register"
         android:textColor="@color/black"
         android:textSize="@dimen/header"
-        app:layout_constraintStart_toStartOf="@id/backToLogin"
-        app:layout_constraintTop_toBottomOf="@id/backToLogin" />
+        android:fontFamily="@font/poppinssemibold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backToLogin"
+        />
 
     <TextView
         android:id="@+id/tv_register_detail"
-        android:layout_width="wrap_content"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Daftarkan diri kamu sebelum menggunakan aplikasi ini"
+        android:fontFamily="@font/poppinsregular"
+        android:lines="2"
+        android:text="@string/tv_register_detail"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/tv_register"
         app:layout_constraintTop_toBottomOf="@id/tv_register" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_nama"
+        android:id="@+id/tf_nama"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Full Name"
-        app:layout_constraintStart_toStartOf="@id/tv_register_detail"
-        app:layout_constraintTop_toBottomOf="@id/tv_register_detail">
+        android:layout_marginTop="30dp"
+         app:layout_constraintTop_toBottomOf="@id/tv_register_detail"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_nama"
+            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/your_full_name"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="@dimen/content"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:inputType="textPersonName"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_email"
+        android:id="@+id/tf_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Valid Email"
-        app:layout_constraintStart_toStartOf="@id/et_nama"
-        app:layout_constraintTop_toBottomOf="@id/et_nama">
+        android:layout_marginTop="20dp"
+        app:placeholderTextColor="@color/secondary"
+        app:layout_constraintTop_toBottomOf="@id/tf_nama"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/your_valid_email"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:inputType="textEmailAddress"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_password"
+        android:id="@+id/tf_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Unique Name"
-        app:layout_constraintStart_toStartOf="@id/et_email"
-        app:layout_constraintTop_toBottomOf="@id/et_email">
+        app:layout_constraintTop_toBottomOf="@id/tf_email"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="password_toggle"
+        app:placeholderTextColor="@color/secondary"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/your_unique_password"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_repassword"
+        android:id="@+id/tf_repassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Unique Name"
-        app:layout_constraintStart_toStartOf="@id/et_password"
-        app:layout_constraintTop_toBottomOf="@id/et_password">
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="password_toggle"
+        app:placeholderTextColor="@color/secondary"
+        app:layout_constraintTop_toBottomOf="@id/tf_password"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_repassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/your_unique_password"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_phone"
+        android:id="@+id/tf_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Phone Number"
-        app:layout_constraintStart_toStartOf="@id/et_repassword"
-        app:layout_constraintTop_toBottomOf="@id/et_repassword">
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:placeholderTextColor="@color/secondary"
+        app:layout_constraintTop_toBottomOf="@id/tf_repassword"
+        app:startIconDrawable="@drawable/ic_enamdua"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/your_phone_number"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:inputType="phone"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tf_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:placeholderTextColor="@color/secondary"
+            app:layout_constraintTop_toBottomOf="@id/tf_phone"
+            >
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_address"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_your_city"
+                android:fontFamily="@font/poppinsmedium"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:inputType="text"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Full Address"
-        app:layout_constraintStart_toStartOf="@id/et_phone"
-        app:layout_constraintTop_toBottomOf="@id/et_phone">
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:placeholderTextColor="@color/secondary"
+        app:layout_constraintTop_toBottomOf="@id/tf_city"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_your_address"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
-        app:layout_constraintStart_toStartOf="@id/et_address"
-        app:layout_constraintTop_toBottomOf="@id/et_address" />
-
+        android:layout_marginTop="50dp"
+        android:text="@string/register"
+        app:layout_constraintTop_toBottomOf="@id/tf_address"
+        android:fontFamily="@font/poppinsmedium"
+        android:textAllCaps="false"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sudah memiliki akun? Login"
-        app:layout_constraintEnd_toEndOf="@id/btn_register"
+        android:text="@string/sudah_memiliki_akun_login"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@id/btn_register"
-        app:layout_constraintTop_toBottomOf="@id/btn_register" />
+        app:layout_constraintTop_toBottomOf="@id/btn_register"
+        app:layout_constraintEnd_toEndOf="@id/btn_register"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="@dimen/content"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
