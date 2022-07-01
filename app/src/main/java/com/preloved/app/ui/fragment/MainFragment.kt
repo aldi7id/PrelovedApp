@@ -36,7 +36,11 @@ class MainFragment : Fragment() {
                 }
                 R.id.editProfileFragment -> {
                     binding.navigationBar.visibility = View.GONE
-                } else -> {
+                }
+                R.id.registerFragment2 -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
+                else -> {
                     binding.navigationBar.visibility = View.VISIBLE
                 }
             }

@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.register.RegisterFragment">
-
+    tools:context=".ui.fragment.register.RegisterFragment"
+    >
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white"
+            >
 
             <ImageButton
                 android:id="@+id/backToLogin"
@@ -26,19 +28,21 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp">
 
     <TextView
         android:id="@+id/tv_register"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tv_register"
         android:textColor="@color/black"
@@ -46,6 +50,7 @@
         android:fontFamily="@font/poppinssemibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
         />
 
     <TextView
@@ -229,6 +234,7 @@
         android:textAllCaps="false"
         />
     <TextView
+        android:id="@+id/tv_go_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sudah_memiliki_akun_login"
@@ -236,7 +242,7 @@
         app:layout_constraintStart_toStartOf="@id/btn_register"
         app:layout_constraintTop_toBottomOf="@id/btn_register"
         app:layout_constraintEnd_toEndOf="@id/btn_register"
-        android:fontFamily="@font/poppinsmedium"
+        android:fontFamily="@font/poppinsregular"
         android:textSize="@dimen/content"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

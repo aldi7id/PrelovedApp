@@ -1,6 +1,8 @@
 package com.preloved.app.ui.fragment.register
 
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
@@ -21,6 +23,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
         getViewBinding().apply {
             btnRegister.setOnClickListener {
                 authRegisterUser()
+            }
+            tvGoToLogin.setOnClickListener {
+                findNavController().navigate(R.id.action_registerFragment2_to_loginFragment3)
             }
         }
     }

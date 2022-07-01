@@ -24,7 +24,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                 loginAuthUser()
             }
             tvNoHaveAccount.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                findNavController().navigate(R.id.action_loginFragment3_to_registerFragment2)
             }
         }
     }
