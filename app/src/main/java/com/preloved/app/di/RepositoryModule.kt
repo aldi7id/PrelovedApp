@@ -1,5 +1,6 @@
 package com.preloved.app.di
 
+import com.preloved.app.ui.fragment.homepage.account.AccountRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodViewModel
@@ -15,4 +16,5 @@ val repositoryModule = module {
     singleOf(::RegisterRepository)
     singleOf(::CategoryAllRepository)
     singleOf(::CategoryFoodRepository)
+    singleOf(::AccountRepository)
 }

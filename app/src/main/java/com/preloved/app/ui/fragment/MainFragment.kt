@@ -29,5 +29,15 @@ class MainFragment : Fragment() {
         navController?.let {
             navView.setupWithNavController(navController)
         }
+        navController?.addOnDestinationChangedListener{ _, destination, _ ->
+            when(destination.id){
+                R.id.loginFragment3 -> {
+                    binding.navigationBar.visibility = View.GONE
+                } else -> {
+                    binding.navigationBar.visibility = View.VISIBLE
+                }
+            }
+
+        }
     }
 }
