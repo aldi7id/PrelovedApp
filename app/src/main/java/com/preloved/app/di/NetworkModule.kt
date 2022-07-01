@@ -2,7 +2,7 @@ package com.preloved.app.di
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.service.CategoryService
-import com.preloved.app.data.network.service.PreLovedService
+import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.singleOf

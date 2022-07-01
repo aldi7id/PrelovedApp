@@ -1,14 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.homepage.sell.SellFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Sell Fragment" />
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            >
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible"
+                android:visibility="gone"
+                />
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/contentbackbutton"
+                />
+            <TextView
+                android:id="@+id/tv_data_produk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_produk"
+                android:fontFamily="@font/poppinssemibold"
+                android:textSize="@dimen/header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/black"
+                />
 
-</FrameLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_nama_produk"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="51dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_data_produk"
+                app:counterEnabled="true"
+                app:counterMaxLength="70"
+                >
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nama_produk"
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nama_produk"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textSize="@dimen/content"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:inputType="textPersonName"
+
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_harga_produk"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="51dp"
+                app:layout_constraintTop_toBottomOf="@id/tf_nama_produk"
+                app:startIconDrawable="@drawable/ic_rp"
+                >
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_harga_produk"
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/harga_produk"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textSize="@dimen/content"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_kategory"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="51dp"
+                app:layout_constraintTop_toBottomOf="@id/tf_harga_produk"
+                android:hint="Kategori"
+                android:textColorHint="@color/black"
+                >
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/filled_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tf_deksipsi"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="51dp"
+                app:layout_constraintTop_toBottomOf="@id/tf_kategory"
+                app:counterEnabled="true"
+                app:counterMaxLength="1500"
+                >
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_deskripsi"
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:hint="Deskripsi Produk"
+                    android:inputType="textMultiLine"
+                    android:maxLines="10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <ImageButton
+                android:id="@+id/ib_add_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_picture"
+                app:layout_constraintTop_toBottomOf="@id/tf_deksipsi"
+                android:background="@color/white"
+                android:layout_marginTop="51dp"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_preview"
+                style="@style/ThemeOverlay.Material3.Button"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:text="Preview"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/ib_add_image"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_jual"
+                style="@style/ThemeOverlay.Material3.Button"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:text="Jual"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/ib_add_image"
+                app:layout_constraintStart_toEndOf="@id/btn_preview"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

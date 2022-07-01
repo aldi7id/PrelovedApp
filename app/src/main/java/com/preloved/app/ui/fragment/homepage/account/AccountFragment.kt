@@ -23,6 +23,11 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
     override val viewModel: AccountViewModel by viewModel()
     override fun initView() {
         viewModel.userSession()
+        getViewBinding().apply {
+            tvChangeProfile.setOnClickListener{
+                findNavController().navigate(R.id.action_accountFragment_to_editProfileFragment)
+            }
+        }
     }
 
     override fun observeData() {

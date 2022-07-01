@@ -2,7 +2,6 @@ package com.preloved.app.ui.profile.edit
 
 import com.preloved.app.base.arch.BaseRepositorylmpl
 import com.preloved.app.data.network.datasource.UserDataSource
-import com.preloved.app.data.network.model.response.BaseAuthResponse
 import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import java.io.File

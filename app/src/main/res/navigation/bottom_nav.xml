@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_accountFragment_to_loginFragment3"
             app:destination="@id/loginFragment3" />
+        <action
+            android:id="@+id/action_accountFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment3"
@@ -43,4 +46,9 @@
             android:id="@+id/action_loginFragment3_to_accountFragment"
             app:destination="@id/accountFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.preloved.app.ui.profile.edit.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

@@ -1,11 +1,10 @@
 package com.preloved.app.data.network.datasource.user
 
-import com.preloved.app.data.network.datasource.user.UserDataSource
+import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.RegisterResponse
-import com.preloved.app.data.network.service.PreLovedService
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.MediaType

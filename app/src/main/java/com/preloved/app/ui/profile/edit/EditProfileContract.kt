@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.preloved.app.base.arch.BaseContract
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.BaseAuthResponse
 import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import java.io.File

@@ -33,6 +33,9 @@ class MainFragment : Fragment() {
             when(destination.id){
                 R.id.loginFragment3 -> {
                     binding.navigationBar.visibility = View.GONE
+                }
+                R.id.editProfileFragment -> {
+                    binding.navigationBar.visibility = View.GONE
                 } else -> {
                     binding.navigationBar.visibility = View.VISIBLE
                 }

@@ -23,8 +23,14 @@
     <string name="enter_your_address">Enter Your Address</string>
     <string name="register">Register</string>
     <string name="sudah_memiliki_akun_login">Sudah memiliki akun? Login</string>
-    <string name="ubah">Ubah</string>
-    <string name="add">add</string>
+    <string name="akun">Akun</string>
     <string name="ubah_profile">Ubah Profile</string>
+    <string name="keluar">Keluar</string>
+    <string name="version_app">Version 1.0.0</string>
     <string name="enter_your_city">Enter Your City</string>
+    <string name="add">Add</string>
+    <string name="ubah">Ubah</string>
+    <string name="data_produk">Data Produk</string>
+    <string name="nama_produk">Nama Produk</string>
+    <string name="harga_produk">0000</string>
 </resources>

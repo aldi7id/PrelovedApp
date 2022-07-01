@@ -3,14 +3,18 @@ package com.preloved.app.data.network.services
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.BaseAuthResponse
 import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.User
+import com.preloved.app.data.network.model.response.RegisterResponse
+import com.preloved.app.data.network.model.response.UserResponse
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import java.util.concurrent.TimeUnit
 
 interface PreLovedService {
