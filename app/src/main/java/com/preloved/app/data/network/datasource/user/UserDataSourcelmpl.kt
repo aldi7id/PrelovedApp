@@ -22,10 +22,6 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.postRegisterUser(registerRequest)
     }
 
-    override suspend fun getSyncUser(): UserResponse {
-        return preLovedService.getSyncUser()
-    }
-
     override suspend fun getProfileData(): UserResponse {
         return preLovedService.getUserData()
     }

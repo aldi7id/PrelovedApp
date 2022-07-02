@@ -18,20 +18,16 @@ import retrofit2.http.PUT
 import java.util.concurrent.TimeUnit
 
 interface PreLovedService {
+    //AUTH
     @POST("auth/login")
     suspend fun postLogin(@Body loginRequest: LoginRequest): LoginResponse
 
     @POST("auth/register")
     suspend fun postRegisterUser(@Body registerRequest: RegisterRequest): RegisterResponse
 
-
-//    @GET("auth/user")
-//    suspend fun getUser(@Header("access_token") token: String) : BaseAuthResponse<LoginResponse, String>
-    @GET("auth/user")
-    suspend fun getSyncUser(): UserResponse
-
     @GET("auth/user")
     suspend fun getUserData(): UserResponse
+
 
     @PUT("auth/user")
     suspend fun putUserData(@Body data: RequestBody): UserResponse
@@ -41,7 +37,7 @@ interface PreLovedService {
         operator fun invoke(chuckerInterceptor: ChuckerInterceptor): PreLovedService{
             val authInterceptor = Interceptor {
                 val requestBuilder = it.request().newBuilder()
-                requestBuilder.addHeader("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZGkyQGdtYWlsLmNvbSIsImlhdCI6MTY1NTgyMTYyMn0.WQvY0x0z7Bj6Qp4uQHFDPK23OjMKilnwHo5OB06iyM4")
+                //requestBuilder.addHeader("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZGkyQGdtYWlsLmNvbSIsImlhdCI6MTY1NTgyMTYyMn0.WQvY0x0z7Bj6Qp4uQHFDPK23OjMKilnwHo5OB06iyM4")
                 it.proceed(requestBuilder.build())
             }
             val okHttpClient = OkHttpClient.Builder()

@@ -24,7 +24,7 @@ class LoginViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val responseDataUser = loginRepository.postLoginDataUser(loginRequest)
-                loginRepository.setTokenSession(DatastorePreferences(loginRequest.email, responseDataUser.accessToken))
+                loginRepository.setTokenSession(DatastorePreferences(responseDataUser.accessToken,loginRequest.email))
                 viewModelScope.launch(Dispatchers.Main) {
                     postData.value = Resource.Success(responseDataUser)
                 }

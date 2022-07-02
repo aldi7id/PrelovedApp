@@ -10,7 +10,6 @@ import java.io.File
 interface UserDataSource {
     suspend fun postLogin(loginRequest: LoginRequest): LoginResponse
     suspend fun postRegister(registerRequest: RegisterRequest): RegisterResponse
-    suspend fun getSyncUser(): UserResponse
 
     suspend fun getProfileData(): UserResponse
 

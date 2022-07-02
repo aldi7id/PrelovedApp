@@ -21,6 +21,6 @@ interface AccountContract {
 
     interface Repository: BaseContract.BaseRepository {
         suspend fun userSession(): Flow<DatastorePreferences>
-       fun getToken()
+        fun getToken()
     }
 }
