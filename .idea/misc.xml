@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/bg_btn.xml" value="0.1" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/bg_btn_two.xml" value="0.1" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add_picture.xml" value="0.18" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_back.xml" value="0.18" />
@@ -28,6 +30,7 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_all.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_info_buyer.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_notification.xml" value="0.22" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />

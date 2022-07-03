@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/header_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_outline"
+            android:src="@drawable/ic_back" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="Info Penawar"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/header_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/header_back" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_penawar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
+        android:elevation="256dp"
+        android:paddingHorizontal="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/iv_avatar_penawar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/round_outline"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_nama_penawar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Nama Penawar"
+                android:textColor="@color/primary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_avatar_penawar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_kota_penawar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="Kota"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_avatar_penawar"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_penawar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_produk_ditawarkan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="Daftar Produk Yang Ditawarkan"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/cv_penawar"
+        app:layout_constraintStart_toStartOf="@+id/cv_penawar"
+        app:layout_constraintTop_toBottomOf="@id/cv_penawar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_produk_ditawarkan">
+
+        <ImageView
+            android:id="@+id/iv_product_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription=""
+            android:src="@drawable/image_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_tipe_produk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Penawaran produk"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@id/iv_product_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/tv_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="20 Apr, 14:04"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_tipe_produk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_tipe_produk"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/tv_nama_produk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="Jam Tangan Casio"
+            android:textColor="@color/primary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_tipe_produk"
+            app:layout_constraintTop_toBottomOf="@id/tv_tipe_produk" />
+
+        <TextView
+            android:id="@+id/tv_harga_awal_produk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="Rp.250.000"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tv_tipe_produk"
+            app:layout_constraintTop_toBottomOf="@id/tv_nama_produk" />
+
+        <View
+            android:id="@+id/strike"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="@id/tv_harga_awal_produk"
+            app:layout_constraintEnd_toEndOf="@id/tv_harga_awal_produk"
+            app:layout_constraintTop_toTopOf="@id/tv_harga_awal_produk"
+            app:layout_constraintBottom_toBottomOf="@id/tv_harga_awal_produk"/>
+
+        <TextView
+            android:id="@+id/tv_harga_ditawar_produk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="Ditawar Rp. 200.000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_tipe_produk"
+            app:layout_constraintTop_toBottomOf="@id/tv_harga_awal_produk" />
+
+        <LinearLayout
+            android:id="@+id/btn_group_accepted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn"
+                android:layout_marginHorizontal="4dp"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Status"
+                android:textAllCaps="false" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_hubungi"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:background = "@drawable/bg_btn_two"
+                android:backgroundTint="@color/primary"
+                android:drawableEnd="@drawable/ic_whatsapp"
+                android:paddingHorizontal="42dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:text="Hubungi"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_tolak"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn"
+                android:layout_marginHorizontal="4dp"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Tolak"
+                android:textAllCaps="false" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_terima"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:background = "@drawable/bg_btn_two"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:text="Terima"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
