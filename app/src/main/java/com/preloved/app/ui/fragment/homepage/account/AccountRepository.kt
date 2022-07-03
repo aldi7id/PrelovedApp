@@ -17,7 +17,6 @@ class AccountRepository(
         return localDataSource.getUserSession()
     }
 
-    override fun getToken() {
-        return
-    }
+
+
 }
