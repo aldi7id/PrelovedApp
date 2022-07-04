@@ -6,6 +6,7 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.RegisterResponse
+import com.preloved.app.data.network.model.response.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface AccountContract {
@@ -16,11 +17,14 @@ interface AccountContract {
         fun userSession()
         fun userSessionResult(): LiveData<DatastorePreferences>
         fun checkLogin() : LiveData<String>
-        fun getToken()
+        fun getUserDataResult(): LiveData<Resource<UserResponse>>
+        fun getUserData()
+        fun deleteToken()
     }
 
     interface Repository: BaseContract.BaseRepository {
         suspend fun userSession(): Flow<DatastorePreferences>
-        fun getToken()
+        suspend fun getUserData(token: String): UserResponse
+        suspend fun deleteToken()
     }
 }

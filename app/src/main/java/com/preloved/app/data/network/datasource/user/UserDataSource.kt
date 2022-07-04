@@ -21,5 +21,5 @@ interface UserDataSource {
         phone: String,
         profilePhoto: File? = null ) : UserResponse
 
-
+    suspend fun getUserData(token:String): UserResponse
 }

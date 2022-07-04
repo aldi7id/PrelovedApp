@@ -47,5 +47,9 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         }
         return preLovedService.putUserData(requestBodyBuilder.build())
     }
+
+    override suspend fun getUserData(token: String): UserResponse {
+        return preLovedService.getUserData(token)
+    }
 //        {
 }

@@ -5,6 +5,7 @@ import com.preloved.app.base.arch.BaseRepositorylmpl
 import com.preloved.app.data.local.datasource.LocalDataSource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.ui.fragment.register.RegisterContract
 import kotlinx.coroutines.flow.Flow
 
@@ -17,7 +18,13 @@ class AccountRepository(
         return localDataSource.getUserSession()
     }
 
-    override fun getToken() {
-        return
+    override suspend fun getUserData(token: String): UserResponse {
+        return userDataSource.getUserData(token)
     }
+
+    override suspend fun deleteToken() {
+        return localDataSource.deleteUserSession()
+    }
+
+
 }

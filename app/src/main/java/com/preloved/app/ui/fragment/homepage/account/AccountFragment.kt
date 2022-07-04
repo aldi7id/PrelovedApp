@@ -1,16 +1,23 @@
 package com.preloved.app.ui.fragment.homepage.account
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.common.Constant
+import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.databinding.FragmentAccountBinding
@@ -21,16 +28,45 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
     (FragmentAccountBinding::inflate), AccountContract.View {
     override val viewModel: AccountViewModel by viewModel()
+    override fun showLoading(isVisible: Boolean) {
+        super.showLoading(isVisible)
+        getViewBinding().pbLoading.isVisible = isVisible
+    }
     override fun initView() {
+
         viewModel.userSession()
         getViewBinding().apply {
             tvChangeProfile.setOnClickListener{
                 findNavController().navigate(R.id.action_accountFragment_to_editProfileFragment)
             }
+            tvExit.setOnClickListener {
+                AlertDialog
+                    .Builder(requireContext())
+                    .setTitle("Konfirmasi Keluar")
+                    .setMessage("Yakin ingin keluar?")
+                    .setPositiveButton("Iya") { dialogPositive, _ ->
+                        viewModel.deleteToken()
+                        Toast
+                            .makeText(
+                                requireContext(),
+                                "Logout Success",
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
+                        findNavController().navigate(R.id.homeFragment)
+                        dialogPositive.dismiss()
+                    }
+                    .setNegativeButton("Tidak") { dialogNegative, _ ->
+                        dialogNegative.dismiss()
+                    }
+                    .setCancelable(false)
+                    .show()
+            }
         }
     }
 
     override fun observeData() {
+
         viewModel.userSessionResult().observe(viewLifecycleOwner) {
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
                 AlertDialog.Builder(context)
@@ -50,10 +86,30 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                     .show()
                 //viewModel.checkLogin().removeObserver(viewLifecycleOwner)
             } else {
-                //GetUserToken
-                //VM Get User
+                viewModel.getUserData()
+
             }
         }
+        viewModel.getUserDataResult().observe(viewLifecycleOwner){
+                    when (it) {
+                        is Resource.Loading -> {
+                            showLoading(true)
+                        }
+                        is Resource.Success -> {
+                            showLoading(false)
+                            if(it.data != null) {
+                                Glide.with(requireContext())
+                                    .load(it.data.imageUrl.toString())
+                                    .placeholder(R.drawable.ic_profile)
+                                    .transform(CenterCrop(), RoundedCorners(12))
+                                    .into(getViewBinding().ivProfile)
+                            }
+                        }
+                        is Resource.Error -> {
+
+                        }
+                    }
+                }
     }
 
 
