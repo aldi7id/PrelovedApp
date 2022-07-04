@@ -3,8 +3,10 @@ package com.preloved.app.data.network.datasource.user
 import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
+import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
 import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.RegisterResponse
+import com.preloved.app.data.network.model.response.UpdateProfileResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.MediaType
@@ -12,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserDataSource {
@@ -22,11 +25,12 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.postRegisterUser(registerRequest)
     }
 
-    override suspend fun getProfileData(): UserResponse {
-        return preLovedService.getUserData()
+    override suspend fun getProfileData(token: String): UserResponse {
+        return preLovedService.getUserData(token)
     }
 
-    override suspend fun updateProfileData(email: String,
+    override suspend fun updateProfileData(token: String,
+                                           email: String,
                                            nama: String,
                                            city: String,
                                            address: String,
@@ -45,11 +49,12 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
                 "image", profilePhoto.name, requestFile
                 )
         }
-        return preLovedService.putUserData(requestBodyBuilder.build())
+        return preLovedService.putUserData(token,requestBodyBuilder.build())
     }
 
     override suspend fun getUserData(token: String): UserResponse {
         return preLovedService.getUserData(token)
     }
+
 //        {
 }

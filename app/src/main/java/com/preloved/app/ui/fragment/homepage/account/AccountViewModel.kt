@@ -21,7 +21,6 @@ class AccountViewModel(private val accountRepository: AccountRepository
     override fun userSession() {
        viewModelScope.launch {
            accountRepository.userSession().collect() {
-               //accountRepository.getUserData(it.access_token)
                _userSession.postValue(it)
            }
        }
@@ -32,15 +31,14 @@ class AccountViewModel(private val accountRepository: AccountRepository
     override fun checkLogin(): LiveData<String> = _checkLogin
     override fun getUserDataResult(): LiveData<Resource<UserResponse>> = _getUserData
 
-    override fun getUserData() {
+    override fun getUserData(token: String) {
         viewModelScope.launch(Dispatchers.IO){
             try {
-                accountRepository.userSession().collect() {
-                    val getUserData = accountRepository.getUserData(it.access_token)
+
                     viewModelScope.launch(Dispatchers.Main) {
-                        _getUserData.value = Resource.Success(getUserData)
+                        _getUserData.value = Resource.Success(accountRepository.getUserData(token))
                     }
-                }
+
 
             } catch (e: Exception) {
                 viewModelScope.launch(Dispatchers.Main) {

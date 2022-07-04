@@ -1,8 +1,8 @@
 package com.preloved.app.ui.profile.edit
 
 import android.app.Activity
-import android.content.ContextWrapper
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -14,6 +14,7 @@ import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.databinding.FragmentEditProfileBinding
+import com.preloved.app.ui.fragment.homepage.account.AccountFragment.Companion.USER_TOKEN
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -29,6 +30,8 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
     }
     override fun initView() {
         setOnClickListeners()
+        viewModel.userSession()
+
     }
 
     override fun checkFormValidation(): Boolean {
@@ -168,17 +171,25 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
         }
     }
     override fun setOnClickListeners() {
+
         getViewBinding().apply {
             btnChange.setOnClickListener {
-            if (checkFormValidation()){
-                viewModel.updateProfileData(
-                    email = etEmail.text.toString(),
-                    nama = etNama.text.toString(),
-                    city = etCity.text.toString(),
-                    address = etAddress.text.toString(),
-                    phone = etPhone.text.toString(),
-                    profilePhoto = selectedPicture,
-                )
+
+            if (checkFormValidation()) {
+                val bundle = arguments
+                val token = bundle?.getString(USER_TOKEN)
+                if (token != null) {
+                    viewModel.updateProfileData(
+                        token = token.toString(),
+                        email = etEmail.text.toString(),
+                        nama = etNama.text.toString(),
+                        city = etCity.text.toString(),
+                        address = etAddress.text.toString(),
+                        phone = etPhone.text.toString(),
+                        profilePhoto = selectedPicture,
+
+                        )
+                }
             }
         }
             flProfilePict.setOnClickListener {

@@ -5,8 +5,10 @@ import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.RegisterResponse
+import com.preloved.app.data.network.model.response.UpdateProfileResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import okhttp3.Interceptor
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import retrofit2.Retrofit
@@ -23,14 +25,24 @@ interface PreLovedService {
     suspend fun postRegisterUser(@Body registerRequest: RegisterRequest): RegisterResponse
 
     @GET("auth/user")
-    suspend fun getUserData(): UserResponse
-
-    @GET("auth/user")
     suspend fun getUserData(@Header("access_token") token: String): UserResponse
 
+    @Multipart
+    @PUT("auth/user")
+    suspend fun updateDataUser(
+        @Header("access_token") token: String,
+        @Part("image") file: MultipartBody.Part? = null,
+        @Part("full_name") name: RequestBody?,
+        @Part("phone_number") phoneNumber: RequestBody?,
+        @Part("address") address: RequestBody?,
+        @Part("city") city: RequestBody?,
+        @Part("email") email: RequestBody? = null,
+    ): UpdateProfileResponse
 
     @PUT("auth/user")
-    suspend fun putUserData(@Body data: RequestBody): UserResponse
+    suspend fun putUserData(
+        @Header("access_token") token: String,
+        @Body data: RequestBody): UserResponse
 
     companion object {
         @JvmStatic

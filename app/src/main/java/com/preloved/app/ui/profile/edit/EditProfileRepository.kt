@@ -1,14 +1,22 @@
 package com.preloved.app.ui.profile.edit
 
 import com.preloved.app.base.arch.BaseRepositorylmpl
+import com.preloved.app.data.local.datasource.LocalDataSource
+import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.UserResponse
+import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 class EditProfileRepository(
+    private val localDataSource: LocalDataSource,
     private val userDataSource: UserDataSource
 ):BaseRepositorylmpl(), EditProfileContract.Repository {
+    override suspend fun userSession(): Flow<DatastorePreferences> {
+        return localDataSource.getUserSession()
+    }
+
     override fun clearSession() {
         //
     }
@@ -19,19 +27,20 @@ class EditProfileRepository(
 //        }
     }
 
-    override suspend fun getProfileData(): UserResponse {
-        val response = userDataSource.getProfileData()
+    override suspend fun getProfileData(token: String): UserResponse {
+        val response = userDataSource.getProfileData(token)
         saveCacheProfileData(response)
         return response
     }
 
-    override suspend fun updateProfileData(email: String,
+    override suspend fun updateProfileData(token: String,
+                                           email: String,
                                            nama: String,
                                            city: String,
                                            address: String,
                                            phone: String,
                                            profilePhoto: File?): UserResponse {
-        val response = userDataSource.updateProfileData(email,nama,city,address,phone,profilePhoto)
+        val response = userDataSource.updateProfileData(token, email, nama, city, address, phone, profilePhoto)
         saveCacheProfileData(response)
         return response
     }

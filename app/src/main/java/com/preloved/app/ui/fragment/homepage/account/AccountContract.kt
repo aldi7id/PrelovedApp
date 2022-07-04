@@ -18,7 +18,7 @@ interface AccountContract {
         fun userSessionResult(): LiveData<DatastorePreferences>
         fun checkLogin() : LiveData<String>
         fun getUserDataResult(): LiveData<Resource<UserResponse>>
-        fun getUserData()
+        fun getUserData(token: String)
         fun deleteToken()
     }
 
