@@ -3,6 +3,7 @@ package com.preloved.app.di
 import com.preloved.app.ui.fragment.homepage.account.AccountRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodRepository
+import com.preloved.app.ui.fragment.homepage.sell.SellRepository
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
@@ -18,4 +19,5 @@ val repositoryModule = module {
     singleOf(::CategoryAllRepository)
     singleOf(::CategoryFoodRepository)
     singleOf(::AccountRepository)
+    singleOf(::SellRepository)
 }

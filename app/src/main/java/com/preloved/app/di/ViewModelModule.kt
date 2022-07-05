@@ -3,6 +3,7 @@ package com.preloved.app.di
 import com.preloved.app.ui.fragment.homepage.account.AccountViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodViewModel
+import com.preloved.app.ui.fragment.homepage.sell.SellViewModel
 import com.preloved.app.ui.fragment.login.LoginViewModel
 import com.preloved.app.ui.fragment.splash.SplashViewModel
 import com.preloved.app.ui.fragment.register.RegisterViewModel
@@ -18,4 +19,5 @@ val viewModelModule = module {
     viewModelOf(::CategoryFoodViewModel)
     viewModelOf(::AccountViewModel)
     viewModelOf(::EditProfileViewModel)
+    viewModelOf(::SellViewModel)
 }

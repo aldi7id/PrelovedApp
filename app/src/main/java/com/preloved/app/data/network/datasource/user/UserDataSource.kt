@@ -3,10 +3,7 @@ package com.preloved.app.data.network.datasource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
-import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.RegisterResponse
-import com.preloved.app.data.network.model.response.UpdateProfileResponse
-import com.preloved.app.data.network.model.response.UserResponse
+import com.preloved.app.data.network.model.response.*
 import java.io.File
 
 interface UserDataSource {
@@ -24,6 +21,15 @@ interface UserDataSource {
         phone: String,
         profilePhoto: File? = null ) : UserResponse
 
-    suspend fun getUserData(token:String): UserResponse
+    suspend fun postProductData(
+        name: String,
+        description: String,
+        base_price : Int,
+        category: Int,
+        location: String,
+        image : File? = null
+    ) : PostProductResponse
+    suspend fun getCategoryData(): List<CategoryResponseItem>
+    suspend fun getUserData(token: String): UserResponse
 
    }

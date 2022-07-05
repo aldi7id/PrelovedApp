@@ -11,7 +11,7 @@
         android:title="@string/notification" />
     <item
         android:id="@+id/sellFragment"
-        android:icon="@drawable/ic_add"
+        android:icon="@drawable/ic_post_add"
         android:title="@string/sell" />
     <item
         android:id="@+id/saleFragment"

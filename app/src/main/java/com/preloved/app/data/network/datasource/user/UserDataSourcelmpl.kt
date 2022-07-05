@@ -4,10 +4,7 @@ import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
-import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.RegisterResponse
-import com.preloved.app.data.network.model.response.UpdateProfileResponse
-import com.preloved.app.data.network.model.response.UserResponse
+import com.preloved.app.data.network.model.response.*
 import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
@@ -26,6 +23,9 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
     }
 
     override suspend fun getProfileData(token: String): UserResponse {
+        return preLovedService.getUserData(token)
+    }
+    override suspend fun getUserData(token: String): UserResponse {
         return preLovedService.getUserData(token)
     }
 
@@ -52,8 +52,32 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.putUserData(token,requestBodyBuilder.build())
     }
 
-    override suspend fun getUserData(token: String): UserResponse {
-        return preLovedService.getUserData(token)
+    override suspend fun postProductData(
+        name: String,
+        description: String,
+        base_price: Int,
+        category: Int,
+        location: String,
+        image: File?
+    ): PostProductResponse {
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("name",name)
+            .addFormDataPart("description",description)
+            .addFormDataPart("base_price", base_price.toString())
+            .addFormDataPart("category_ids", category.toString())
+            .addFormDataPart("location", location)
+        if (image != null ) {
+            val requestFile = image.asRequestBody("image/jpg".toMediaType())
+            requestBodyBuilder.addFormDataPart(
+                "image", image.name, requestFile
+            )
+        }
+        return preLovedService.postProductData(requestBodyBuilder.build())
+    }
+
+    override suspend fun getCategoryData(): List<CategoryResponseItem> {
+        return preLovedService.getCategoryData()
     }
 
 //        {

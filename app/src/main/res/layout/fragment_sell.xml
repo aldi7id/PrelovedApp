@@ -103,7 +103,7 @@
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tf_kategory"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="51dp"
@@ -113,11 +113,14 @@
                 >
 
 
-                <AutoCompleteTextView
-                    android:id="@+id/filled_category"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_kategory"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
+                    android:layout_height="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:drawableRight="@drawable/ic_add"
+                    android:layout_weight="1"
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -146,12 +149,13 @@
                     android:textSize="@dimen/content" />
 
             </com.google.android.material.textfield.TextInputLayout>
-            <ImageButton
+            <ImageView
                 android:id="@+id/ib_add_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add_picture"
                 app:layout_constraintTop_toBottomOf="@id/tf_deksipsi"
+                app:layout_constraintStart_toStartOf="@id/tf_deksipsi"
                 android:background="@color/white"
                 android:layout_marginTop="51dp"
                 />

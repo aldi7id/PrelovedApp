@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.UserResponse
@@ -163,7 +164,11 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
             etCity.setText(data.city)
             etAddress.setText(data.address)
             etPhone.setText(data.phoneNumber)
-            Glide.with(requireContext()).load(data.imageUrl).circleCrop().into(getViewBinding().ivProfile)
+            Glide.with(requireContext())
+                .load(data.imageUrl)
+                .circleCrop()
+                .placeholder(R.drawable.ic_profile)
+                .into(getViewBinding().ivProfile)
 //            tfAddress.error = null
 //            tfNama.error = null
 //            tfPhone.error = null
