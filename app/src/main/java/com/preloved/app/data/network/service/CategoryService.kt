@@ -1,22 +1,22 @@
 package com.preloved.app.data.network.service
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.preloved.app.data.network.model.request.category.CategoryResponse
-import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.category.CategoryResponse
+import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface CategoryService {
 
-    @GET("category")
+    @GET("buyer/product")
     suspend fun getCategoryAll(): CategoryResponse
 
-    @GET("category/{id}")
-    suspend fun getCategoryByID(@Path("id") categoryID: Int): CategoryDetailResponse
+    @GET("buyer/product")
+    suspend fun getCategoryByID(@Query("category_id") categoryID: Int): CategoryDetailResponse
 
     companion object {
         @JvmStatic

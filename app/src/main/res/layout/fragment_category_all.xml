@@ -20,10 +20,8 @@
         android:id="@+id/rv_list_category"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/card_item_category"
         app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
-
-
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/card_item_category"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

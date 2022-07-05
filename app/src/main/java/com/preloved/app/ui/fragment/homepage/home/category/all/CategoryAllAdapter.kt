@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.preloved.app.data.network.model.request.category.CategoryResponse
+import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.CardItemCategoryBinding
 
 class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponseItem) -> Unit) :
@@ -40,13 +40,12 @@ class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponse
 
     class Differ : DiffUtil.ItemCallback<CategoryResponse.CategoryResponseItem>() {
         override fun areItemsTheSame(oldItem: CategoryResponse.CategoryResponseItem, newItem: CategoryResponse.CategoryResponseItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: CategoryResponse.CategoryResponseItem, newItem: CategoryResponse.CategoryResponseItem): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.hashCode() == newItem.hashCode()
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {

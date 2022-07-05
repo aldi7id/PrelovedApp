@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    android:layout_width="match_parent"
     android:layout_height="220dp"
     android:layout_gravity="center"
     android:layout_marginBottom="30dp"
@@ -15,7 +15,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/siv_image_item"
-            android:layout_width="130dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"

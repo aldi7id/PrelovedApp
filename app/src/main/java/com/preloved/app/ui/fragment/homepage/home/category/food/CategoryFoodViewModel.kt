@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
-import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -3,8 +3,7 @@ package com.preloved.app.ui.fragment.homepage.home.category.food
 import androidx.lifecycle.LiveData
 import com.preloved.app.base.arch.BaseContract
 import com.preloved.app.base.model.Resource
-import com.preloved.app.data.network.model.request.auth.LoginRequest
-import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 
 interface CategoryFoodContract {
 

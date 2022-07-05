@@ -1,4 +1,4 @@
-package com.preloved.app.data.network.model.request.category
+package com.preloved.app.data.network.model.response.category
 
 
 import com.google.gson.annotations.SerializedName

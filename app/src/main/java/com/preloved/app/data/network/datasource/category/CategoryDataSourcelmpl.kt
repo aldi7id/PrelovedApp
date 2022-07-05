@@ -1,7 +1,7 @@
 package com.preloved.app.data.network.datasource.category
 
-import com.preloved.app.data.network.model.request.category.CategoryResponse
-import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.category.CategoryResponse
+import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import com.preloved.app.data.network.service.CategoryService
 
 class CategoryDataSourcelmpl(private val categoryService: CategoryService) : CategoryDataSource {
@@ -48,5 +48,4 @@ class CategoryDataSourcelmpl(private val categoryService: CategoryService) : Cat
     override suspend fun getCategoryAccessories(accessoriesId: Int): CategoryDetailResponse {
         return categoryService.getCategoryByID(accessoriesId)
     }
-
 }

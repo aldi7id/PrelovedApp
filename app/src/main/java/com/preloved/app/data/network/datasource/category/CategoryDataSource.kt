@@ -1,7 +1,7 @@
 package com.preloved.app.data.network.datasource.category
 
-import com.preloved.app.data.network.model.request.category.CategoryResponse
-import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.category.CategoryResponse
+import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 
 interface CategoryDataSource {
 
