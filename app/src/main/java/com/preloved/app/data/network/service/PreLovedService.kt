@@ -30,7 +30,8 @@ interface PreLovedService {
         @Body data: RequestBody): UserResponse
 
     @POST("seller/product")
-    suspend fun postProductData(@Body data: RequestBody) : PostProductResponse
+    suspend fun postProductData(@Header("access_token") token: String,
+                                @Body data: RequestBody) : PostProductResponse
 
     @GET("seller/category")
     suspend fun getCategoryData() : List<CategoryResponseItem>

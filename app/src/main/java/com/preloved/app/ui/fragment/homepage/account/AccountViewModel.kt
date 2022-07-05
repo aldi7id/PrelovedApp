@@ -34,11 +34,9 @@ class AccountViewModel(private val accountRepository: AccountRepository
     override fun getUserData(token: String) {
         viewModelScope.launch(Dispatchers.IO){
             try {
-
                     viewModelScope.launch(Dispatchers.Main) {
                         _getUserData.value = Resource.Success(accountRepository.getUserData(token))
                     }
-
 
             } catch (e: Exception) {
                 viewModelScope.launch(Dispatchers.Main) {

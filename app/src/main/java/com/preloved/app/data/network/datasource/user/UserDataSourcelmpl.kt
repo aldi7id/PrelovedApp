@@ -53,10 +53,11 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
     }
 
     override suspend fun postProductData(
+        token: String,
         name: String,
         description: String,
         base_price: Int,
-        category: Int,
+        category: List<Int>,
         location: String,
         image: File?
     ): PostProductResponse {
@@ -65,7 +66,7 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
             .addFormDataPart("name",name)
             .addFormDataPart("description",description)
             .addFormDataPart("base_price", base_price.toString())
-            .addFormDataPart("category_ids", category.toString())
+            .addFormDataPart("category_ids", category.toList().toString())
             .addFormDataPart("location", location)
         if (image != null ) {
             val requestFile = image.asRequestBody("image/jpg".toMediaType())
@@ -73,7 +74,7 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
                 "image", image.name, requestFile
             )
         }
-        return preLovedService.postProductData(requestBodyBuilder.build())
+        return preLovedService.postProductData(token,requestBodyBuilder.build())
     }
 
     override suspend fun getCategoryData(): List<CategoryResponseItem> {

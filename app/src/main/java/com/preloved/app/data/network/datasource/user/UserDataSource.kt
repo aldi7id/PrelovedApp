@@ -22,10 +22,11 @@ interface UserDataSource {
         profilePhoto: File? = null ) : UserResponse
 
     suspend fun postProductData(
+        token: String,
         name: String,
         description: String,
         base_price : Int,
-        category: Int,
+        category: List<Int>,
         location: String,
         image : File? = null
     ) : PostProductResponse

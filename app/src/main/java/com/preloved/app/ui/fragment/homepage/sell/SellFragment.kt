@@ -1,22 +1,30 @@
 package com.preloved.app.ui.fragment.homepage.sell
 
+import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
+import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.databinding.FragmentSellBinding
 import com.preloved.app.ui.listCategory
@@ -28,25 +36,21 @@ import java.io.File
 class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     FragmentSellBinding::inflate
 ) , SellContract.View {
+    private var citySeller: String = ""
+    private var uri: String = ""
+    private var token: String = ""
 
-
+    override fun showLoading(isVisible: Boolean) {
+        super.showLoading(isVisible)
+        getViewBinding().pbLoading.isVisible = isVisible
+    }
     private var selectedPicture: File? = null
     override val viewModel: SellViewModel by viewModel()
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getData()
-    }
 
     override fun initView() {
+        viewModel.userSession()
+        getData()
         setOnClickListeners()
-
-        getViewBinding().etKategory.setOnClickListener {
-            val bottomFragment = BottomSheetChooseCategoryFragment(
-                update = {
-                    viewModel.addCategory(listCategory)
-                })
-            bottomFragment.show(parentFragmentManager, "Tag")
-        }
         viewModel.categoryList.observe(viewLifecycleOwner) { kat ->
             if (kat.isNotEmpty()) {
                 var kategori = ""
@@ -59,7 +63,6 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                 getViewBinding().etKategory.setText("Pilih Kategory")
             Log.d("HAYO 1", listCategoryId.toString())
         }
-
     }
 
     override fun checkFormValidation(): Boolean {
@@ -119,6 +122,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     override fun getData() {
         viewModel.getCategoryData()
     }
+
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
@@ -157,11 +161,12 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     val productPrice = etHargaProduk.text.toString().toInt()
                     val productDesc = etDeskripsi.text.toString()
                     viewModel.postProductData(
+                        token = token,
                         name = productName,
                         base_price = productPrice,
-                        category = 18,
+                        category = listCategoryId,
                         description = productDesc,
-                        location = "Jakarta",
+                        location = citySeller,
                         image = selectedPicture
                     )
                 }
@@ -173,6 +178,8 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     }
                     is Resource.Success -> {
                         showLoading(false)
+                        showToastSuccess()
+                        findNavController().navigate(R.id.action_sellFragment_to_saleFragment)
                         Toast.makeText(requireContext(), "Add Product Success!", Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Error -> {
@@ -210,7 +217,15 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         startForProfileImageResult.launch(it)
                     }
             }
+            etKategory.setOnClickListener {
+                val bottomFragment = BottomSheetChooseCategoryFragment(
+                    update = {
+                        viewModel.addCategory(listCategory)
+                    })
+                bottomFragment.show(parentFragmentManager, "Tag")
+            }
         }
+
     }
 
     override fun observeData() {
@@ -233,6 +248,95 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                 }
             }
         }
-    }
+        getViewBinding().apply {
+            viewModel.userSessionResult().observe(viewLifecycleOwner){
+                if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN) {
+                    AlertDialog.Builder(context)
+                        .setTitle("Warning")
+                        .setMessage("Kamu Belum Login Nih")
+                        .setPositiveButton("Login") { dialogP, _ ->
+                            //ToLogin Fragment
+                            findNavController().navigate(R.id.action_sellFragment_to_loginFragment3)
+                            dialogP.dismiss()
+                        }
+                        .setNegativeButton("Tidak") { dialogN, _ ->
+                            //ToHomeFragment
+                            findNavController().navigate(R.id.homeFragment)
+                            dialogN.dismiss()
+                        }
+                        .setCancelable(false)
+                        .show()
+                } else {
+                    token = it.access_token
+                    viewModel.getUserData(it.access_token)
+                    Log.d ("token", token)
+                }
+            }
+            viewModel.getUserDataResult().observe(viewLifecycleOwner){
+                when (it) {
+                    is Resource.Loading -> {
+                        showLoading(true)
+                    }
+                    is Resource.Success -> {
+                        showLoading(false)
+                        if(it.data != null){
+                            val city = it.data.city
+                            val address = it.data.address
+                            val photo = it.data.imageUrl ?: "noImage"
+                            val phone = it.data.phoneNumber
+                            if(city.isEmpty() || address.isEmpty() || photo == "noImage" || phone.isEmpty()){
+                                AlertDialog.Builder(requireContext())
+                                    .setTitle("Warning")
+                                    .setMessage("Lengkapi data terlebih dahulu yuk sebelum Jual Barang")
+                                    .setPositiveButton("Iya"){ positiveButton, _ ->
+                                        findNavController().navigate(R.id.action_sellFragment_to_editProfileFragment)
+                                        positiveButton.dismiss()
+                                    }
+                                    .setNegativeButton("Tidak") { negativeButton, _ ->
+                                        findNavController().popBackStack()
+                                        negativeButton.dismiss()
+                                    }
+                                    .show()
+                            } else {
+                                citySeller = it.data.city
+                                Log.d("City", citySeller)
+                                //Bundle
 
+                            }
+                        }
+                    }
+                    is Resource.Error -> {
+                        showLoading(false)
+                        AlertDialog.Builder(requireContext())
+                            .setMessage(it.message)
+                            .setPositiveButton("Ok") { dialog, _ ->
+                                dialog.dismiss()
+                                findNavController().popBackStack()
+                            }
+                            .show()
+                    }
+                }
+            }
+
+        }
+    }
+    private fun showToastSuccess() {
+        val snackBarView =
+            Snackbar.make(getViewBinding().root, "Produk berhasil di terbitkan.", Snackbar.LENGTH_LONG)
+        val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
+        snackBarView.setAction(" ") {
+            snackBarView.dismiss()
+        }
+        val textView =
+            snackBarView.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_add, 0)
+        textView.compoundDrawablePadding = 16
+        layoutParams.gravity = Gravity.TOP
+        layoutParams.setMargins(32, 150, 32, 0)
+        snackBarView.view.setPadding(24, 16, 0, 16)
+        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.layoutParams = layoutParams
+        snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+        snackBarView.show()
+    }
 }

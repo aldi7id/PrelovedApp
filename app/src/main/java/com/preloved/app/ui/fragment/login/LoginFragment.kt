@@ -38,7 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                 is Resource.Success -> {
                     showError(false)
                     Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment3_to_accountFragment)
+                    findNavController().navigate(R.id.homeFragment)
                 }
                 is Resource.Error -> {
                     showError(true, it.message)

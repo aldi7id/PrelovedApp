@@ -92,7 +92,7 @@
                     style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/harga_produk"
+                    android:hint="Harga Produk"
                     android:fontFamily="@font/poppinsmedium"
                     android:textSize="@dimen/content"
                     android:textColor="@color/black"
@@ -149,6 +149,18 @@
                     android:textSize="@dimen/content" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_foto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="Foto Produk*"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tf_deksipsi"
+                app:layout_constraintTop_toBottomOf="@id/tf_deksipsi"
+                tools:ignore="MissingConstraints" />
             <ImageView
                 android:id="@+id/ib_add_image"
                 android:layout_width="wrap_content"
