@@ -40,6 +40,9 @@ class MainFragment : Fragment() {
                 R.id.registerFragment2 -> {
                     binding.navigationBar.visibility = View.GONE
                 }
+                R.id.previewProductFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
                 else -> {
                     binding.navigationBar.visibility = View.VISIBLE
                 }

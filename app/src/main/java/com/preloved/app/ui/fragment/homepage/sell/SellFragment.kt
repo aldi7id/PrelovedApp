@@ -39,6 +39,19 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     private var citySeller: String = ""
     private var uri: String = ""
     private var token: String = ""
+    private val bundle = Bundle()
+
+    companion object {
+        const val NAMA_PRODUK_KEY = "namaProduk"
+        const val HARGA_PRODUK_KEY = "hargaProduk"
+        const val DESKRIPSI_PRODUK_KEY = "deskripsiProduk"
+        const val KATEGORI_PRODUK_KEY = "kategoriProduk"
+        const val IMAGE_PRODUK_KEY = "imageProduk"
+        const val NAME_USER_KEY = "userName"
+        const val ADDRESS_USER_KEY = "userAlamat"
+        const val IMAGE_USER_KEY = "userImage"
+        const val TOKEN_USER_KEY = "userToken"
+    }
 
     override fun showLoading(isVisible: Boolean) {
         super.showLoading(isVisible)
@@ -171,6 +184,22 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     )
                 }
             }
+            btnPreview.setOnClickListener {
+                if (checkFormValidation()){
+                    val productName = etNamaProduk.text.toString()
+                    val productPrice = etHargaProduk.text.toString().toInt()
+                    val productDesc = etDeskripsi.text.toString()
+                    val categoryProduct = etKategory.text.toString()
+
+                    bundle.putString(NAMA_PRODUK_KEY, productName)
+                    bundle.putString(HARGA_PRODUK_KEY, productPrice.toString())
+                    bundle.putString(DESKRIPSI_PRODUK_KEY, productDesc)
+                    bundle.putString(KATEGORI_PRODUK_KEY, categoryProduct)
+                    bundle.putString(IMAGE_PRODUK_KEY, selectedPicture.toString())
+
+                    findNavController().navigate(R.id.action_sellFragment_to_previewProductFragment, bundle)
+                }
+            }
             viewModel.getChangeProfileResultLiveData().observe(viewLifecycleOwner){ response ->
                 when(response) {
                     is Resource.Loading -> {
@@ -230,6 +259,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
 
     override fun observeData() {
         super.observeData()
+
         viewModel.getCategoryLiveData().observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -301,7 +331,9 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                                 citySeller = it.data.city
                                 Log.d("City", citySeller)
                                 //Bundle
-
+                                bundle.putString(NAME_USER_KEY, it.data.fullName)
+                                bundle.putString(ADDRESS_USER_KEY, it.data.address)
+                                bundle.putString(IMAGE_USER_KEY, it.data.imageUrl.toString())
                             }
                         }
                     }

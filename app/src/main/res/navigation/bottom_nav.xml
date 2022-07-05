@@ -28,7 +28,12 @@
             app:destination="@id/loginFragment3" />
         <action
             android:id="@+id/action_sellFragment_to_saleFragment"
-            app:destination="@id/saleFragment" />
+            app:destination="@id/saleFragment"
+            app:popUpTo="@id/sellFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_sellFragment_to_previewProductFragment"
+            app:destination="@id/previewProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/saleFragment"
@@ -73,4 +78,8 @@
             android:id="@+id/action_registerFragment2_to_loginFragment3"
             app:destination="@id/loginFragment3" />
     </fragment>
+    <fragment
+        android:id="@+id/previewProductFragment"
+        android:name="PreviewProductFragment"
+        android:label="PreviewProductFragment" />
 </navigation>
