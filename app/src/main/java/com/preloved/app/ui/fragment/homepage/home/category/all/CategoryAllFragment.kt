@@ -1,11 +1,11 @@
 package com.preloved.app.ui.fragment.homepage.home.category.all
 
-import android.util.Log
 import androidx.core.view.isVisible
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryAllBinding
+import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAllViewModel>(
@@ -44,7 +44,7 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
                     is Resource.Success -> {
                         showLoading(false)
                         showError(true, it.message)
-                        getData(it.data?.subList(id, Int.SIZE_BYTES))
+                        getData(it.data)
                     }
                     is Resource.Error -> {
                         showLoading(false)
@@ -55,14 +55,13 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
         }
     }
 
-    private fun getData(subList: MutableList<CategoryResponse.CategoryResponseItem>?) {
+    private fun getData(data: CategoryResponse?) {
         getViewBinding().apply {
             val listCategoryAdapter = CategoryAllAdapter {
 
             }
-            listCategoryAdapter.submitList(subList)
+            listCategoryAdapter.submitList(data)
             rvListCategory.adapter = listCategoryAdapter
-            Log.d("tes", subList.toString())
         }
     }
 

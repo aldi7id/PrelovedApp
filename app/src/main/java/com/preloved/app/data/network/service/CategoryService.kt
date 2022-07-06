@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -16,7 +17,10 @@ interface CategoryService {
     suspend fun getCategoryAll(): CategoryResponse
 
     @GET("buyer/product")
-    suspend fun getCategoryByID(@Query("category_id") categoryID: Int): CategoryDetailResponse
+    suspend fun getFilterCategoryByID(@Query("category_id") categoryID: Int): CategoryResponse
+
+    @GET("buyer/product/{id}")
+    suspend fun getDetailCategoryById(@Path("id") detailById: Int): CategoryDetailResponse
 
     companion object {
         @JvmStatic
