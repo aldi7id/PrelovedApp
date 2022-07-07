@@ -5,14 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
-import com.preloved.app.data.network.model.request.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.category.CategoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CategoryFoodViewModel(private val categoryFoodRepository: CategoryFoodRepository) :
-    BaseViewModellmpl(), CategoryFoodContract.ViewModel {
-    private val getCategoryFood = MutableLiveData<Resource<CategoryDetailResponse>>()
-    override fun getFoodCategoryResult(): LiveData<Resource<CategoryDetailResponse>> = getCategoryFood
+class CategoryFoodViewModel(
+    private val categoryFoodRepository: CategoryFoodRepository
+) : BaseViewModellmpl(), CategoryFoodContract.ViewModel {
+    private val getCategoryFood = MutableLiveData<Resource<CategoryResponse>>()
+    override fun getFoodCategoryResult(): LiveData<Resource<CategoryResponse>> = getCategoryFood
 
     override fun getDataFoodCategory(foodId: Int) {
         getCategoryFood.value = Resource.Loading()

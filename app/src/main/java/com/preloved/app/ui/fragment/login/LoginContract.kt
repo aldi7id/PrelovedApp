@@ -5,7 +5,7 @@ import com.preloved.app.base.arch.BaseContract
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.model.request.auth.LoginRequest
-import com.preloved.app.data.network.model.response.LoginResponse
+import com.preloved.app.data.network.model.response.auth.LoginResponse
 
 interface LoginContract {
     interface View: BaseContract.BaseView {

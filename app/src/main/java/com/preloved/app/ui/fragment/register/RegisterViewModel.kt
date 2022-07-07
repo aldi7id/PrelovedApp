@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.RegisterResponse
+import com.preloved.app.data.network.model.response.auth.RegisterResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

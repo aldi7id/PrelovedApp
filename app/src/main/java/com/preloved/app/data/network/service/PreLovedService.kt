@@ -3,8 +3,8 @@ package com.preloved.app.data.network.service
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
-import com.preloved.app.data.network.model.response.LoginResponse
-import com.preloved.app.data.network.model.response.RegisterResponse
+import com.preloved.app.data.network.model.response.auth.LoginResponse
+import com.preloved.app.data.network.model.response.auth.RegisterResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
