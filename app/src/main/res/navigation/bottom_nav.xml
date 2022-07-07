@@ -47,5 +47,14 @@
         android:id="@+id/detailProductFragment"
         android:name="com.preloved.app.DetailProductFragment"
         android:label="fragment_detail_product"
-        tools:layout="@layout/fragment_detail_product" />
+        tools:layout="@layout/fragment_detail_product" >
+        <action
+            android:id="@+id/action_detailProductFragment_to_popUpTawaranFragment"
+            app:destination="@id/popUpTawaranFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/popUpTawaranFragment"
+        android:name="com.preloved.app.PopUpTawaranFragment"
+        android:label="fragment_pop_up_tawaran"
+        tools:layout="@layout/fragment_pop_up_tawaran" />
 </navigation>
