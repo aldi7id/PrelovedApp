@@ -43,4 +43,9 @@
             android:id="@+id/action_loginFragment3_to_accountFragment"
             app:destination="@id/accountFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="com.preloved.app.DetailProductFragment"
+        android:label="fragment_detail_product"
+        tools:layout="@layout/fragment_detail_product" />
 </navigation>
