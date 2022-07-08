@@ -8,6 +8,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,7 +25,17 @@ private fun createTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
 }
+fun currency(angka: Int): String {
+    val kursIndonesia = DecimalFormat.getCurrencyInstance() as DecimalFormat
+    val formatRp = DecimalFormatSymbols()
 
+    formatRp.currencySymbol = "Rp "
+    formatRp.monetaryDecimalSeparator = ','
+    formatRp.groupingSeparator = '.'
+
+    kursIndonesia.decimalFormatSymbols = formatRp
+    return kursIndonesia.format(angka).dropLast(3)
+}
 fun uriToFile(
     selectedImage: Uri,
     context: Context,

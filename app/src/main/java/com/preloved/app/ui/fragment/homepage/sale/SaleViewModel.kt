@@ -58,4 +58,8 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
             }
         }
     }
+
+    override fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>> = _product
+
+
 }

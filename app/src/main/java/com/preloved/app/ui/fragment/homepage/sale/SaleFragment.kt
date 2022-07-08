@@ -1,11 +1,13 @@
 package com.preloved.app.ui.fragment.homepage.sale
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -15,6 +17,7 @@ import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
+import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentSaleBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,8 +25,24 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     (FragmentSaleBinding::inflate), SaleContract.View  {
     override val viewModel: SaleViewModel by viewModel()
     private val bundle = Bundle()
+    private var token = ""
+    private val bundleEdit = Bundle()
+
     companion object {
-        const val USER_TOKEN = "user_token"
+        const val USER_TOKEN = "UserToken"
+        const val USER_NAME = "UserName"
+        const val USER_CITY = "UserCity"
+        const val USER_IMAGE = "UserCity"
+        const val ORDER_ID = "OrderId"
+        const val ORDER_STATUS = "OrderStatus"
+        const val PRODUCT_IMAGE = "ProductImage"
+        const val PRODUCT_NAME = "ProductName"
+        const val PRODUCT_CATEGORY = "productCategory"
+        const val PRODUCT_DESCRIPTION = "productDescription"
+        const val PRODUCT_PRICE = "ProductPrice"
+        const val PRODUCT_BID = "ProductBid"
+        const val PRODUCT_BID_DATE = "ProductBidDate"
+        const val PRODUCT_ID = "productId"
     }
     override fun initView() {
         viewModel.userSession()
@@ -36,6 +55,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
         super.showLoading(isVisible)
         getViewBinding().pbLoadingUser.isVisible = isVisible
     }
+
     override fun observeData() {
         viewModel.userSessionResult().observe(viewLifecycleOwner) {
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
@@ -58,6 +78,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
             } else {
                 bundle.putString(USER_TOKEN,it.access_token)
                 viewModel.getUserData(it.access_token)
+                token = it.access_token
             }
             viewModel.getUserDataResult().observe(viewLifecycleOwner){
                 when (it) {
@@ -82,6 +103,53 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     }
                     is Resource.Error -> {
 
+                    }
+                }
+            }
+            viewModel.getSellerProduct(token)
+            getViewBinding().apply {
+                btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
+            }
+            viewModel.getSellerProductResult().observe(viewLifecycleOwner){
+                when (it) {
+                    is Resource.Loading -> {
+                        getViewBinding().apply {
+                            //VISIBLE
+                        }
+                    }
+                    is Resource.Success -> {
+                    if (it.data != null) {
+                        val saleProductAdapter =
+                            SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
+                                var listCategory = ""
+                                override fun onClickItem(data: SellerProductResponseItem) {
+                                   bundleEdit.apply {
+                                       putInt(PRODUCT_ID, data.id)
+                                       putString(PRODUCT_NAME, data.name)
+                                       putInt(PRODUCT_PRICE, data.basePrice)
+                                       for (kategory in data.categories){
+                                           listCategory += ",${kategory.name}"
+                                       }
+                                       putString(PRODUCT_CATEGORY, listCategory.drop(2))
+                                       putString(PRODUCT_DESCRIPTION, data.description)
+                                       putString(PRODUCT_IMAGE, data.imageUrl)
+                                   }
+                                    //EditProductNavigasi
+                                }
+                            })
+                        saleProductAdapter.submitData(it.data)
+                        getViewBinding().rvProduct.adapter = saleProductAdapter
+                        getViewBinding().rvProduct.visibility = View.VISIBLE
+                    }
+                        if (it.data?.size == 0){
+                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                        }
+                        getViewBinding().buttonGrup.visibility = View.VISIBLE
+                        //pbloading
+                        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

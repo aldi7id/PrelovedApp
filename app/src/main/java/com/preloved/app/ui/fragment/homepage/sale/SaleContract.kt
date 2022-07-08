@@ -18,6 +18,7 @@ interface SaleContract {
         fun getUserDataResult(): LiveData<Resource<UserResponse>>
         fun getUserData(token: String)
         fun getSellerProduct(token: String)
+        fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>>
     }
 
     interface Repository {
