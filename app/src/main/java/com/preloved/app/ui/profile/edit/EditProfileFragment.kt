@@ -185,6 +185,7 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
             if (checkFormValidation()) {
                 val bundle = arguments
                 val token = bundle?.getString(USER_TOKEN)
+                Log.d("token edit", token.toString())
                 if (token != null) {
                     viewModel.updateProfileData(
                         token = token.toString(),

@@ -14,7 +14,10 @@ import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodFrag
 class HomeFragment : Fragment() {
     private var bind: FragmentHomeBinding? = null
     private val binding get() = bind!!
-
+    companion object {
+        var result = 0
+        const val PRODUCT_ID = "id"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

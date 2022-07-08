@@ -3,6 +3,7 @@ package com.preloved.app.ui.fragment.homepage.sell
 import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -27,8 +28,10 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.databinding.FragmentSellBinding
+import com.preloved.app.ui.fragment.homepage.account.AccountFragment
 import com.preloved.app.ui.listCategory
 import com.preloved.app.ui.listCategoryId
+import com.preloved.app.ui.uriToFile
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -40,18 +43,19 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     private var uri: String = ""
     private var token: String = ""
     private val bundle = Bundle()
-
     companion object {
-        const val NAMA_PRODUK_KEY = "namaProduk"
-        const val HARGA_PRODUK_KEY = "hargaProduk"
-        const val DESKRIPSI_PRODUK_KEY = "deskripsiProduk"
-        const val KATEGORI_PRODUK_KEY = "kategoriProduk"
-        const val IMAGE_PRODUK_KEY = "imageProduk"
-        const val NAME_USER_KEY = "userName"
-        const val ADDRESS_USER_KEY = "userAlamat"
-        const val IMAGE_USER_KEY = "userImage"
-        const val TOKEN_USER_KEY = "userToken"
+        const val USER_TOKEN = "user_token"
+        const val TITLE_PRODUCT = "title_product"
+        const val CITY_USER = "city"
+        const val PRICE_PRODUCT = "price"
+        const val DESC_PRODUCT = "desc"
+        const val NAME_USER = "name"
+        const val IMAGE_USER = "image_user"
+        const val CATEGORY_PRODUCT = "category"
+        const val IMAGE_PRODUCT ="image_product"
     }
+
+
 
     override fun showLoading(isVisible: Boolean) {
         super.showLoading(isVisible)
@@ -72,9 +76,10 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                 }
                 getViewBinding().etKategory.setText(kategori.drop(2))
                 Log.d("HAYO 1", listCategoryId.toString())
+
             } else
                 getViewBinding().etKategory.setText("Pilih Kategory")
-            Log.d("HAYO 1", listCategoryId.toString())
+                Log.d("HAYO 2", listCategoryId.toString())
         }
     }
 
@@ -144,11 +149,9 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
             when(resultCode) {
                 Activity.RESULT_OK -> {
                     val fileUri = data?.data!!
+                    uri = fileUri.toString()
                     Glide.with(requireContext())
-                        .apply {
-                            RequestOptions().override(300,320)
-                        }
-                        .load(fileUri)
+                        .load(uri)
                         .into(getViewBinding().ibAddImage)
                     fileUri.path?.let {
                         val file = File(it)
@@ -180,7 +183,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         category = listCategoryId,
                         description = productDesc,
                         location = citySeller,
-                        image = selectedPicture
+                        image = uriToFile(Uri.parse(uri), requireContext())
                     )
                 }
             }
@@ -191,11 +194,11 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     val productDesc = etDeskripsi.text.toString()
                     val categoryProduct = etKategory.text.toString()
 
-                    bundle.putString(NAMA_PRODUK_KEY, productName)
-                    bundle.putString(HARGA_PRODUK_KEY, productPrice.toString())
-                    bundle.putString(DESKRIPSI_PRODUK_KEY, productDesc)
-                    bundle.putString(KATEGORI_PRODUK_KEY, categoryProduct)
-                    bundle.putString(IMAGE_PRODUK_KEY, selectedPicture.toString())
+                    bundle.putString(TITLE_PRODUCT, productName)
+                    bundle.putString(PRICE_PRODUCT, productPrice.toString())
+                    bundle.putString(DESC_PRODUCT, productDesc)
+                    bundle.putString(CATEGORY_PRODUCT, categoryProduct)
+                    bundle.putString(IMAGE_PRODUCT, uri)
 
                     findNavController().navigate(R.id.action_sellFragment_to_previewProductFragment, bundle)
                 }
@@ -300,6 +303,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     token = it.access_token
                     viewModel.getUserData(it.access_token)
                     Log.d ("token", token)
+                    bundle.putString(USER_TOKEN,it.access_token)
                 }
             }
             viewModel.getUserDataResult().observe(viewLifecycleOwner){
@@ -331,9 +335,10 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                                 citySeller = it.data.city
                                 Log.d("City", citySeller)
                                 //Bundle
-                                bundle.putString(NAME_USER_KEY, it.data.fullName)
-                                bundle.putString(ADDRESS_USER_KEY, it.data.address)
-                                bundle.putString(IMAGE_USER_KEY, it.data.imageUrl.toString())
+                                bundle.putString(CITY_USER,it.data.city)
+                                bundle.putString(NAME_USER, it.data.fullName)
+                                bundle.putString(IMAGE_USER, it.data.imageUrl.toString())
+
                             }
                         }
                     }
