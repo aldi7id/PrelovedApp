@@ -7,6 +7,7 @@ interface CategoryDataSource {
 
     suspend fun getCategoryAll(): CategoryResponse
     suspend fun getCategoryById(categoryById : Int) : CategoryResponse
+    suspend fun getSearchProduct(search: String): CategoryResponse
     suspend fun getDetailProduct(detailById: Int): CategoryDetailResponse
 
 }

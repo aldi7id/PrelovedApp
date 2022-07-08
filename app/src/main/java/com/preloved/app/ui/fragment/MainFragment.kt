@@ -24,20 +24,29 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val navView : BottomNavigationView = binding.navigationBar
-        val navController = activity?.findNavController(R.id.fragmentContainerView)
-        navController?.let {
-            navView.setupWithNavController(navController)
-        }
-        navController?.addOnDestinationChangedListener{ _, destination, _ ->
-            when(destination.id){
-                R.id.loginFragment3 -> {
-                    binding.navigationBar.visibility = View.GONE
-                } else -> {
-                    binding.navigationBar.visibility = View.VISIBLE
-                }
+        binding.apply {
+            val navView : BottomNavigationView = navigationBar
+            val navController = activity?.findNavController(R.id.fragmentContainerView)
+            navController?.let {
+                navView.setupWithNavController(navController)
             }
+            navController?.addOnDestinationChangedListener{ _, destination, _ ->
+                when(destination.id){
+                    R.id.loginFragment3 -> {
+                        navigationBar.visibility = View.GONE
+                    }
+                    R.id.detailProductFragment -> {
+                        navigationBar.visibility = View.GONE
+                    }
+                    R.id.searchProductFragment -> {
+                        navigationBar.visibility = View.GONE
+                    }
+                    else -> {
+                        navigationBar.visibility = View.VISIBLE
+                    }
+                }
 
+            }
         }
     }
 }

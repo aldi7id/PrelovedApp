@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import com.preloved.app.R
 import com.preloved.app.databinding.FragmentHomeBinding
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllFragment
 import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerFragment
@@ -27,7 +29,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onClick()
         tabLayoutView()
+    }
+
+    private fun onClick() {
+        binding.apply {
+            svSearchItem.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_searchProductFragment)
+            }
+        }
     }
 
     private fun tabLayoutView() {

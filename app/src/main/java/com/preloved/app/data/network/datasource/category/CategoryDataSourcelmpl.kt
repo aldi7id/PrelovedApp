@@ -13,6 +13,10 @@ class CategoryDataSourcelmpl(private val categoryService: CategoryService) : Cat
         return categoryService.getFilterCategoryByID(categoryById)
     }
 
+    override suspend fun getSearchProduct(search: String): CategoryResponse {
+        return categoryService.getSearchProduct(search)
+    }
+
     override suspend fun getDetailProduct(detailById: Int): CategoryDetailResponse {
         return categoryService.getDetailCategoryById(detailById)
     }

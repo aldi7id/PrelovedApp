@@ -5,6 +5,7 @@ import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllViewMo
 import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodViewModel
+import com.preloved.app.ui.fragment.homepage.home.search.SearchProductViewModel
 import com.preloved.app.ui.fragment.login.LoginViewModel
 import com.preloved.app.ui.fragment.splash.SplashViewModel
 import com.preloved.app.ui.fragment.register.RegisterViewModel
@@ -15,6 +16,7 @@ val viewModelModule = module {
     viewModelOf(::SplashViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::SearchProductViewModel)
     viewModelOf(::CategoryAllViewModel)
     viewModelOf(::CategoryFoodViewModel)
     viewModelOf(::CategoryElectronicViewModel)
