@@ -4,6 +4,7 @@ import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
 import com.preloved.app.data.network.model.response.*
+import retrofit2.Response
 import java.io.File
 
 interface UserDataSource {
@@ -32,5 +33,7 @@ interface UserDataSource {
     ) : PostProductResponse
     suspend fun getCategoryData(): List<CategoryResponseItem>
     suspend fun getUserData(token: String): UserResponse
+    suspend fun getSellerProduct(token: String): List<SellerProductResponseItem>
+    suspend fun deleteSellerProduct(token: String, id: Int): Response<SellerProductResponseItem>
 
    }

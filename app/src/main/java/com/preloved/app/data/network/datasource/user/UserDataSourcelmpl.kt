@@ -12,6 +12,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Response
 import java.io.File
 
 class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserDataSource {
@@ -27,6 +28,17 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
     }
     override suspend fun getUserData(token: String): UserResponse {
         return preLovedService.getUserData(token)
+    }
+
+    override suspend fun getSellerProduct(token: String): List<SellerProductResponseItem> {
+        return preLovedService.getSellerProduct(token)
+    }
+
+    override suspend fun deleteSellerProduct(
+        token: String,
+        id: Int
+    ): Response<SellerProductResponseItem> {
+        return preLovedService.deleteSellerProduct(token, id)
     }
 
     override suspend fun updateProfileData(token: String,

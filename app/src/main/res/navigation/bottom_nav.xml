@@ -39,7 +39,17 @@
         android:id="@+id/saleFragment"
         android:name="com.preloved.app.ui.fragment.homepage.sale.SaleFragment"
         android:label="fragment_sale"
-        tools:layout="@layout/fragment_sale" />
+        tools:layout="@layout/fragment_sale" >
+        <action
+            android:id="@+id/action_saleFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_saleFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_saleFragment_to_loginFragment3"
+            app:destination="@id/loginFragment3" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.preloved.app.ui.fragment.homepage.account.AccountFragment"

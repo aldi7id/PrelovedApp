@@ -8,6 +8,7 @@ import okhttp3.Interceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -35,6 +36,15 @@ interface PreLovedService {
 
     @GET("seller/category")
     suspend fun getCategoryData() : List<CategoryResponseItem>
+
+    @GET("seller/product")
+    suspend fun getSellerProduct(@Header("access_token") token: String): List<SellerProductResponseItem>
+
+    @DELETE("seller/product/{id}")
+    suspend fun deleteSellerProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): Response<SellerProductResponseItem>
 
     companion object {
         @JvmStatic
