@@ -5,6 +5,8 @@ import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
 import com.preloved.app.data.network.model.response.*
+import com.preloved.app.data.network.model.response.auth.LoginResponse
+import com.preloved.app.data.network.model.response.auth.RegisterResponse
 import com.preloved.app.data.network.services.PreLovedService
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType

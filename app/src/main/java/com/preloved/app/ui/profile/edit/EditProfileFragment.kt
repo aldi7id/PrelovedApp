@@ -1,6 +1,7 @@
 package com.preloved.app.ui.profile.edit
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -15,9 +17,11 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
+import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.databinding.FragmentEditProfileBinding
-import com.preloved.app.ui.fragment.homepage.account.AccountFragment.Companion.USER_TOKEN
+import com.preloved.app.ui.fragment.homepage.account.AccountFragment
+import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.USER_TOKEN
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -25,6 +29,9 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
     FragmentEditProfileBinding::inflate
 ), EditProfileContract.View {
     private var selectedPicture: File? = null
+    private var token = ""
+
+
     override val viewModel: EditProfileViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,6 +118,28 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
         }
     override fun observeData() {
         super.observeData()
+        viewModel.userSessionResult().observe(viewLifecycleOwner) {
+            if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
+                AlertDialog.Builder(context)
+                    .setTitle("Warning")
+                    .setMessage("Kamu Belum Login Nih")
+                    .setPositiveButton("Login") { dialogP, _ ->
+                        //ToLogin Fragment
+                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+                        dialogP.dismiss()
+                    }
+                    .setNegativeButton("Tidak") { dialogN, _ ->
+                        //ToHomeFragment
+                        findNavController().navigate(R.id.homeFragment)
+                        dialogN.dismiss()
+                    }
+                    .setCancelable(false)
+                    .show()
+                //viewModel.checkLogin().removeObserver(viewLifecycleOwner)
+            } else {
+                token = it.access_token
+            }
+        }
         viewModel.getProfileLiveData().observe(viewLifecycleOwner) { response ->
             when(response){
                 is Resource.Loading -> {
@@ -121,6 +150,7 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
                     showLoading(false)
                     showContent(true)
                     response.data?.let { setDataToView(it) }
+
                 }
                 is Resource.Error -> {
                     showLoading(false)
@@ -183,9 +213,7 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
             btnChange.setOnClickListener {
 
             if (checkFormValidation()) {
-                val bundle = arguments
-                val token = bundle?.getString(USER_TOKEN)
-                Log.d("token edit", token.toString())
+                Log.d("token edit", token)
                 if (token != null) {
                     viewModel.updateProfileData(
                         token = token.toString(),

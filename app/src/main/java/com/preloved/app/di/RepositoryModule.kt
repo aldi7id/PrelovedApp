@@ -2,11 +2,17 @@ package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
+import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerRepository
+import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodViewModel
+import com.preloved.app.ui.fragment.homepage.sale.SaleRepository
+import com.preloved.app.ui.fragment.homepage.sell.SellRepository
+import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductRepository
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
+import com.preloved.app.ui.profile.edit.EditProfileRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 

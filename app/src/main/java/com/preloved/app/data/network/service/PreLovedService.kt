@@ -4,6 +4,8 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.*
+import com.preloved.app.data.network.model.response.auth.LoginResponse
+import com.preloved.app.data.network.model.response.auth.RegisterResponse
 import okhttp3.Interceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient

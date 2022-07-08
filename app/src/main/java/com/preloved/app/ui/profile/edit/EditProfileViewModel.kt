@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
-import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -4,7 +4,6 @@ import com.preloved.app.base.arch.BaseRepositorylmpl
 import com.preloved.app.data.local.datasource.LocalDataSource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
-import com.preloved.app.data.network.model.response.LoginResponse
 import com.preloved.app.data.network.model.response.UserResponse
 import kotlinx.coroutines.flow.Flow
 import java.io.File
