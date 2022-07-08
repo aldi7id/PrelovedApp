@@ -48,7 +48,8 @@ interface PreLovedService {
     @GET("seller/order")
     suspend fun getSellerOrder(@Header("access_token") token: String): List<SellerOrderResponse>
     @GET("seller/order")
-    suspend fun getSellerOrderAccepted(@Query("status") status: String): List<SellerOrderResponse>
+    suspend fun getSellerOrderAccepted(@Header("access_token") token: String,
+                                       @Query("status")  status: String): List<SellerOrderResponse>
 
     companion object {
         @JvmStatic

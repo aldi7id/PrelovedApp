@@ -29,6 +29,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     private var token = ""
     private val bundleEdit = Bundle()
     private val bundlePenawar = Bundle()
+    private var status = "accepted"
 
     companion object {
         const val USER_TOKEN = "UserToken"
@@ -56,10 +57,44 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     }
 
     override fun setOnClickListeners() {
+        getViewBinding().btnTerjual.setOnClickListener {
+            getViewBinding().apply {
+                rvProduct.visibility = View.GONE
+                rvDiminati.visibility = View.GONE
+                btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnDiminati.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnTerjual.setBackgroundColor(Color.parseColor("#06283D"))
+            }
+            viewModel.getSellerProductOrderAccepted(token,status)
+            viewModel.getSellerProductOrderAcceptedResult().observe(viewLifecycleOwner){
+                when (it) {
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        val saleOrderAcceptedAdapter = SaleAcceptedAdapter()
+                        saleOrderAcceptedAdapter.submitData(it.data)
+                        getViewBinding().rvTerjual.adapter = saleOrderAcceptedAdapter
+                        getViewBinding().rvTerjual.visibility = View.VISIBLE
+                        if (it.data?.size == 0) {
+                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                    }
+
+                    }
+                    is Resource.Error -> {
+
+                    }
+                }
+            }
+        }
         getViewBinding().btnDiminati.setOnClickListener {
-            getViewBinding().rvProduct.visibility = View.GONE
-            getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
-            getViewBinding().btnDiminati.setBackgroundColor(Color.parseColor("#06283D"))
+            getViewBinding().apply {
+                rvProduct.visibility = View.GONE
+                rvTerjual.visibility = View.GONE
+                btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnDiminati.setBackgroundColor(Color.parseColor("#06283D"))
+                btnTerjual.setBackgroundColor(Color.parseColor("#EC698F"))
+            }
             viewModel.getSellerProductOrder(token)
             viewModel.getSellerProductOrderResult().observe(viewLifecycleOwner){
 
@@ -129,11 +164,14 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
             }
         }
         getViewBinding().btnProduk.setOnClickListener {
-            viewModel.getSellerProduct(token)
-            getViewBinding().rvDiminati.visibility = View.GONE
             getViewBinding().apply {
+                rvDiminati.visibility = View.GONE
+                rvTerjual.visibility = View.GONE
+                btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                 btnDiminati.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnTerjual.setBackgroundColor(Color.parseColor("#EC698F"))
             }
+            viewModel.getSellerProduct(token)
             viewModel.getSellerProductResult().observe(viewLifecycleOwner){
                 when (it) {
                     is Resource.Loading -> {

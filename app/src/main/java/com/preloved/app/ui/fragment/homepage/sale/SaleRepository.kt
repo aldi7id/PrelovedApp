@@ -36,4 +36,11 @@ class SaleRepository(private val userDataSource: UserDataSource,
     override suspend fun getSellerProductOrder(token: String): List<SellerOrderResponse> {
         return userDataSource.getSellerProductOrder(token)
     }
+
+    override suspend fun getSellerProductOrderAccepted(
+        token: String,
+        status: String
+    ): List<SellerOrderResponse> {
+        return userDataSource.getSellerProductOrderAccepted(token,status)
+    }
 }

@@ -23,7 +23,8 @@ interface SaleContract {
         fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>>
         fun getSellerProductOrder(token: String)
         fun getSellerProductOrderResult(): LiveData<Resource<List<SellerOrderResponse>>>
-
+        fun getSellerProductOrderAccepted(token: String, status: String)
+        fun getSellerProductOrderAcceptedResult(): LiveData<Resource<List<SellerOrderResponse>>>
     }
 
     interface Repository {
@@ -32,5 +33,6 @@ interface SaleContract {
         suspend fun getUserData(token: String): UserResponse
         suspend fun userSession(): Flow<DatastorePreferences>
         suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
+        suspend fun getSellerProductOrderAccepted(token: String, status: String): List<SellerOrderResponse>
     }
 }

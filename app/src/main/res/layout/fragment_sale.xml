@@ -211,8 +211,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/item_product_home" />
+                tools:listitem="@layout/item_selled" />
 
             <View
                 android:id="@+id/view_bottom"
