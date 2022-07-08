@@ -1,4 +1,4 @@
-package com.preloved.app.data.network.model.response
+package com.preloved.app.data.network.model.response.auth
 
 
 import com.google.gson.annotations.SerializedName

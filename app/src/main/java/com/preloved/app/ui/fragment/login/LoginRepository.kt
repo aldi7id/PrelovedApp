@@ -5,7 +5,7 @@ import com.preloved.app.data.local.datasource.LocalDataSource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.request.auth.LoginRequest
-import com.preloved.app.data.network.model.response.LoginResponse
+import com.preloved.app.data.network.model.response.auth.LoginResponse
 
 class LoginRepository(
     private val localDataSource: LocalDataSource,

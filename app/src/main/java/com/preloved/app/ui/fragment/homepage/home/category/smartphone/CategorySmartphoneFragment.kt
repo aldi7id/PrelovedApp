@@ -1,30 +1,26 @@
-package com.preloved.app.ui.fragment.homepage.home.category.food
+package com.preloved.app.ui.fragment.homepage.home.category.smartphone
 
 import androidx.core.view.isVisible
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
-import com.preloved.app.databinding.FragmentCategoryFoodBinding
+import com.preloved.app.databinding.FragmentCategorySmartphoneBinding
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryFoodViewModel>(
-    FragmentCategoryFoodBinding::inflate
-), CategoryFoodContract.View {
-    override val viewModel: CategoryFoodViewModel by viewModel()
+class CategorySmartphoneFragment : BaseFragment<FragmentCategorySmartphoneBinding, CategorySmartphoneViewModel>(
+    FragmentCategorySmartphoneBinding::inflate
+), CategorySmartphoneContract.View {
+    override val viewModel: CategorySmartphoneViewModel by viewModel()
+
     override fun initView() {
-        getDataFoodCategory()
-        onClick()
+        getCategory()
     }
 
-    private fun onClick() {
-        getViewBinding().apply {
-
+    override fun getCategory() {
+        viewModel.apply {
+            getDataById(98)
         }
-    }
-
-    override fun getDataFoodCategory() {
-        viewModel.getDataFoodCategory(105)
     }
 
     override fun showLoading(isVisible: Boolean) {
@@ -32,15 +28,15 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
     }
 
     override fun observeData() {
-        viewModel.apply {
-            getFoodCategoryResult().observe(viewLifecycleOwner) {
-                when (it) {
+        with(viewModel) {
+            getDataCategoryResult().observe(viewLifecycleOwner) {
+                when(it) {
                     is Resource.Loading -> {
                         showLoading(true)
                     }
                     is Resource.Success -> {
                         showLoading(false)
-                        setCategoryFood(it.data)
+                        getDataCategory(it.data)
                     }
                     is Resource.Error -> {
                         showLoading(false)
@@ -50,14 +46,14 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
         }
     }
 
-    private fun setCategoryFood(data: CategoryResponse?) {
+    private fun getDataCategory(data: CategoryResponse?) {
         viewModel.apply {
             with(getViewBinding()) {
-                val listCategoryAdapter = CategoryAllAdapter {
+                val listAdapter = CategoryAllAdapter{
 
                 }
-                listCategoryAdapter.submitList(data)
-                rvCategory.adapter = listCategoryAdapter
+                listAdapter.submitList(data)
+                rvCategory.adapter = listAdapter
             }
         }
     }
