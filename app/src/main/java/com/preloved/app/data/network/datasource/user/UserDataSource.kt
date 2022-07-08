@@ -35,5 +35,5 @@ interface UserDataSource {
     suspend fun getUserData(token: String): UserResponse
     suspend fun getSellerProduct(token: String): List<SellerProductResponseItem>
     suspend fun deleteSellerProduct(token: String, id: Int): Response<SellerProductResponseItem>
-
+    suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
    }

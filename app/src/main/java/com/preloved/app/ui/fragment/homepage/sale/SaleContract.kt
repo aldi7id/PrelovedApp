@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.model.response.CategoryResponseItem
+import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.data.network.model.response.UserResponse
 import kotlinx.coroutines.flow.Flow
@@ -11,6 +12,7 @@ import retrofit2.Response
 
 interface SaleContract {
     interface View {
+        fun setOnClickListeners()
     }
     interface ViewModel {
         fun userSession()
@@ -19,6 +21,9 @@ interface SaleContract {
         fun getUserData(token: String)
         fun getSellerProduct(token: String)
         fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>>
+        fun getSellerProductOrder(token: String)
+        fun getSellerProductOrderResult(): LiveData<Resource<List<SellerOrderResponse>>>
+
     }
 
     interface Repository {
@@ -26,5 +31,6 @@ interface SaleContract {
         suspend fun deleteSellerProduct(token: String, id : Int) : Response<SellerProductResponseItem>
         suspend fun getUserData(token: String): UserResponse
         suspend fun userSession(): Flow<DatastorePreferences>
+        suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
     }
 }

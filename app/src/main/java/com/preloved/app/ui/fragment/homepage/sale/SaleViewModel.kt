@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
+import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.ui.fragment.homepage.account.AccountContract
@@ -16,6 +17,7 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()
     private val _getUserData = MutableLiveData<Resource<UserResponse>>()
     private val _product: MutableLiveData<Resource<List<SellerProductResponseItem>>> = MutableLiveData()
+    private val _order: MutableLiveData<Resource<List<SellerOrderResponse>>> = MutableLiveData()
 
     override fun userSession() {
         viewModelScope.launch {
@@ -60,6 +62,21 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     }
 
     override fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>> = _product
+    override fun getSellerProductOrder(token: String) {
+        viewModelScope.launch {
+            try {
+                viewModelScope.launch(Dispatchers.Main){
+                    _order.value = Resource.Success(saleRepository.getSellerProductOrder(token))
+                }
+            } catch (e: Exception){
+                viewModelScope.launch(Dispatchers.Main) {
+                    _order.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    override fun getSellerProductOrderResult(): LiveData<Resource<List<SellerOrderResponse>>> = _order
 
 
 }

@@ -2,8 +2,10 @@ package com.preloved.app.ui
 
 import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Environment
+import android.widget.TextView
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -54,4 +56,62 @@ fun uriToFile(
     inputStream.close()
 
     return myFile
+}
+fun striketroughtText(tv: TextView, textChange: String): String {
+    tv.paintFlags = tv.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    return textChange
+}
+fun convertDate(date: String): String {
+    var kotlin = date
+    kotlin = kotlin.drop(5)
+    var bulan = kotlin.take(2)
+    kotlin = kotlin.drop(3)
+    val tanggal = kotlin.take(2)
+    kotlin = kotlin.drop(3)
+    val jam = kotlin.take(2)
+    kotlin = kotlin.drop(3)
+    val menit = kotlin.take(2)
+
+    when (bulan) {
+        "01" -> {
+            bulan = "Jan"
+        }
+        "02" -> {
+            bulan = "Feb"
+        }
+        "03" -> {
+            bulan = "Mar"
+        }
+        "04" -> {
+            bulan = "Apr"
+        }
+        "05" -> {
+            bulan = "Mei"
+        }
+        "06" -> {
+            bulan = "Jun"
+        }
+        "07" -> {
+            bulan = "Jul"
+        }
+        "08" -> {
+            bulan = "Agu"
+        }
+        "09" -> {
+            bulan = "Sep"
+        }
+        "10" -> {
+            bulan = "Okt"
+        }
+        "11" -> {
+            bulan = "Nov"
+        }
+        "12" -> {
+            bulan = "Des"
+        }
+    }
+
+    return "$tanggal $bulan, $jam:$menit"
+
+
 }

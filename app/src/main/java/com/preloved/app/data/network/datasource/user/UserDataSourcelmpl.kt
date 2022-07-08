@@ -41,6 +41,10 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.deleteSellerProduct(token, id)
     }
 
+    override suspend fun getSellerProductOrder(token: String): List<SellerOrderResponse> {
+        return preLovedService.getSellerOrder(token)
+    }
+
     override suspend fun updateProfileData(token: String,
                                            email: String,
                                            nama: String,

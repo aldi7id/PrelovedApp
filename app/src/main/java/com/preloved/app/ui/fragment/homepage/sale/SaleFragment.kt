@@ -17,6 +17,7 @@ import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
+import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentSaleBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +28,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     private val bundle = Bundle()
     private var token = ""
     private val bundleEdit = Bundle()
+    private val bundlePenawar = Bundle()
 
     companion object {
         const val USER_TOKEN = "UserToken"
@@ -44,16 +46,145 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
         const val PRODUCT_BID_DATE = "ProductBidDate"
         const val PRODUCT_ID = "productId"
     }
+
     override fun initView() {
         viewModel.userSession()
         getViewBinding().btnEdit.setOnClickListener {
             findNavController().navigate(R.id.action_saleFragment_to_editProfileFragment, bundle)
         }
+        setOnClickListeners()
+    }
+
+    override fun setOnClickListeners() {
+        getViewBinding().btnDiminati.setOnClickListener {
+            getViewBinding().rvProduct.visibility = View.GONE
+            getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
+            getViewBinding().btnDiminati.setBackgroundColor(Color.parseColor("#06283D"))
+            viewModel.getSellerProductOrder(token)
+            viewModel.getSellerProductOrderResult().observe(viewLifecycleOwner){
+
+                when (it) {
+                    is Resource.Loading -> {
+                        getViewBinding().apply {
+                            showLoading(true)
+                            rvProduct.visibility = View.GONE
+                            rvDiminati.visibility = View.GONE
+                            rvTerjual.visibility = View.GONE
+                            lottieEmpty.visibility = View.GONE
+                        }
+                    }
+                    is Resource.Success -> {
+                        showLoading(false)
+                        if (it.data != null) {
+                            val sellerOrderAdapter =
+                                SaleOrderAdapter(object : SaleOrderAdapter.OnClickListener {
+                                    override fun onClickItem(data: SellerOrderResponse) {
+                                        bundlePenawar.putString(
+                                            USER_NAME,
+                                            data.buyerInformation.fullName
+                                        )
+                                        bundlePenawar.putString(
+                                            USER_CITY,
+                                            data.buyerInformation.city.toString()
+                                        )
+                                        bundlePenawar.putInt(ORDER_ID, data.id)
+                                        bundlePenawar.putString(ORDER_STATUS, data.status)
+                                        bundlePenawar.putString(PRODUCT_NAME, data.product.name)
+                                        bundlePenawar.putString(
+                                            PRODUCT_PRICE,
+                                            data.product.basePrice.toString()
+                                        )
+                                        bundlePenawar.putString(
+                                            PRODUCT_BID,
+                                            data.price.toString()
+                                        )
+                                        bundlePenawar.putString(
+                                            PRODUCT_IMAGE,
+                                            data.product.imageUrl
+                                        )
+                                        bundlePenawar.putString(
+                                            PRODUCT_BID_DATE,
+                                            data.createdAt
+                                        )
+//                                        findNavController().navigate(
+//                                            R.id.action_daftarJualFragment_to_infoPenawarFragment,
+//                                            bundlePenawar
+//                                        )
+                                    }
+                                })
+                            sellerOrderAdapter.submitData(it.data)
+                            getViewBinding().rvDiminati.adapter = sellerOrderAdapter
+                            getViewBinding().rvDiminati.visibility = View.VISIBLE
+
+                        }
+                        if (it.data?.size == 0) {
+                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                        }
+                        //binding.pbLoading.visibility = View.GONE
+                    }
+                    is Resource.Error -> {
+
+                    }
+                }
+            }
+        }
+        getViewBinding().btnProduk.setOnClickListener {
+            viewModel.getSellerProduct(token)
+            getViewBinding().rvDiminati.visibility = View.GONE
+            getViewBinding().apply {
+                btnDiminati.setBackgroundColor(Color.parseColor("#EC698F"))
+            }
+            viewModel.getSellerProductResult().observe(viewLifecycleOwner){
+                when (it) {
+                    is Resource.Loading -> {
+                        getViewBinding().apply {
+                            showLoading(true)
+                        }
+                    }
+                    is Resource.Success -> {
+                        if (it.data != null) {
+                            val saleProductAdapter =
+                                SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
+                                    var listCategory = ""
+                                    override fun onClickItem(data: SellerProductResponseItem) {
+                                        bundleEdit.apply {
+                                            putInt(PRODUCT_ID, data.id)
+                                            putString(PRODUCT_NAME, data.name)
+                                            putInt(PRODUCT_PRICE, data.basePrice)
+                                            for (kategory in data.categories){
+                                                listCategory += ",${kategory.name}"
+                                            }
+                                            putString(PRODUCT_CATEGORY, listCategory.drop(2))
+                                            putString(PRODUCT_DESCRIPTION, data.description)
+                                            putString(PRODUCT_IMAGE, data.imageUrl)
+                                        }
+                                        //EditProductNavigasi
+                                    }
+                                })
+                            saleProductAdapter.submitData(it.data)
+                            getViewBinding().rvProduct.adapter = saleProductAdapter
+                            getViewBinding().rvProduct.visibility = View.VISIBLE
+                        }
+                        if (it.data?.size == 0){
+                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                        }
+                        getViewBinding().buttonGrup.visibility = View.VISIBLE
+                        //pbloading
+                        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
 
     override fun showLoading(isVisible: Boolean) {
         super.showLoading(isVisible)
         getViewBinding().pbLoadingUser.isVisible = isVisible
+        getViewBinding().pbLoading.isVisible = isVisible
     }
 
     override fun observeData() {
@@ -118,6 +249,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                     }
                     is Resource.Success -> {
+                        showLoading(false)
                     if (it.data != null) {
                         val saleProductAdapter =
                             SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
