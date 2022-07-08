@@ -16,6 +16,7 @@ interface PreviewProductContract {
     }
 
     interface ViewModel {
+        fun postResultProductData() : MutableLiveData<Resource<PostProductResponse>>
         fun postProductData(token: String,
                             name: String,
                             description: String,

@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -14,6 +16,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
+import com.preloved.app.base.model.Resource
 import com.preloved.app.databinding.FragmentPreviewProductBinding
 import com.preloved.app.ui.fragment.homepage.account.AccountFragment
 import com.preloved.app.ui.fragment.homepage.home.HomeFragment
@@ -103,6 +106,37 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
                         negativeButton.dismiss()
                     }
                     .show()
+            }
+            viewModel.postResultProductData().observe(viewLifecycleOwner){ response ->
+                when(response) {
+                    is Resource.Loading -> {
+                        showLoading(true)
+                    }
+                    is Resource.Success -> {
+                        showLoading(false)
+                        showToastSuccess()
+                        findNavController().navigate(R.id.action_previewProductFragment_to_saleFragment)
+                        Toast.makeText(requireContext(), "Add Product Success!", Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Error -> {
+                        showLoading(false)
+                        showError(true, response.message)
+                        var message = ""
+                        when(response.message){
+                            "HTTP 400 Bad Request" -> {
+                                message = "Max Upload 5 Product"
+                            }
+                        }
+                        AlertDialog.Builder(context)
+                            .setTitle("Maaf")
+                            .setMessage(message)
+                            .setPositiveButton("Mengerti") { positiveButton, _ ->
+                                positiveButton.dismiss()
+                            }
+                            .show()
+                    }
+                }
+
             }
         }
 

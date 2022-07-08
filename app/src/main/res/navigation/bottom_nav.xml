@@ -81,5 +81,11 @@
     <fragment
         android:id="@+id/previewProductFragment"
         android:name="PreviewProductFragment"
-        android:label="PreviewProductFragment" />
+        android:label="PreviewProductFragment" >
+        <action
+            android:id="@+id/action_previewProductFragment_to_saleFragment"
+            app:destination="@id/saleFragment"
+            app:popUpTo="@id/previewProductFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -13,6 +13,8 @@ import java.lang.Exception
 
 class PreviewProductViewModel(val previewProductRepository: PreviewProductRepository): BaseViewModellmpl(), PreviewProductContract.ViewModel {
     private val postProductLiveData = MutableLiveData<Resource<PostProductResponse>>()
+    override fun postResultProductData(): MutableLiveData<Resource<PostProductResponse>> = postProductLiveData
+
     override fun postProductData(
         token: String,
         name: String,
