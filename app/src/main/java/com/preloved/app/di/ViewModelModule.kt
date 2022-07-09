@@ -5,6 +5,7 @@ import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllViewMo
 import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodViewModel
+import com.preloved.app.ui.fragment.homepage.notification.NotificationViewModel
 import com.preloved.app.ui.fragment.homepage.sale.SaleViewModel
 import com.preloved.app.ui.fragment.homepage.sell.SellViewModel
 import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductViewModel
@@ -28,4 +29,5 @@ val viewModelModule = module {
     viewModelOf(::SellViewModel)
     viewModelOf(::PreviewProductViewModel)
     viewModelOf(::SaleViewModel)
+    viewModelOf(::NotificationViewModel)
 }

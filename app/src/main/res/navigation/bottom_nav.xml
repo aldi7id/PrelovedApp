@@ -14,7 +14,11 @@
         android:id="@+id/notificationFragment"
         android:name="com.preloved.app.ui.fragment.homepage.notification.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_loginFragment3"
+            app:destination="@id/loginFragment3" />
+    </fragment>
     <fragment
         android:id="@+id/sellFragment"
         android:name="com.preloved.app.ui.fragment.homepage.sell.SellFragment"

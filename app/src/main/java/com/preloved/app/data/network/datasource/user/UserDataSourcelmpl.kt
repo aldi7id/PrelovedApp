@@ -51,6 +51,10 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getSellerOrderAccepted(token, status)
     }
 
+    override suspend fun getNotification(token: String): List<NotificationResponse> {
+        return preLovedService.getNotification(token)
+    }
+
     override suspend fun updateProfileData(token: String,
                                            email: String,
                                            nama: String,

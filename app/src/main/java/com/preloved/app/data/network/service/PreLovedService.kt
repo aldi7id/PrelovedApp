@@ -53,6 +53,11 @@ interface PreLovedService {
     suspend fun getSellerOrderAccepted(@Header("access_token") token: String,
                                        @Query("status")  status: String): List<SellerOrderResponse>
 
+    // NOTIFICATION
+    @GET("notification")
+    suspend fun getNotification(@Header("access_token") token: String): List<NotificationResponse>
+
+
     companion object {
         @JvmStatic
         operator fun invoke(chuckerInterceptor: ChuckerInterceptor): PreLovedService{

@@ -6,6 +6,7 @@ import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComp
 import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodRepository
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodViewModel
+import com.preloved.app.ui.fragment.homepage.notification.NotificationRepository
 import com.preloved.app.ui.fragment.homepage.sale.SaleRepository
 import com.preloved.app.ui.fragment.homepage.sell.SellRepository
 import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductRepository
@@ -29,4 +30,5 @@ val repositoryModule = module {
     singleOf(::SellRepository)
     singleOf(::PreviewProductRepository)
     singleOf(::SaleRepository)
+    singleOf(::NotificationRepository)
 }
