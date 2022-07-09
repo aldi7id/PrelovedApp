@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="none">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -185,6 +185,7 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="12dp"
                     android:text="Terjual"
+                    android:layout_marginEnd="20dp"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
             </LinearLayout>
