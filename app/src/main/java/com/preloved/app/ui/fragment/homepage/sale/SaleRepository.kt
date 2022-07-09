@@ -4,6 +4,7 @@ import com.preloved.app.base.arch.BaseRepositorylmpl
 import com.preloved.app.data.local.datasource.LocalDataSource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.ui.fragment.homepage.account.AccountContract
@@ -30,5 +31,16 @@ class SaleRepository(private val userDataSource: UserDataSource,
 
     override suspend fun userSession(): Flow<DatastorePreferences> {
         return localDataSource.getUserSession()
+    }
+
+    override suspend fun getSellerProductOrder(token: String): List<SellerOrderResponse> {
+        return userDataSource.getSellerProductOrder(token)
+    }
+
+    override suspend fun getSellerProductOrderAccepted(
+        token: String,
+        status: String
+    ): List<SellerOrderResponse> {
+        return userDataSource.getSellerProductOrderAccepted(token,status)
     }
 }
