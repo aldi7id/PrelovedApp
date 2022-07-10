@@ -37,4 +37,5 @@ interface UserDataSource {
     suspend fun deleteSellerProduct(token: String, id: Int): Response<SellerProductResponseItem>
     suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
     suspend fun getSellerProductOrderAccepted(token: String, status: String) : List<SellerOrderResponse>
+    suspend fun getSellerProductId(token: String, id:Int): List<SellerProductResponseItem>
    }
