@@ -3,6 +3,7 @@ package com.preloved.app.ui.fragment.homepage.sale
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +36,6 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
         const val USER_TOKEN = "UserToken"
         const val USER_NAME = "UserName"
         const val USER_CITY = "UserCity"
-        const val USER_IMAGE = "UserCity"
         const val ORDER_ID = "OrderId"
         const val ORDER_STATUS = "OrderStatus"
         const val PRODUCT_IMAGE = "ProductImage"
@@ -59,6 +59,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     override fun setOnClickListeners() {
         getViewBinding().btnTerjual.setOnClickListener {
             getViewBinding().apply {
+                addProductCard.visibility = View.GONE
                 rvProduct.visibility = View.GONE
                 rvDiminati.visibility = View.GONE
                 btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
@@ -89,6 +90,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
         }
         getViewBinding().btnDiminati.setOnClickListener {
             getViewBinding().apply {
+                addProductCard.visibility = View.GONE
                 rvProduct.visibility = View.GONE
                 rvTerjual.visibility = View.GONE
                 btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
@@ -150,12 +152,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             sellerOrderAdapter.submitData(it.data)
                             getViewBinding().rvDiminati.adapter = sellerOrderAdapter
                             getViewBinding().rvDiminati.visibility = View.VISIBLE
+                        }
 
-                        }
-                        if (it.data?.size == 0) {
-                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
-                        }
-                        //binding.pbLoading.visibility = View.GONE
                     }
                     is Resource.Error -> {
 
@@ -165,6 +163,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
         }
         getViewBinding().btnProduk.setOnClickListener {
             getViewBinding().apply {
+                addProductCard.visibility = View.GONE
                 rvDiminati.visibility = View.GONE
                 rvTerjual.visibility = View.GONE
                 btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
@@ -248,6 +247,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                 bundle.putString(USER_TOKEN,it.access_token)
                 viewModel.getUserData(it.access_token)
                 token = it.access_token
+                viewModel.getSellerProduct(token)
             }
             viewModel.getUserDataResult().observe(viewLifecycleOwner){
                 when (it) {
@@ -275,7 +275,6 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     }
                 }
             }
-            viewModel.getSellerProduct(token)
             getViewBinding().apply {
                 btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
             }
@@ -284,6 +283,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     is Resource.Loading -> {
                         getViewBinding().apply {
                             //VISIBLE
+                            addProductCard.visibility = View.GONE
                         }
                     }
                     is Resource.Success -> {
@@ -311,19 +311,103 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         getViewBinding().rvProduct.adapter = saleProductAdapter
                         getViewBinding().rvProduct.visibility = View.VISIBLE
                     }
-                        if (it.data?.size == 0){
-                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                        when(it.data?.size){
+                            0 -> {
+                                getViewBinding().apply {
+                                    lottieEmpty.visibility = View.VISIBLE
+                                    tvLottieEmpty.visibility = View.VISIBLE
+                                    buttonGrup.visibility = View.GONE
+                                    addProductCard.visibility = View.VISIBLE
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                    tvAddProduct.text = "Add \n Product (0/5)"
+                                }
+                            }
+                            1 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    tvAddProduct.text = "Add \n Product (1/5)"
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+
+                            }
+                            2 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = "Add \n Product (2/5)"
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+
+                            }
+                            3 -> {
+                                getViewBinding().apply {
+                                addProductCard.visibility = View.VISIBLE
+                                lottieEmpty.visibility = View.GONE
+                                tvAddProduct.text = "Add \n Product (3/5)"
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                            }
+
+                            }
+                            4 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = "Add \n Product (4/5)"
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+                            }
+                            5 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = "Add \n Product (5/5)"
+                                    addProductCard.setOnClickListener {
+                                        AlertDialog.Builder(context)
+                                            .setTitle("Maaf")
+                                            .setMessage("Hampus Produk Kamu Dlu")
+                                            .setPositiveButton("Mengerti") { positiveButton, _ ->
+                                                positiveButton.dismiss()
+                                            }
+                                            .show()
+                                    }
+                                }
+                            }
                         }
-                        getViewBinding().buttonGrup.visibility = View.VISIBLE
                         //pbloading
                         getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                     }
                     is Resource.Error -> {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        var message = ""
+                        when(it.message){
+                            "HTTP 400 Bad Request" -> {
+                                message = "Server Error"
+                            }
+                        }
+                        AlertDialog.Builder(context)
+                            .setTitle("Maaf")
+                            .setMessage(message)
+                            .setPositiveButton("Mengerti") { positiveButton, _ ->
+                                positiveButton.dismiss()
+                            }
+                            .show()
                     }
                 }
             }
         }
+    }
+
+    private fun addProduct() {
+        findNavController().navigate(R.id.action_saleFragment_to_sellFragment)
     }
 
 }

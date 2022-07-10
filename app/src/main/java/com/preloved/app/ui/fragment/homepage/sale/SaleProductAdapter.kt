@@ -1,5 +1,6 @@
 package com.preloved.app.ui.fragment.homepage.sale
 
+import android.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.ItemProductHomeBinding
 import com.preloved.app.ui.currency
+
+
 
 class SaleProductAdapter(private val onItemClick: OnclickListener):
 RecyclerView.Adapter<SaleProductAdapter.ViewHolder>() {
@@ -32,6 +35,7 @@ RecyclerView.Adapter<SaleProductAdapter.ViewHolder>() {
     fun submitData(value: List<SellerProductResponseItem>?) = differ.submitList(value)
 
     inner class ViewHolder(private val  binding: ItemProductHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(data: SellerProductResponseItem) {
             binding.apply {
                 Glide.with(binding.root)
@@ -62,6 +66,13 @@ RecyclerView.Adapter<SaleProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+
+        if (viewType == 1) {
+            // inflate your first item layout & return that viewHolder
+
+        } else {
+            //return ViewHolder(ItemProductHomeBinding.inflate(inflater, parent, false))
+        }
         return ViewHolder(ItemProductHomeBinding.inflate(inflater, parent, false))
     }
 

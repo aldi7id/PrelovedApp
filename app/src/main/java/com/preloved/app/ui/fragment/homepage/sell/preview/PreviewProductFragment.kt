@@ -154,7 +154,7 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
         }
         val textView =
             snackBarView.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
-        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_add, 0)
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_close, 0)
         textView.compoundDrawablePadding = 16
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)

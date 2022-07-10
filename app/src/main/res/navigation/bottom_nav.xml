@@ -49,6 +49,11 @@
         <action
             android:id="@+id/action_saleFragment_to_loginFragment3"
             app:destination="@id/loginFragment3" />
+        <action
+            android:id="@+id/action_saleFragment_to_sellFragment"
+            app:destination="@id/sellFragment"
+            app:popUpTo="@id/saleFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -57,7 +62,9 @@
         tools:layout="@layout/fragment_account" >
         <action
             android:id="@+id/action_accountFragment_to_loginFragment3"
-            app:destination="@id/loginFragment3" />
+            app:destination="@id/loginFragment3"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_accountFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
