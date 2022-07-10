@@ -5,15 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.homepage.sale.SaleFragment">
-    <ProgressBar
-        android:id="@+id/pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -29,6 +21,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             />
+
     </androidx.appcompat.widget.Toolbar>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -190,6 +183,62 @@
                     android:textSize="14dp" />
             </LinearLayout>
         </HorizontalScrollView>
+            <com.google.android.material.card.MaterialCardView
+                android:visibility="gone"
+                android:id="@+id/add_product_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginVertical="8dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_image"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_produk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_add_product_100" />
+
+                        <TextView
+                            android:id="@+id/tv_add_product"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppinssemibold"
+                            android:maxLines="2"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:text="Add \n Product"
+                            android:textColor="@color/primary"
+                            android:textSize="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_product"
                 android:layout_width="match_parent"
@@ -214,13 +263,7 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/item_selled" />
 
-            <View
-                android:id="@+id/view_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="128dp"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <ImageView
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_empty"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
@@ -229,8 +272,34 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_grup"
-                android:src="@drawable/default_image"
-                />
+                app:lottie_autoPlay="true"
+                android:layout_gravity="center"
+                app:lottie_fileName="empty.json"
+                app:lottie_loop="true"
+                app:lottie_speed="1"/>
+            <TextView
+                android:id="@+id/tv_lottie_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textAlignment="center"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/poppinssemibold"
+                android:textSize="@dimen/subcontent"
+                android:text="No Product Show, Add First"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,6 +52,9 @@ interface PreLovedService {
     @GET("seller/order")
     suspend fun getSellerOrderAccepted(@Header("access_token") token: String,
                                        @Query("status")  status: String): List<SellerOrderResponse>
+    @GET("seller/product/{id}")
+    suspend fun getSellerProductId(@Header("access_token") token: String,
+                                   @Path("id") id:Int) : List<SellerProductResponseItem>
 
     // NOTIFICATION
     @GET("notification")

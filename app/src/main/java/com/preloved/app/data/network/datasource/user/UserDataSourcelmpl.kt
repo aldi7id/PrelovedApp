@@ -55,6 +55,13 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getNotification(token)
     }
 
+    override suspend fun getSellerProductId(
+        token: String,
+        id: Int
+    ): List<SellerProductResponseItem> {
+        return preLovedService.getSellerProductId(token,id)
+    }
+
     override suspend fun updateProfileData(token: String,
                                            email: String,
                                            nama: String,

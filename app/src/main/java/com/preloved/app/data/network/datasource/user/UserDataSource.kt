@@ -40,4 +40,5 @@ interface UserDataSource {
     suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
     suspend fun getSellerProductOrderAccepted(token: String, status: String) : List<SellerOrderResponse>
     suspend fun getNotification(token: String) : List<NotificationResponse>
+    suspend fun getSellerProductId(token: String, id:Int): List<SellerProductResponseItem>
    }
