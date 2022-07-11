@@ -9,6 +9,7 @@ import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodView
 import com.preloved.app.ui.fragment.homepage.notification.NotificationRepository
 import com.preloved.app.ui.fragment.homepage.sale.SaleRepository
 import com.preloved.app.ui.fragment.homepage.sell.SellRepository
+import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductRepository
 import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductRepository
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
@@ -31,4 +32,5 @@ val repositoryModule = module {
     singleOf(::PreviewProductRepository)
     singleOf(::SaleRepository)
     singleOf(::NotificationRepository)
+    singleOf(::EditProductRepository)
 }

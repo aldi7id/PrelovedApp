@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.ItemProductHomeBinding
 import com.preloved.app.ui.currency
-
+import com.preloved.app.ui.listCategoryId
 
 
 class SaleProductAdapter(private val onItemClick: OnclickListener):

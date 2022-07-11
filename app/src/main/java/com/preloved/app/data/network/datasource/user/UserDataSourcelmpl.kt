@@ -58,8 +58,34 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
     override suspend fun getSellerProductId(
         token: String,
         id: Int
-    ): List<SellerProductResponseItem> {
+    ): SellerProductResponseItem {
         return preLovedService.getSellerProductId(token,id)
+    }
+
+    override suspend fun updateSellerProduct(
+        token: String,
+        id: Int,
+        name: String,
+        description: String,
+        base_price: Int,
+        category: List<Int>,
+        location: String,
+        image: File?
+    ): PostProductResponse {
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("name",name)
+            .addFormDataPart("description",description)
+            .addFormDataPart("base_price", base_price.toString())
+            .addFormDataPart("category_ids", category.toList().toString())
+            .addFormDataPart("location", location)
+        if (image != null ) {
+            val requestFile = image.asRequestBody("image/jpg".toMediaType())
+            requestBodyBuilder.addFormDataPart(
+                "image", image.name, requestFile
+            )
+        }
+        return preLovedService.updateSellerProduct(token,id,requestBodyBuilder.build())
     }
 
     override suspend fun updateProfileData(token: String,

@@ -8,6 +8,7 @@ import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodView
 import com.preloved.app.ui.fragment.homepage.notification.NotificationViewModel
 import com.preloved.app.ui.fragment.homepage.sale.SaleViewModel
 import com.preloved.app.ui.fragment.homepage.sell.SellViewModel
+import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductViewModel
 import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductViewModel
 import com.preloved.app.ui.fragment.login.LoginViewModel
 import com.preloved.app.ui.fragment.splash.SplashViewModel
@@ -30,4 +31,5 @@ val viewModelModule = module {
     viewModelOf(::PreviewProductViewModel)
     viewModelOf(::SaleViewModel)
     viewModelOf(::NotificationViewModel)
+    viewModelOf(::EditProductViewModel)
 }

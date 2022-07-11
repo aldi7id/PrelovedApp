@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     (FragmentSaleBinding::inflate), SaleContract.View  {
     override val viewModel: SaleViewModel by viewModel()
+
     private val bundle = Bundle()
     private var token = ""
     private val bundleEdit = Bundle()
@@ -182,22 +182,33 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         if (it.data != null) {
                             val saleProductAdapter =
                                 SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
-                                    var listCategory = ""
+
                                     override fun onClickItem(data: SellerProductResponseItem) {
                                         bundleEdit.apply {
                                             putInt(PRODUCT_ID, data.id)
-                                            putString(PRODUCT_NAME, data.name)
-                                            putInt(PRODUCT_PRICE, data.basePrice)
-                                            for (kategory in data.categories){
-                                                listCategory += ",${kategory.name}"
-                                            }
-                                            putString(PRODUCT_CATEGORY, listCategory.drop(2))
-                                            putString(PRODUCT_DESCRIPTION, data.description)
-                                            putString(PRODUCT_IMAGE, data.imageUrl)
                                         }
-                                        //EditProductNavigasi
+                                        if(data.status == "available") {
+                                            findNavController().navigate(
+                                                R.id.action_saleFragment_to_editProductFragment, bundleEdit
+                                            )
+                                        } else {
+                                            AlertDialog.Builder(context)
+                                                .setTitle("Warning")
+                                                .setMessage("Kamu Tidak Bisa Edit Produk Yang Sold / Sedang Di Tawar")
+                                                .setPositiveButton("OKE") { dialogP, _ ->
+                                                    dialogP.dismiss()
+                                                }
+                                                .setNegativeButton("OKE") { dialogN, _ ->
+                                                    dialogN.dismiss()
+                                                }
+                                                .setCancelable(false)
+                                                .show()
+                                        }
                                     }
-                                })
+
+                                }
+
+                                )
                             saleProductAdapter.submitData(it.data)
                             getViewBinding().rvProduct.adapter = saleProductAdapter
                             getViewBinding().rvProduct.visibility = View.VISIBLE
@@ -291,20 +302,24 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     if (it.data != null) {
                         val saleProductAdapter =
                             SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
-                                var listCategory = ""
                                 override fun onClickItem(data: SellerProductResponseItem) {
                                    bundleEdit.apply {
                                        putInt(PRODUCT_ID, data.id)
-                                       putString(PRODUCT_NAME, data.name)
-                                       putInt(PRODUCT_PRICE, data.basePrice)
-                                       for (kategory in data.categories){
-                                           listCategory += ",${kategory.name}"
-                                       }
-                                       putString(PRODUCT_CATEGORY, listCategory.drop(2))
-                                       putString(PRODUCT_DESCRIPTION, data.description)
-                                       putString(PRODUCT_IMAGE, data.imageUrl)
                                    }
-                                    //EditProductNavigasi
+                                    if(data.status == "available") {
+                                        findNavController().navigate(
+                                            R.id.action_saleFragment_to_editProductFragment, bundleEdit
+                                        )
+                                    } else {
+                                        AlertDialog.Builder(context)
+                                            .setTitle("Warning")
+                                            .setMessage("Kamu Tidak Bisa Edit Produk Yang Sold / Sedang Di Tawar")
+                                            .setPositiveButton("OKE") { dialogP, _ ->
+                                                dialogP.dismiss()
+                                            }
+                                            .setCancelable(false)
+                                            .show()
+                                    }
                                 }
                             })
                         saleProductAdapter.submitData(it.data)

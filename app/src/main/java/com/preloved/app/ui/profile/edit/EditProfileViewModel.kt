@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.lang.Exception
 
-class EditProfileViewModel(val editProfileRepository: EditProfileRepository): BaseViewModellmpl(),EditProfileContract.ViewModel {
+class EditProfileViewModel(val editProfileRepository: EditProfileRepository)
+    : BaseViewModellmpl(),EditProfileContract.ViewModel {
     private val _profileLiveData = MutableLiveData<Resource<UserResponse>>()
     private val changeProfileResultLiveData = MutableLiveData<Resource<UserResponse>>()
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()

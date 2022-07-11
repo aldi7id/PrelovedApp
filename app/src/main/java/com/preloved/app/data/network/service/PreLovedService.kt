@@ -54,7 +54,10 @@ interface PreLovedService {
                                        @Query("status")  status: String): List<SellerOrderResponse>
     @GET("seller/product/{id}")
     suspend fun getSellerProductId(@Header("access_token") token: String,
-                                   @Path("id") id:Int) : List<SellerProductResponseItem>
+                                   @Path("id") id:Int) : SellerProductResponseItem
+    @PUT("seller/product/{id}")
+    suspend fun updateSellerProduct(@Header("access_token") token: String,
+    @Path("id") id:Int, @Body data: RequestBody) : PostProductResponse
 
     // NOTIFICATION
     @GET("notification")
