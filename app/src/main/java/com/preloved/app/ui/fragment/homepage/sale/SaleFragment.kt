@@ -20,6 +20,7 @@ import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentSaleBinding
+import com.preloved.app.ui.listCategory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
@@ -186,6 +187,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                     override fun onClickItem(data: SellerProductResponseItem) {
                                         bundleEdit.apply {
                                             putInt(PRODUCT_ID, data.id)
+                                            putString(USER_CITY, data.location)
                                         }
                                         if(data.status == "available") {
                                             findNavController().navigate(
@@ -302,9 +304,18 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     if (it.data != null) {
                         val saleProductAdapter =
                             SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
+                                var listCategory = ""
                                 override fun onClickItem(data: SellerProductResponseItem) {
                                    bundleEdit.apply {
                                        putInt(PRODUCT_ID, data.id)
+                                       putString(USER_CITY, data.location)
+                                       for (kategori in data.categories){
+                                           listCategory += ", ${kategori.name}"
+                                       }
+                                       putString(PRODUCT_CATEGORY,listCategory.drop(2))
+                                       putString(PRODUCT_DESCRIPTION,data.description)
+                                       putString(PRODUCT_IMAGE,data.imageUrl)
+                                       putInt(PRODUCT_PRICE, data.basePrice)
                                    }
                                     if(data.status == "available") {
                                         findNavController().navigate(

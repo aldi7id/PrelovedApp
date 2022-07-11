@@ -59,7 +59,7 @@ class BottomSheetChooseCategoryFragment(private val update: ()->Unit) : BottomSh
                                     },
                                     unselected = { unselected ->
                                         listCategory.remove(unselected.name)
-                                        listCategoryId.remove(unselected.id)
+                                        listCategoryId.removeAll(listOf(unselected.id))
                                     }
                                 )
                                 adapter.submitData(response.data)

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
+import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.ui.profile.edit.EditProfileContract
@@ -17,9 +18,12 @@ import java.lang.Exception
 
 class EditProductViewModel(val editProductRepository: EditProductRepository)
     : BaseViewModellmpl(), EditProductContract.ViewModel {
+    private val categoryLiveData = MutableLiveData<Resource<List<CategoryResponseItem>>>()
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()
     private val _product: MutableLiveData<Resource<SellerProductResponseItem>> = MutableLiveData()
     private val _updateProduct: MutableLiveData<Resource<PostProductResponse>> = MutableLiveData()
+    private var _categoryList = MutableLiveData<List<String>>()
+    val categoryList : LiveData<List<String>> get() = _categoryList
 
     override fun userSession() {
         viewModelScope.launch {
@@ -75,5 +79,28 @@ class EditProductViewModel(val editProductRepository: EditProductRepository)
                 }
             }
         }
+    }
+
+    override fun getCategoryData() {
+
+        categoryLiveData.value = Resource.Loading()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = editProductRepository.getCategoryData()
+                viewModelScope.launch(Dispatchers.Main) {
+                    categoryLiveData.value = Resource.Success(response)
+                }
+            } catch (e: Exception){
+                viewModelScope.launch(Dispatchers.Main) {
+                    categoryLiveData.value = Resource.Error(null,e.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    override fun getCategoryLiveData(): MutableLiveData<Resource<List<CategoryResponseItem>>> = categoryLiveData
+
+    override fun addCategory(category: List<String>) {
+        _categoryList.postValue(category)
     }
 }

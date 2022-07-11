@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
+import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.data.network.model.response.UserResponse
@@ -15,6 +16,7 @@ interface EditProductContract {
         fun setOnClickListeners()
         fun setDataToView(data: SellerProductResponseItem)
         fun setDataToViewChange(data: PostProductResponse)
+        fun checkFormValidation(): Boolean
     }
 
     interface ViewModel {
@@ -31,6 +33,9 @@ interface EditProductContract {
                             category: List<Int>,
                             location: String,
                             image : File? = null)
+        fun getCategoryData()
+        fun getCategoryLiveData(): MutableLiveData<Resource<List<CategoryResponseItem>>>
+        fun addCategory(category: List<String>)
     }
 
     interface Repository {
@@ -44,5 +49,6 @@ interface EditProductContract {
                                     category: List<Int>,
                                     location: String,
                                     image : File? = null) : PostProductResponse
+        suspend fun getCategoryData() : List<CategoryResponseItem>
     }
 }

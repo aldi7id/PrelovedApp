@@ -4,6 +4,7 @@ import com.preloved.app.base.arch.BaseRepositorylmpl
 import com.preloved.app.data.local.datasource.LocalDataSource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.ui.profile.edit.EditProfileContract
@@ -33,6 +34,10 @@ class EditProductRepository(
         location: String,
         image: File?
     ): PostProductResponse {
-        return userDataSource.updateSellerProduct(token, id, name, description, base_price, category, location)
+        return userDataSource.updateSellerProduct(token, id, name, description, base_price, category, location, image)
+    }
+
+    override suspend fun getCategoryData(): List<CategoryResponseItem> {
+        return userDataSource.getCategoryData()
     }
 }

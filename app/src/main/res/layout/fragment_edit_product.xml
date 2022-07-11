@@ -197,97 +197,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 />
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_jual"
+                android:id="@+id/btn_edit"
                 style="@style/ThemeOverlay.Material3.Button"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
-                android:text="Jual"
+                android:text="Edit"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btn_preview"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/coba1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintStart_toStartOf="@id/coba"
-            app:layout_constraintTop_toBottomOf="@id/coba">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_preview1"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:text="Preview"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_jual1"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:text="Jual"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_preview1"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/coba2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintStart_toStartOf="@id/coba1"
-            app:layout_constraintTop_toBottomOf="@id/coba1">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_preview2"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:text="Preview"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_jual2"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:text="Jual"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_preview2"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/coba3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintStart_toStartOf="@id/coba2"
-            app:layout_constraintTop_toBottomOf="@id/coba2">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_preview3"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:text="Preview"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_jual3"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:text="Jual"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_preview3"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
