@@ -19,6 +19,9 @@ interface CategoryService {
     @GET("buyer/product")
     suspend fun getFilterCategoryByID(@Query("category_id") categoryID: Int): CategoryResponse
 
+    @GET("buyer/product")
+    suspend fun getSearchProduct(@Query("search") search: String): CategoryResponse
+
     @GET("buyer/product/{id}")
     suspend fun getDetailCategoryById(@Path("id") detailById: Int): CategoryDetailResponse
 

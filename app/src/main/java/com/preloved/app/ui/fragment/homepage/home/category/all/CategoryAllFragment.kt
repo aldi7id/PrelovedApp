@@ -1,11 +1,14 @@
 package com.preloved.app.ui.fragment.homepage.home.category.all
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryAllBinding
+import com.preloved.app.ui.fragment.homepage.home.HomeFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
+import com.preloved.app.ui.fragment.homepage.home.search.SearchProductFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAllViewModel>(
@@ -58,7 +61,10 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
     private fun getData(data: CategoryResponse?) {
         getViewBinding().apply {
             val listCategoryAdapter = CategoryAllAdapter {
-
+                val passData = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(
+                    productId = it.id
+                )
+                findNavController().navigate(passData)
             }
             listCategoryAdapter.submitList(data)
             rvListCategory.adapter = listCategoryAdapter

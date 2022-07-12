@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DetailProductFragment">
+    tools:context=".ui.fragment.homepage.home.detail.DetailProductFragment">
 
     <ImageButton
         android:id="@+id/ib_back"
@@ -16,7 +16,8 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/circle_shape"
         android:elevation="8dp"
-        android:src="@drawable/ic_back"/>
+        android:src="@drawable/ic_back"
+        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:id="@+id/sv_detail"

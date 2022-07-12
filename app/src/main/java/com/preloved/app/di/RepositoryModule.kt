@@ -12,6 +12,7 @@ import com.preloved.app.ui.fragment.homepage.sale.SaleRepository
 import com.preloved.app.ui.fragment.homepage.sell.SellRepository
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductRepository
 import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductRepository
+import com.preloved.app.ui.fragment.homepage.home.search.SearchProductRepository
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
@@ -23,6 +24,7 @@ val repositoryModule = module {
     singleOf(::SplashRepository)
     singleOf(::LoginRepository)
     singleOf(::RegisterRepository)
+    singleOf(::SearchProductRepository)
     singleOf(::EditProfileRepository)
     singleOf(::CategoryAllRepository)
     singleOf(::CategoryFoodRepository)

@@ -43,6 +43,12 @@ class MainFragment : Fragment() {
                 R.id.previewProductFragment -> {
                     binding.navigationBar.visibility = View.GONE
                 }
+                R.id.detailProductFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
+                R.id.searchProductFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
                 else -> {
                     binding.navigationBar.visibility = View.VISIBLE
                 }
