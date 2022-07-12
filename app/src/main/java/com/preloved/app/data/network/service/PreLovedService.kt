@@ -32,6 +32,11 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Body data: RequestBody): UserResponse
 
+    @PUT("auth/change-password")
+    suspend fun putChangePassword(
+        @Header("access_token") token: String,
+        @Body data: RequestBody): UpdatePasswordResponse
+
     @POST("seller/product")
     suspend fun postProductData(@Header("access_token") token: String,
                                 @Body data: RequestBody) : PostProductResponse

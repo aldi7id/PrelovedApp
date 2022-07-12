@@ -43,6 +43,8 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.deleteSellerProduct(token, id)
     }
 
+
+
     override suspend fun getSellerProductOrder(token: String): List<SellerOrderResponse> {
         return preLovedService.getSellerOrder(token)
     }
@@ -87,7 +89,19 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         }
         return preLovedService.updateSellerProduct(token,id,requestBodyBuilder.build())
     }
-
+    override suspend fun putPassword(
+        token: String,
+        current_password: String,
+        new_password: String,
+        confirm_password: String
+    ): UpdatePasswordResponse {
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("current_password", current_password)
+            .addFormDataPart("new_password", new_password)
+            .addFormDataPart("confirm_password", confirm_password)
+        return preLovedService.putChangePassword(token, requestBodyBuilder.build())
+    }
     override suspend fun updateProfileData(token: String,
                                            email: String,
                                            nama: String,

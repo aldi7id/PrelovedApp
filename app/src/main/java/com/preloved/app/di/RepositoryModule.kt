@@ -1,6 +1,7 @@
 package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountRepository
+import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
 import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerRepository
 import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicRepository
@@ -33,4 +34,5 @@ val repositoryModule = module {
     singleOf(::SaleRepository)
     singleOf(::NotificationRepository)
     singleOf(::EditProductRepository)
+    singleOf(::EditPasswordRepository)
 }

@@ -1,6 +1,7 @@
 package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountViewModel
+import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicViewModel
@@ -32,4 +33,5 @@ val viewModelModule = module {
     viewModelOf(::SaleViewModel)
     viewModelOf(::NotificationViewModel)
     viewModelOf(::EditProductViewModel)
+    viewModelOf(::EditPasswordViewModel)
 }
