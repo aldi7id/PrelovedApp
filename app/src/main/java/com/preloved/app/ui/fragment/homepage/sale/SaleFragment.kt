@@ -200,9 +200,6 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                                 .setPositiveButton("OKE") { dialogP, _ ->
                                                     dialogP.dismiss()
                                                 }
-                                                .setNegativeButton("OKE") { dialogN, _ ->
-                                                    dialogN.dismiss()
-                                                }
                                                 .setCancelable(false)
                                                 .show()
                                         }
