@@ -180,7 +180,6 @@
                 android:layout_marginTop="10dp"
                 />
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/coba"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -188,11 +187,12 @@
             app:layout_constraintStart_toStartOf="@id/ib_add_image"
             app:layout_constraintTop_toBottomOf="@id/ib_add_image">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_preview"
+                android:id="@+id/btn_delete"
                 style="@style/ThemeOverlay.Material3.Button"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
-                android:text="Preview"
+                android:text="Delete"
+                app:backgroundTint="@color/gray"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
@@ -203,7 +203,7 @@
                 android:layout_height="50dp"
                 android:text="Edit"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_preview"
+                app:layout_constraintStart_toEndOf="@id/btn_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>

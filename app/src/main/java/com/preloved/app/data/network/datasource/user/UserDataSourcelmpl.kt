@@ -39,7 +39,7 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
     override suspend fun deleteSellerProduct(
         token: String,
         id: Int
-    ): Response<SellerProductResponseItem> {
+    ): Response<SellerDeleteResponse> {
         return preLovedService.deleteSellerProduct(token, id)
     }
 

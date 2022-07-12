@@ -42,11 +42,6 @@ interface PreLovedService {
     @GET("seller/product")
     suspend fun getSellerProduct(@Header("access_token") token: String): List<SellerProductResponseItem>
 
-    @DELETE("seller/product/{id}")
-    suspend fun deleteSellerProduct(
-        @Header("access_token") token: String,
-        @Path("id") id: Int
-    ): Response<SellerProductResponseItem>
     @GET("seller/order")
     suspend fun getSellerOrder(@Header("access_token") token: String): List<SellerOrderResponse>
     @GET("seller/order")
@@ -62,6 +57,12 @@ interface PreLovedService {
     // NOTIFICATION
     @GET("notification")
     suspend fun getNotification(@Header("access_token") token: String): List<NotificationResponse>
+
+    @DELETE("seller/product/{id}")
+    suspend fun deleteSellerProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): Response<SellerDeleteResponse>
 
 
     companion object {

@@ -8,11 +8,13 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.data.network.model.response.PostProductResponse
+import com.preloved.app.data.network.model.response.SellerDeleteResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.ui.profile.edit.EditProfileContract
 import com.preloved.app.ui.profile.edit.EditProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import java.io.File
 import java.lang.Exception
 
@@ -22,9 +24,27 @@ class EditProductViewModel(val editProductRepository: EditProductRepository)
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()
     private val _product: MutableLiveData<Resource<SellerProductResponseItem>> = MutableLiveData()
     private val _updateProduct: MutableLiveData<Resource<PostProductResponse>> = MutableLiveData()
+    private val _deleteProduct: MutableLiveData<Resource<Response<SellerDeleteResponse>>> = MutableLiveData()
     private var _categoryList = MutableLiveData<List<String>>()
     val categoryList : LiveData<List<String>> get() = _categoryList
 
+    override fun deleteResultProductSeller(): MutableLiveData<Resource<Response<SellerDeleteResponse>>> = _deleteProduct
+    override fun deleteProductSeller(token: String, id: Int) {
+        _deleteProduct.value = Resource.Loading()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = editProductRepository.deleteSellerProduct(token, id)
+                viewModelScope.launch(Dispatchers.Main) {
+                    _deleteProduct.value = Resource.Success(response)
+                }
+            } catch (e: Exception) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    _deleteProduct.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+
+    }
     override fun userSession() {
         viewModelScope.launch {
             editProductRepository.userSession().collect() {

@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
-import com.preloved.app.data.network.model.response.CategoryResponseItem
-import com.preloved.app.data.network.model.response.PostProductResponse
-import com.preloved.app.data.network.model.response.SellerProductResponseItem
-import com.preloved.app.data.network.model.response.UserResponse
+import com.preloved.app.data.network.model.response.*
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 import java.io.File
 
 interface EditProductContract {
@@ -36,6 +34,8 @@ interface EditProductContract {
         fun getCategoryData()
         fun getCategoryLiveData(): MutableLiveData<Resource<List<CategoryResponseItem>>>
         fun addCategory(category: List<String>)
+        fun deleteProductSeller(token: String, id: Int)
+        fun deleteResultProductSeller() : MutableLiveData<Resource<Response<SellerDeleteResponse>>>
     }
 
     interface Repository {
@@ -50,5 +50,6 @@ interface EditProductContract {
                                     location: String,
                                     image : File? = null) : PostProductResponse
         suspend fun getCategoryData() : List<CategoryResponseItem>
+        suspend fun deleteSellerProduct(token: String, id: Int) : Response<SellerDeleteResponse>
     }
 }

@@ -54,7 +54,7 @@ class BottomSheetChooseCategoryFragment(private val update: ()->Unit) : BottomSh
                             if(response.data != null){
                                 val adapter = BottomSheetCategoryAdapter(
                                     selected = { selected ->
-                                        listCategory.add(selected.name)
+                                        listCategory.addAll(listOf(selected.name))
                                         listCategoryId.add(selected.id)
                                     },
                                     unselected = { unselected ->

@@ -131,5 +131,11 @@
     <fragment
         android:id="@+id/editProductFragment"
         android:name="EditProductFragment"
-        android:label="EditProductFragment" />
+        android:label="EditProductFragment" >
+        <action
+            android:id="@+id/action_editProductFragment_to_saleFragment"
+            app:destination="@id/saleFragment"
+            app:popUpTo="@id/saleFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

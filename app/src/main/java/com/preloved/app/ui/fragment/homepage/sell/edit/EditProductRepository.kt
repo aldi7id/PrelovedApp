@@ -6,9 +6,11 @@ import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.data.network.model.response.PostProductResponse
+import com.preloved.app.data.network.model.response.SellerDeleteResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.ui.profile.edit.EditProfileContract
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 import java.io.File
 
 class EditProductRepository(
@@ -39,5 +41,12 @@ class EditProductRepository(
 
     override suspend fun getCategoryData(): List<CategoryResponseItem> {
         return userDataSource.getCategoryData()
+    }
+
+    override suspend fun deleteSellerProduct(
+        token: String,
+        id: Int
+    ): Response<SellerDeleteResponse> {
+        return userDataSource.deleteSellerProduct(token, id)
     }
 }

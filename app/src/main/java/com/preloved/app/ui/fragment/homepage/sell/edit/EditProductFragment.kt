@@ -28,8 +28,9 @@ import com.preloved.app.databinding.FragmentEditProductBinding
 import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_ID
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_IMAGE
+import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_PRICE
 import com.preloved.app.ui.fragment.homepage.sell.BottomSheetChooseCategoryFragment
+import com.preloved.app.ui.fragment.homepage.sell.SellFragment
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductContract
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductViewModel
 import com.preloved.app.ui.listCategory
@@ -47,17 +48,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     private var uri: String = ""
     private val bundle = Bundle()
     private var location = ""
-    companion object {
-        const val USER_TOKEN = "user_token"
-        const val TITLE_PRODUCT = "title_product"
-        const val CITY_USER = "city"
-        const val PRICE_PRODUCT = "price"
-        const val DESC_PRODUCT = "desc"
-        const val NAME_USER = "name"
-        const val IMAGE_USER = "image_user"
-        const val CATEGORY_PRODUCT = "category"
-        const val IMAGE_PRODUCT ="image_product"
-    }
 
 
     override fun initView() {
@@ -111,6 +101,30 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                         )
                     }
                 }
+                listCategory.clear()
+            }
+            btnDelete.setOnClickListener {
+                val bundle = arguments
+                val idProduct =  bundle?.getInt(PRODUCT_ID)
+                AlertDialog.Builder(context)
+                    .setTitle("Warning")
+                    .setMessage("Yakin Mau Hapus Produk?")
+                    .setPositiveButton("Yakin") { dialogP, _ ->
+                        //ToLogin Fragment
+                        if (idProduct != null) {
+                            viewModel.deleteProductSeller(token,idProduct)
+                        }
+                        findNavController().navigate(R.id.action_editProductFragment_to_saleFragment)
+                        showToastSuccessDelete()
+                        dialogP.dismiss()
+                    }
+                    .setNegativeButton("Tidak") { dialogN, _ ->
+                        //ToHomeFragment
+                        dialogN.dismiss()
+                    }
+                    .setCancelable(false)
+                    .show()
+
             }
         }
     }
@@ -186,6 +200,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                 is Resource.Success -> {
                     showLoading(false)
                     showContent(true)
+                    findNavController().navigate(R.id.action_editProductFragment_to_saleFragment)
                     showToastSuccess()
 //                    Toast.makeText(requireContext(), "Edit Product Success!", Toast.LENGTH_SHORT).show()
 //                    response.data?.let { setDataToViewChange(it) }
@@ -242,14 +257,15 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                 .load(data.imageUrl)
                 .placeholder(R.drawable.ic_add_product_new)
                 .into(getViewBinding().ibAddImage)
-            var listCategory = ""
+            var listCategory1 = ""
 
             for (kategori in data.categories){
-                listCategory += ", ${kategori.name}"
+                listCategory1 += ", ${kategori.name}"
                 //listCategoryId += ", ${kategori.id}"
                 listCategoryId.add(kategori.id)
+                listCategory.add(kategori.name)
             }
-            etKategory.setText(listCategory.drop(2))
+            etKategory.setText(listCategory1.drop(2))
 
         }
     }
@@ -306,6 +322,25 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     private fun showToastSuccess() {
         val snackBarView =
             Snackbar.make(getViewBinding().root, "Produk berhasil di edit.", Snackbar.LENGTH_LONG)
+        val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
+        snackBarView.setAction(" ") {
+            snackBarView.dismiss()
+        }
+        val textView =
+            snackBarView.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_close, 0)
+        textView.compoundDrawablePadding = 16
+        layoutParams.gravity = Gravity.TOP
+        layoutParams.setMargins(32, 150, 32, 0)
+        snackBarView.view.setPadding(24, 16, 0, 16)
+        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.layoutParams = layoutParams
+        snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+        snackBarView.show()
+    }
+    private fun showToastSuccessDelete() {
+        val snackBarView =
+            Snackbar.make(getViewBinding().root, "Produk berhasil di hapus.", Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
