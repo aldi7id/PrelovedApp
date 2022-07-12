@@ -124,7 +124,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                     }
                     .setCancelable(false)
                     .show()
-
+                listCategory.clear()
             }
         }
     }
