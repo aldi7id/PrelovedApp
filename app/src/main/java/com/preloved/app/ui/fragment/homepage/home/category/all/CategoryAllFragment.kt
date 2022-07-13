@@ -6,6 +6,7 @@ import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryAllBinding
+import com.preloved.app.ui.fragment.MainFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.HomeFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import com.preloved.app.ui.fragment.homepage.home.search.SearchProductFragmentDirections
@@ -61,7 +62,7 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
     private fun getData(data: CategoryResponse?) {
         getViewBinding().apply {
             val listCategoryAdapter = CategoryAllAdapter {
-                val passData = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(
+                val passData = MainFragmentDirections.actionMainFragmentToDetailProductFragment(
                     productId = it.id
                 )
                 findNavController().navigate(passData)

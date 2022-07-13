@@ -38,14 +38,17 @@ class MainFragment : Fragment() {
                     R.id.detailProductFragment -> {
                         navigationBar.visibility = View.GONE
                     }
+                    R.id.detailProductFragment2 -> {
+                        navigationBar.visibility = View.GONE
+                    }
                     R.id.searchProductFragment -> {
                         navigationBar.visibility = View.GONE
                     }
                     else -> {
                         navigationBar.visibility = View.VISIBLE
                     }
-                }
 
+                }
             }
         }
     }
