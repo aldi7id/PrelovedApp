@@ -26,6 +26,8 @@ import com.preloved.app.ui.fragment.homepage.home.category.woman.bag.CategoryBag
 import com.preloved.app.ui.fragment.homepage.home.category.woman.cloth.CategoryClothWomenViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.woman.shoes.CategoryShoesWomenViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.workout.CategoryWorkoutViewModel
+import com.preloved.app.ui.fragment.homepage.home.detail.DetailProductViewModel
+import com.preloved.app.ui.fragment.homepage.home.search.SearchProductViewModel
 import com.preloved.app.ui.fragment.login.LoginViewModel
 import com.preloved.app.ui.fragment.splash.SplashViewModel
 import com.preloved.app.ui.fragment.register.RegisterViewModel
@@ -36,6 +38,7 @@ val viewModelModule = module {
     viewModelOf(::SplashViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::SearchProductViewModel)
     viewModelOf(::CategoryAllViewModel)
     viewModelOf(::CategoryElectronicViewModel)
     viewModelOf(::CategoryComputerViewModel)
@@ -61,5 +64,7 @@ val viewModelModule = module {
     viewModelOf(::CategoryVoucherViewModel)
     viewModelOf(::CategorySouvenirViewModel)
     viewModelOf(::CategoryPhotographerViewModel)
+    viewModelOf(::CategorySmartphoneViewModel)
+    viewModelOf(::DetailProductViewModel)
     viewModelOf(::AccountViewModel)
 }

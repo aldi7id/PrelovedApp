@@ -3,34 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_category_all.xml" value="0.1" />
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.2" />
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_register.xml" value="0.1" />
-        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_accessories.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_automotive.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_babyfashion.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_bag_men.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_bag_women.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_beauty.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_bookandpen.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_cloth_man.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_cloth_women.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_fashionmuslim.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_healthy.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_hobby.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_homesupplies.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_momandbaby.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_photographer.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_shoes_man.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_shoes_women.xml" value="0.15092592592592594" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_souvenir.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_voucher.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_workout.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_healthy_accessories.xml" value="0.20416666666666666" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/border_grey.xml" value="0.13" />
       </map>
     </option>
   </component>

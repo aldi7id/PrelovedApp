@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.preloved.app.databinding.FragmentHomeBinding
 import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesFragment
@@ -48,7 +50,26 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onClick()
         tabLayoutView()
+    }
+
+    private fun onClick() {
+        binding.apply {
+            with(svSearchItem) {
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(p0: String?): Boolean {
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchProductFragment(
+                            search = p0.toString()
+                        ))
+                        return false
+                    }
+                    override fun onQueryTextChange(p0: String?): Boolean {
+                        return false
+                    }
+                })
+            }
+        }
     }
 
     private fun tabLayoutView() {
@@ -80,6 +101,8 @@ class HomeFragment : Fragment() {
                 CategoryVoucherFragment(),
                 CategorySouvenirFragment(),
                 CategoryPhotographerFragment(),
+                CategorySmartphoneFragment(),
+                CategoryComputerFragment()
             )
 
             val vpAdapter =

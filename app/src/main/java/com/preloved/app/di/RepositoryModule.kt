@@ -26,6 +26,8 @@ import com.preloved.app.ui.fragment.homepage.home.category.woman.bag.CategoryBag
 import com.preloved.app.ui.fragment.homepage.home.category.woman.cloth.CategoryClothWomenRepository
 import com.preloved.app.ui.fragment.homepage.home.category.woman.shoes.CategoryShoesWomenRepository
 import com.preloved.app.ui.fragment.homepage.home.category.workout.CategoryWorkoutRepository
+import com.preloved.app.ui.fragment.homepage.home.detail.DetailProductRepository
+import com.preloved.app.ui.fragment.homepage.home.search.SearchProductRepository
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
@@ -36,6 +38,7 @@ val repositoryModule = module {
     singleOf(::SplashRepository)
     singleOf(::LoginRepository)
     singleOf(::RegisterRepository)
+    singleOf(::SearchProductRepository)
     singleOf(::CategoryAllRepository)
     singleOf(::CategoryElectronicRepository)
     singleOf(::CategoryComputerRepository)
@@ -61,5 +64,7 @@ val repositoryModule = module {
     singleOf(::CategoryVoucherRepository)
     singleOf(::CategorySouvenirRepository)
     singleOf(::CategoryPhotographerRepository)
+    singleOf(::CategorySmartphoneRepository)
+    singleOf(::DetailProductRepository)
     singleOf(::AccountRepository)
 }
