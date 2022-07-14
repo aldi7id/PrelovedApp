@@ -32,22 +32,24 @@ class MainFragment : Fragment() {
             }
             navController?.addOnDestinationChangedListener{ _, destination, _ ->
                 when(destination.id){
-                    R.id.loginFragment3 -> {
-                        navigationBar.visibility = View.GONE
-                    }
-                    R.id.detailProductFragment -> {
-                        navigationBar.visibility = View.GONE
-                    }
-                    R.id.detailProductFragment2 -> {
-                        navigationBar.visibility = View.GONE
-                    }
-                    R.id.searchProductFragment -> {
-                        navigationBar.visibility = View.GONE
-                    }
-                    else -> {
+                    R.id.homeFragment -> {
                         navigationBar.visibility = View.VISIBLE
                     }
-
+                    R.id.notificationFragment -> {
+                        navigationBar.visibility = View.VISIBLE
+                    }
+                    R.id.sellFragment -> {
+                        navigationBar.visibility = View.VISIBLE
+                    }
+                    R.id.saleFragment -> {
+                        navigationBar.visibility = View.VISIBLE
+                    }
+                    R.id.accountFragment -> {
+                        navigationBar.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        navigationBar.visibility = View.GONE
+                    }
                 }
             }
         }
