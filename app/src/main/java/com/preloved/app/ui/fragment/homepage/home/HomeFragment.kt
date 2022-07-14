@@ -10,11 +10,31 @@ import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.preloved.app.databinding.FragmentHomeBinding
+import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesFragment
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllFragment
+import com.preloved.app.ui.fragment.homepage.home.category.automotive.CategoryAutomotiveFragment
+import com.preloved.app.ui.fragment.homepage.home.category.babyfashion.CategoryBabyFashionFragment
+import com.preloved.app.ui.fragment.homepage.home.category.beauty.CategoryBeautyFragment
+import com.preloved.app.ui.fragment.homepage.home.category.bookandpen.CategoryBookAndPenFragment
 import com.preloved.app.ui.fragment.homepage.home.category.computer.CategoryComputerFragment
 import com.preloved.app.ui.fragment.homepage.home.category.electronic.CategoryElectronicFragment
+import com.preloved.app.ui.fragment.homepage.home.category.fashionmuslim.CategoryFashionMuslimFragment
 import com.preloved.app.ui.fragment.homepage.home.category.food.CategoryFoodFragment
+import com.preloved.app.ui.fragment.homepage.home.category.healthy.CategoryHealthyFragment
+import com.preloved.app.ui.fragment.homepage.home.category.hobby.CategoryHobbyFragment
+import com.preloved.app.ui.fragment.homepage.home.category.homesupplies.CategoryHomeSuppliesFragment
+import com.preloved.app.ui.fragment.homepage.home.category.man.bag.CategoryBagMenFragment
+import com.preloved.app.ui.fragment.homepage.home.category.man.cloth.CategoryClothMenFragment
+import com.preloved.app.ui.fragment.homepage.home.category.man.shoes.CategoryShoesMenFragment
+import com.preloved.app.ui.fragment.homepage.home.category.momandbaby.CategoryMomAndBabyFragment
+import com.preloved.app.ui.fragment.homepage.home.category.photographer.CategoryPhotographerFragment
 import com.preloved.app.ui.fragment.homepage.home.category.smartphone.CategorySmartphoneFragment
+import com.preloved.app.ui.fragment.homepage.home.category.souvenir.CategorySouvenirFragment
+import com.preloved.app.ui.fragment.homepage.home.category.voucher.CategoryVoucherFragment
+import com.preloved.app.ui.fragment.homepage.home.category.woman.bag.CategoryBagWomenFragment
+import com.preloved.app.ui.fragment.homepage.home.category.woman.cloth.CategoryClothWomenFragment
+import com.preloved.app.ui.fragment.homepage.home.category.woman.shoes.CategoryShoesWomenFragment
+import com.preloved.app.ui.fragment.homepage.home.category.workout.CategoryWorkoutFragment
 
 class HomeFragment : Fragment() {
     private var bind: FragmentHomeBinding? = null
@@ -58,7 +78,29 @@ class HomeFragment : Fragment() {
             val listTab = arrayListOf(
                 CategoryAllFragment(),
                 CategoryElectronicFragment(),
+                CategoryComputerFragment(),
+                CategorySmartphoneFragment(),
+                CategoryClothMenFragment(),
+                CategoryShoesMenFragment(),
+                CategoryBagMenFragment(),
+                CategoryAccessoriesFragment(),
+                CategoryHealthyFragment(),
+                CategoryHobbyFragment(),
                 CategoryFoodFragment(),
+                CategoryBeautyFragment(),
+                CategoryHomeSuppliesFragment(),
+                CategoryClothWomenFragment(),
+                CategoryFashionMuslimFragment(),
+                CategoryBabyFashionFragment(),
+                CategoryMomAndBabyFragment(),
+                CategoryShoesWomenFragment(),
+                CategoryBagWomenFragment(),
+                CategoryAutomotiveFragment(),
+                CategoryWorkoutFragment(),
+                CategoryBookAndPenFragment(),
+                CategoryVoucherFragment(),
+                CategorySouvenirFragment(),
+                CategoryPhotographerFragment(),
                 CategorySmartphoneFragment(),
                 CategoryComputerFragment()
             )
@@ -70,7 +112,7 @@ class HomeFragment : Fragment() {
                 tab.text = when (position) {
                     0 -> { "Semua" }
                     1 -> { "Electronic" }
-                    2 -> { "Food" }
+                    2 -> { "Computer" }
                     3 -> { "Smartphone" }
                     4 -> { "Cloth for Men" }
                     5 -> { "Shoes for Men" }
@@ -78,7 +120,7 @@ class HomeFragment : Fragment() {
                     7 -> { "Accessories" }
                     8 -> { "Healthy" }
                     9 -> { "Hobby" }
-                    10 -> { "Computer" }
+                    10 -> { "Food" }
                     11 -> { "Beauty" }
                     12 -> { "Home Supplies" }
                     13 -> { "Cloth for Women" }
