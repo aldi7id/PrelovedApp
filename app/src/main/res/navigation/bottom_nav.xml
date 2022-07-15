@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_homeFragment_to_searchProductFragment"
             app:destination="@id/searchProductFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_detailProductFragment"
-            app:destination="@id/detailProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -125,19 +122,6 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/detailProductFragment"
-        android:name="com.preloved.app.ui.fragment.homepage.home.detail.DetailProductFragment"
-        android:label="fragment_detail_product"
-        tools:layout="@layout/fragment_detail_product" >
-        <action
-            android:id="@+id/action_detailProductFragment_to_popUpTawaranFragment"
-            app:destination="@id/popUpTawaranFragment" />
-        <argument
-            android:name="productId"
-            app:argType="integer"
-            android:defaultValue="0" />
-    </fragment>
-    <fragment
         android:id="@+id/popUpTawaranFragment"
         android:name="com.preloved.app.PopUpTawaranFragment"
         android:label="fragment_pop_up_tawaran"
@@ -170,9 +154,12 @@
         <action
             android:id="@+id/action_searchProductFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="search"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
         <action
-            android:id="@+id/action_searchProductFragment_to_detailProductFragment"
-            app:destination="@id/detailProductFragment" />
             android:id="@+id/action_searchProductFragment_to_detailProductFragment2"
             app:destination="@id/detailProductFragment2" />
     </fragment>

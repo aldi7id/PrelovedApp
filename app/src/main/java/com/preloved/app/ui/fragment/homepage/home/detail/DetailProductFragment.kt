@@ -20,15 +20,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailProductViewModel>(
     FragmentDetailProductBinding::inflate
 ), DetailProductContract.View {
-
-class DetailProductFragment : Fragment() {
-    private val args by navArgs<DetailProductFragmentArgs>()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_product, container, false)
     private val args by navArgs<DetailProductFragmentArgs>()
     override val viewModel: DetailProductViewModel by viewModel()
 
