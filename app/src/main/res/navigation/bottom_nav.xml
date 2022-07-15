@@ -173,5 +173,24 @@
         <action
             android:id="@+id/action_searchProductFragment_to_detailProductFragment"
             app:destination="@id/detailProductFragment" />
+            android:id="@+id/action_searchProductFragment_to_detailProductFragment2"
+            app:destination="@id/detailProductFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment2"
+        android:name="com.preloved.app.ui.fragment.homepage.home.detail.DetailProductFragment"
+        android:label="fragment_detail_product"
+        tools:layout="@layout/fragment_detail_product" >
+        <action
+            android:id="@+id/action_detailProductFragment2_to_searchProductFragment"
+            app:destination="@id/searchProductFragment" />
+        <argument
+            android:name="productId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="status"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

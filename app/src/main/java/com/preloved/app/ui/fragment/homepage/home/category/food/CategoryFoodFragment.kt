@@ -1,10 +1,12 @@
 package com.preloved.app.ui.fragment.homepage.home.category.food
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryFoodBinding
+import com.preloved.app.ui.fragment.MainFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,7 +56,10 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
         viewModel.apply {
             with(getViewBinding()) {
                 val listCategoryAdapter = CategoryAllAdapter {
-
+                    val passData = MainFragmentDirections.actionMainFragmentToDetailProductFragment(
+                        productId = it.id
+                    )
+                    findNavController().navigate(passData)
                 }
                 listCategoryAdapter.submitList(data)
                 rvCategory.adapter = listCategoryAdapter

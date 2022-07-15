@@ -2,6 +2,7 @@ package com.preloved.app.ui.fragment.homepage.home.search
 
 import android.widget.SearchView.OnQueryTextListener
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
@@ -13,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchProductViewModel>(
     FragmentSearchProductBinding::inflate
 ), SearchProductContract.View {
+    private val args by navArgs<SearchProductFragmentArgs>()
     override val viewModel: SearchProductViewModel by viewModel()
 
     override fun initView() {
@@ -25,12 +27,14 @@ class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchP
             ivBack.setOnClickListener {
                 findNavController().navigate(R.id.action_searchProductFragment_to_homeFragment)
             }
+            svSearchItem.setQuery(args.search, true)
         }
     }
 
     override fun getProduct() {
         viewModel.apply {
             with(getViewBinding()) {
+                getDataSearchProduct(args.search.toString())
                 with(svSearchItem) {
                     setOnQueryTextListener(object : OnQueryTextListener {
                         override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -70,8 +74,9 @@ class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchP
     private fun getSearchProduct(data: CategoryResponse?) {
         getViewBinding().apply {
             val searchAdapter = CategoryAllAdapter {
-                val passData = SearchProductFragmentDirections.actionSearchProductFragmentToDetailProductFragment(
-                    productId = it.id
+                val passData = SearchProductFragmentDirections.actionSearchProductFragmentToDetailProductFragment2(
+                    productId = it.id,
+                    status = 1
                 )
                 findNavController().navigate(passData)
             }
