@@ -7,19 +7,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.preloved.app.R
@@ -28,7 +24,6 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.databinding.FragmentSellBinding
-import com.preloved.app.ui.fragment.homepage.account.AccountFragment
 import com.preloved.app.ui.listCategory
 import com.preloved.app.ui.listCategoryId
 import com.preloved.app.ui.uriToFile
@@ -78,7 +73,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                 Log.d("HAYO 1", listCategoryId.toString())
 
             } else
-                getViewBinding().etKategory.setText("Pilih Kategory")
+                getViewBinding().etKategory.setText(getString(R.string.choose_category))
                 Log.d("HAYO 2", listCategoryId.toString())
         }
     }
@@ -86,7 +81,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     override fun checkFormValidation(): Boolean {
         getViewBinding().apply {
             var isFormValid = true
-            var nameProduct = etNamaProduk.text.toString()
+            val nameProduct = etNamaProduk.text.toString()
             when {
                 nameProduct.isEmpty() -> {
                     isFormValid = false
@@ -103,36 +98,36 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     }
 
     override fun setDataToView(data: List<CategoryResponseItem>) {
-        getViewBinding().apply {
-            //etNamaProduk.setText(data.name)
-        }
-        val type = data.toTypedArray().map { it.name }
+//        getViewBinding().apply {
+//            //etNamaProduk.setText(data.name)
+//        }
+//        val type = data.toTypedArray().map { it.name }
 
-        val adapter = activity?.let {
-            val adapter = ArrayAdapter(
-                it, R.layout.category_item,
-                type
-            )
-            //getViewBinding().filledCategory.setAdapter(adapter)
-//            val categoryAdapter = CategoryAdapter{
-//                getViewBinding().filledCategory.onItemClickListener = object : AdapterView.OnItemClickListener{
-//                    override fun onItemClick(
-//                        parent: AdapterView<*>?,
-//                        view: View?,
-//                        position: Int,
-//                        id: Long
-//                    ) {
-//                        type[position]
-//                        Log.d("ID", type[position].toString())
-//                    }
+//        val adapter = activity?.let {
+//            val adapter = ArrayAdapter(
+//                it, R.layout.category_item,
+//                type
+//            )
+//            //getViewBinding().filledCategory.setAdapter(adapter)
+////            val categoryAdapter = CategoryAdapter{
+////                getViewBinding().filledCategory.onItemClickListener = object : AdapterView.OnItemClickListener{
+////                    override fun onItemClick(
+////                        parent: AdapterView<*>?,
+////                        view: View?,
+////                        position: Int,
+////                        id: Long
+////                    ) {
+////                        type[position]
+////                        Log.d("ID", type[position].toString())
+////                    }
+////
+////                }
+////
+////
+////            }
+//           // getViewBinding().filledCategory.setAdapter(categoryAdapter)
 //
-//                }
-//
-//
-//            }
-           // getViewBinding().filledCategory.setAdapter(categoryAdapter)
-
-        }
+//        }
 
 
     }
@@ -239,7 +234,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     .crop()
                     .saveDir(
                         File(
-                            getActivity()?.getExternalCacheDir(),
+                            activity?.externalCacheDir,
                             "ImagePicker"
                         )
                     )
@@ -316,7 +311,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         if(it.data != null){
                             val city = it.data.city
                             val address = it.data.address
-                            val photo = it.data.imageUrl ?: "noImage"
+                            val photo = it.data.imageUrl
                             val phone = it.data.phoneNumber
                             if(city.isEmpty() || address.isEmpty() || photo == "noImage" || phone.isEmpty()){
                                 AlertDialog.Builder(requireContext())
@@ -371,7 +366,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()
