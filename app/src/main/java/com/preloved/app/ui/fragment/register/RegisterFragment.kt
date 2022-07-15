@@ -27,6 +27,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
             tvGoToLogin.setOnClickListener {
                 findNavController().navigate(R.id.action_registerFragment2_to_loginFragment3)
             }
+            btnBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 
