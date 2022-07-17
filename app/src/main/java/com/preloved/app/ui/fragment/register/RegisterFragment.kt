@@ -135,7 +135,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                     is Resource.Success -> {
                         showLoading(false)
                         Toast.makeText(requireContext(), "Register Success", Toast.LENGTH_SHORT).show()
-                        //Navigate To Login
+                        findNavController().popBackStack()
                     }
                     is Resource.Error -> {
                         showLoading(false)

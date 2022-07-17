@@ -4,41 +4,41 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="content_login">Selamat Datang di PreLoved, Login sebelum masuk ke aplikasi</string>
-    <string name="no_have_account">Belum memiliki akun? <b><font color='#EE839F'>Register</font></b></string>
-    <string name="home">Beranda</string>
-    <string name="notification">Notifikasi</string>
-    <string name="sell">Jual</string>
-    <string name="sale">Jualan</string>
-    <string name="account">Akun</string>
-    <string name="search_hint">Cari barangmu di PreLoved...</string>
-    <string name="category">Kategori</string>
+    <string name="content_login">Welcome to PreLoved App, Please Login Before Use Application.</string>
+    <string name="no_have_account">Didn`t Have Account? <b><font color='#EE839F'>Register</font></b></string>
+    <string name="home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="sell">Sell</string>
+    <string name="sale">Sale</string>
+    <string name="account">Account</string>
+    <string name="search_hint">Search your preloved.....</string>
+    <string name="category">Category</string>
     <string name="your_full_name">Your Full Name</string>
     <string name="contentbackbutton">backbutton</string>
     <string name="tv_register">Register</string>
-    <string name="tv_register_detail">Daftarkan diri kamu sebelum menggunakan aplikasi ini</string>
+    <string name="tv_register_detail">Please register your identity before use Preloved.</string>
     <string name="your_valid_email">Your Valid Email</string>
     <string name="your_unique_password">Your Unique Password</string>
     <string name="your_phone_number">Your Phone Number</string>
     <string name="enter_your_address">Enter Your Address</string>
     <string name="register">Register</string>
-    <string name="sudah_memiliki_akun_login">Sudah memiliki akun?  <b><font color='#EE839F'>Login</font></b></string>
-    <string name="akun">Akun</string>
-    <string name="ubah_profile">Ubah Profile</string>
-    <string name="keluar">Keluar</string>
+    <string name="sudah_memiliki_akun_login">Already Have Account?  <b><font color='#EE839F'>Login</font></b></string>
+    <string name="akun">Account</string>
+    <string name="ubah_profile">Change Profile</string>
+    <string name="keluar">Logout</string>
     <string name="version_app">Version 1.0.0</string>
     <string name="enter_your_city">Enter Your City</string>
     <string name="add">Add</string>
-    <string name="ubah">Ubah</string>
-    <string name="data_produk">Data Produk</string>
-    <string name="nama_produk">Nama Produk</string>
-    <string name="harga_produk">Harga Produk</string>
+    <string name="ubah">Change</string>
+    <string name="data_produk">Product Data</string>
+    <string name="nama_produk">Product Name</string>
+    <string name="harga_produk">Product Price</string>
     <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
-    <string name="kategori">Kategori</string>
-    <string name="deskripsi_produk">Deskripsi Produk</string>
+    <string name="kategori">Category</string>
+    <string name="deskripsi_produk">Description Product</string>
     <string name="foto_produk">Foto Produk*</string>
     <string name="preview">Preview</string>
-    <string name="jual">Jual</string>
-    <string name="choose_category">Pilih Kategory</string>
+    <string name="jual">Sell</string>
+    <string name="choose_category">Choose Your Category</string>
 
 </resources>
