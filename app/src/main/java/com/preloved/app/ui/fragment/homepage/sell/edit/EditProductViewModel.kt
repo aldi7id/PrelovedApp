@@ -10,8 +10,6 @@ import com.preloved.app.data.network.model.response.CategoryResponseItem
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerDeleteResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
-import com.preloved.app.ui.profile.edit.EditProfileContract
-import com.preloved.app.ui.profile.edit.EditProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response

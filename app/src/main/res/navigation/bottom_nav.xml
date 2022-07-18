@@ -99,7 +99,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.preloved.app.ui.profile.edit.EditProfileFragment"
+        android:name="com.preloved.app.ui.fragment.homepage.account.edit.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment

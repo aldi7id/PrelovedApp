@@ -75,5 +75,15 @@
     <string name="message_complate_account">Please Complate Your Indentity First Before Sell Product</string>
     <string name="message_want_delete_product">Are You Sure Want Delete This Product?</string>
     <string name="sure">Sure</string>
+    <string name="message_product_success">Product Successfully Add.</string>
+    <string name="message_edit_product">Successfully Edit Product</string>
+    <string name="message_delete_product">Successfully Delete Product</string>
+    <string name="message_exit">Are You Sure Want Logout?</string>
+    <string name="add_0">Add \n Product (0/5)</string>
+    <string name="add_1">Add \n Product (1/5)</string>
+    <string name="add_2">Add \n Product (2/5)</string>
+    <string name="add_3">Add \n Product (3/5)</string>
+    <string name="add_4">Add \n Product (4/5)</string>
+    <string name="add_5">Add \n Product (5/5)</string>
 
 </resources>

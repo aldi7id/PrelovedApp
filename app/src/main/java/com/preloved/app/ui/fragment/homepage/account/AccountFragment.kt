@@ -2,7 +2,6 @@ package com.preloved.app.ui.fragment.homepage.account
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -40,9 +39,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
             tvExit.setOnClickListener {
                 AlertDialog
                     .Builder(requireContext())
-                    .setTitle("Konfirmasi Keluar")
-                    .setMessage("Yakin ingin keluar?")
-                    .setPositiveButton("Iya") { dialogPositive, _ ->
+                    .setTitle(getString(R.string.message_exit))
+                    .setPositiveButton(getString(R.string.sure)) { dialogPositive, _ ->
                         viewModel.deleteToken()
                         Toast
                             .makeText(
@@ -54,7 +52,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                         findNavController().navigate(R.id.homeFragment)
                         dialogPositive.dismiss()
                     }
-                    .setNegativeButton("Tidak") { dialogNegative, _ ->
+                    .setNegativeButton(getString(R.string.cancel)) { dialogNegative, _ ->
                         dialogNegative.dismiss()
                     }
                     .setCancelable(false)
@@ -106,7 +104,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                             }
                         }
                         is Resource.Error -> {
-
+                            showLoading(true)
                         }
                     }
                 }

@@ -37,7 +37,7 @@ import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductReposito
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
-import com.preloved.app.ui.profile.edit.EditProfileRepository
+import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 

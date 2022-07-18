@@ -1,4 +1,4 @@
-package com.preloved.app.ui.profile.edit
+package com.preloved.app.ui.fragment.homepage.account.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

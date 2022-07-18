@@ -1,9 +1,8 @@
 import android.app.ActionBar
 import android.app.AlertDialog
-import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -12,12 +11,8 @@ import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.databinding.FragmentEditPasswordBinding
-import com.preloved.app.databinding.FragmentEditProductBinding
 import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordContract
 import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordViewModel
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
-import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductContract
-import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPasswordViewModel>(
@@ -154,7 +149,7 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()

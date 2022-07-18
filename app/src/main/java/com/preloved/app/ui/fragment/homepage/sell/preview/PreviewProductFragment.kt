@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -147,7 +148,7 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
     }
     private fun showToastSuccess() {
         val snackBarView =
-            Snackbar.make(getViewBinding().root, "Produk berhasil di terbitkan.", Snackbar.LENGTH_LONG)
+            Snackbar.make(getViewBinding().root, getString(R.string.message_product_success), Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
@@ -159,7 +160,7 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()

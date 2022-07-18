@@ -1,9 +1,8 @@
-package com.preloved.app.ui.profile.edit
+package com.preloved.app.ui.fragment.homepage.account.edit
 
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -20,8 +19,6 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.databinding.FragmentEditProfileBinding
-import com.preloved.app.ui.fragment.homepage.account.AccountFragment
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.USER_TOKEN
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -216,19 +213,14 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
             btnChange.setOnClickListener {
 
             if (checkFormValidation()) {
-                Log.d("token edit", token)
-                if (token != null) {
-                    viewModel.updateProfileData(
-                        token = token.toString(),
-                        email = etEmail.text.toString(),
-                        nama = etNama.text.toString(),
-                        city = etCity.text.toString(),
-                        address = etAddress.text.toString(),
-                        phone = etPhone.text.toString(),
-                        profilePhoto = selectedPicture,
-
-                        )
-                }
+                viewModel.updateProfileData(
+                    token = token,
+                    email = etEmail.text.toString(),
+                    nama = etNama.text.toString(),
+                    city = etCity.text.toString(),
+                    address = etAddress.text.toString(),
+                    phone = etPhone.text.toString(),
+                    profilePhoto = selectedPicture)
             }
         }
             flProfilePict.setOnClickListener {

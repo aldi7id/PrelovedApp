@@ -1,7 +1,6 @@
 import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -9,11 +8,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -23,19 +21,13 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
-import com.preloved.app.data.network.model.response.UserResponse
 import com.preloved.app.databinding.FragmentEditProductBinding
-import com.preloved.app.ui.currency
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_ID
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_PRICE
 import com.preloved.app.ui.fragment.homepage.sell.BottomSheetChooseCategoryFragment
-import com.preloved.app.ui.fragment.homepage.sell.SellFragment
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductContract
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductViewModel
 import com.preloved.app.ui.listCategory
 import com.preloved.app.ui.listCategoryId
-import com.preloved.app.ui.uriToFile
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -322,7 +314,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
 
     private fun showToastSuccess() {
         val snackBarView =
-            Snackbar.make(getViewBinding().root, "Produk berhasil di edit.", Snackbar.LENGTH_LONG)
+            Snackbar.make(getViewBinding().root, getString(R.string.message_edit_product), Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
@@ -334,14 +326,14 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()
     }
     private fun showToastSuccessDelete() {
         val snackBarView =
-            Snackbar.make(getViewBinding().root, "Produk berhasil di hapus.", Snackbar.LENGTH_LONG)
+            Snackbar.make(getViewBinding().root, getString(R.string.message_delete_product), Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
@@ -353,7 +345,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.primary))
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()

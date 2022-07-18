@@ -6,13 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
-import com.preloved.app.data.network.model.response.PostProductResponse
-import com.preloved.app.data.network.model.response.SellerDeleteResponse
 import com.preloved.app.data.network.model.response.UpdatePasswordResponse
-import com.preloved.app.ui.profile.edit.EditProfileContract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.lang.Exception
 
 class EditPasswordViewModel(val editPasswordRepository: EditPasswordRepository) :

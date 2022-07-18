@@ -3,10 +3,7 @@ package com.preloved.app.ui.fragment.homepage.sale
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -20,7 +17,6 @@ import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentSaleBinding
-import com.preloved.app.ui.listCategory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
@@ -344,13 +340,13 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                     addProductCard.setOnClickListener {
                                         addProduct()
                                     }
-                                    tvAddProduct.text = "Add \n Product (0/5)"
+                                    tvAddProduct.text = getString(R.string.add_0)
                                 }
                             }
                             1 -> {
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
-                                    tvAddProduct.text = "Add \n Product (1/5)"
+                                    tvAddProduct.text = getString(R.string.add_1)
                                     addProductCard.setOnClickListener {
                                         addProduct()
                                     }
@@ -361,7 +357,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
                                     lottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = "Add \n Product (2/5)"
+                                    tvAddProduct.text = getString(R.string.add_2)
                                     addProductCard.setOnClickListener {
                                         addProduct()
                                     }
@@ -372,7 +368,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                 addProductCard.visibility = View.VISIBLE
                                 lottieEmpty.visibility = View.GONE
-                                tvAddProduct.text = "Add \n Product (3/5)"
+                                tvAddProduct.text = getString(R.string.add_3)
                                     addProductCard.setOnClickListener {
                                         addProduct()
                                     }
@@ -383,7 +379,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
                                     lottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = "Add \n Product (4/5)"
+                                    tvAddProduct.text = getString(R.string.add_4)
                                     addProductCard.setOnClickListener {
                                         addProduct()
                                     }
@@ -393,7 +389,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
                                     lottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = "Add \n Product (5/5)"
+                                    tvAddProduct.text = getString(R.string.add_5)
                                     addProductCard.setOnClickListener {
                                         AlertDialog.Builder(context)
                                             .setTitle("Maaf")

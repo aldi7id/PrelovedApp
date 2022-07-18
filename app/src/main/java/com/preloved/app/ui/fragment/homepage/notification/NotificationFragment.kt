@@ -1,12 +1,8 @@
 package com.preloved.app.ui.fragment.homepage.notification
 
 import android.app.AlertDialog
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.preloved.app.R
@@ -15,10 +11,6 @@ import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.NotificationResponse
 import com.preloved.app.databinding.FragmentNotificationBinding
-import com.preloved.app.databinding.FragmentSellBinding
-import com.preloved.app.ui.fragment.homepage.sell.SellContract
-import com.preloved.app.ui.fragment.homepage.sell.SellFragment
-import com.preloved.app.ui.fragment.homepage.sell.SellViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationFragment : BaseFragment<FragmentNotificationBinding, NotificationViewModel>(
