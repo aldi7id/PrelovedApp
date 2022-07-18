@@ -32,14 +32,14 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
         viewModel.userSessionResult().observe(viewLifecycleOwner){
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN) {
                 AlertDialog.Builder(context)
-                    .setTitle("Warning")
-                    .setMessage("Kamu Belum Login Nih")
-                    .setPositiveButton("Login") { dialogP, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.please_login))
+                    .setPositiveButton(R.string.login) { dialogP, _ ->
                         //ToLogin Fragment
                         findNavController().navigate(R.id.action_notificationFragment_to_loginFragment3)
                         dialogP.dismiss()
                     }
-                    .setNegativeButton("Tidak") { dialogN, _ ->
+                    .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
                         findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
@@ -75,7 +75,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                         notificationAdapter.submitData(it.data)
                         getViewBinding().rvNotification.adapter = notificationAdapter
                     } else {
-                        //getViewBinding().emptyNotif.visibility = View.VISIBLE
+                        getViewBinding().emptyNotif.visibility = View.VISIBLE
                     }
                 }
                 is Resource.Error -> {

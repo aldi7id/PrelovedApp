@@ -40,5 +40,30 @@
     <string name="preview">Preview</string>
     <string name="jual">Sell</string>
     <string name="choose_category">Choose Your Category</string>
+    <string name="please_login">Please Login First, Before Use This Feature</string>
+    <string name="warning">Warning</string>
+    <string name="later">Later</string>
+    <string name="no_notification">There Are No Notification</string>
+    <string name="date">18 Jul, 10:42</string>
+    <string name="dummy_title_product">Jam Tangan Casio</string>
+    <string name="rp_400_000">Rp.400.000</string>
+    <string name="berhasil_di_rp_200_000">Berhasil di Rp 200.000</string>
+    <string name="notif_message">Pesan Notif</string>
+    <string name="product_offer">Product Offer</string>
+    <string name="change_password">Change Password</string>
+    <string name="enter_old_password">Enter Old Password</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="re_enter_new_password">Re-Enter New Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="list_product">List Product</string>
+    <string name="products">Products</string>
+    <string name="interested">Interested</string>
+    <string name="selled">Selled</string>
+    <string name="no_products">No Product Show, Add First</string>
+    <string name="seller_name">Seller Name</string>
+    <string name="city">City</string>
+    <string name="add_n_product">Add \n Product</string>
+    <string name="product_name">Product Name</string>
 
 </resources>
