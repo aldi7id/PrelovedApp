@@ -107,9 +107,9 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                 val bundle = arguments
                 val idProduct =  bundle?.getInt(PRODUCT_ID)
                 AlertDialog.Builder(context)
-                    .setTitle("Warning")
-                    .setMessage("Yakin Mau Hapus Produk?")
-                    .setPositiveButton("Yakin") { dialogP, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.message_want_delete_product))
+                    .setPositiveButton(getString(R.string.sure)) { dialogP, _ ->
                         //ToLogin Fragment
                         if (idProduct != null) {
                             viewModel.deleteProductSeller(token,idProduct)
@@ -117,14 +117,15 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                         findNavController().navigate(R.id.action_editProductFragment_to_saleFragment)
                         showToastSuccessDelete()
                         dialogP.dismiss()
+                        listCategory.clear()
                     }
-                    .setNegativeButton("Tidak") { dialogN, _ ->
+                    .setNegativeButton(getString(R.string.cancel)) { dialogN, _ ->
                         //ToHomeFragment
                         dialogN.dismiss()
                     }
                     .setCancelable(false)
                     .show()
-                listCategory.clear()
+
             }
         }
     }
@@ -147,7 +148,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
         viewModel.userSessionResult().observe(viewLifecycleOwner) {
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
                 AlertDialog.Builder(context)
-                    .setTitle("Warning")
+                    .setTitle(getString(R.string.warning))
                     .setMessage("Kamu Belum Login Nih")
                     .setPositiveButton("Login") { dialogP, _ ->
                         //ToLogin Fragment

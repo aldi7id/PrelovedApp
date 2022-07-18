@@ -65,5 +65,15 @@
     <string name="city">City</string>
     <string name="add_n_product">Add \n Product</string>
     <string name="product_name">Product Name</string>
+    <string name="product_selled">Product Selled</string>
+    <string name="ditawar_rp_200_000">Offered Rp.200.000</string>
+    <string name="change_profile">Change Profile</string>
+    <string name="wrong_password">Wrong Password</string>
+    <string name="OK">OK</string>
+    <string name="success_edit_password">Successfully Edit Your Password</string>
+    <string name="message_cant_edit_product">You\'re Cannot Edit Selled Product or Offered Product</string>
+    <string name="message_complate_account">Please Complate Your Indentity First Before Sell Product</string>
+    <string name="message_want_delete_product">Are You Sure Want Delete This Product?</string>
+    <string name="sure">Sure</string>
 
 </resources>

@@ -280,14 +280,14 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
             viewModel.userSessionResult().observe(viewLifecycleOwner){
                 if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN) {
                     AlertDialog.Builder(context)
-                        .setTitle("Warning")
-                        .setMessage("Kamu Belum Login Nih")
-                        .setPositiveButton("Login") { dialogP, _ ->
+                        .setTitle(getString(R.string.warning))
+                        .setMessage(getString(R.string.please_login))
+                        .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                             //ToLogin Fragment
                             findNavController().navigate(R.id.action_sellFragment_to_loginFragment3)
                             dialogP.dismiss()
                         }
-                        .setNegativeButton("Tidak") { dialogN, _ ->
+                        .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                             //ToHomeFragment
                             findNavController().navigate(R.id.homeFragment)
                             dialogN.dismiss()
@@ -315,13 +315,13 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                             val phone = it.data.phoneNumber
                             if(city.isEmpty() || address.isEmpty() || photo == "noImage" || phone.isEmpty()){
                                 AlertDialog.Builder(requireContext())
-                                    .setTitle("Warning")
-                                    .setMessage("Lengkapi data terlebih dahulu yuk sebelum Jual Barang")
-                                    .setPositiveButton("Iya"){ positiveButton, _ ->
+                                    .setTitle(getString(R.string.warning))
+                                    .setMessage(getString(R.string.message_complate_account))
+                                    .setPositiveButton(getString(R.string.OK)){ positiveButton, _ ->
                                         findNavController().navigate(R.id.action_sellFragment_to_editProfileFragment)
                                         positiveButton.dismiss()
                                     }
-                                    .setNegativeButton("Tidak") { negativeButton, _ ->
+                                    .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
                                         findNavController().popBackStack()
                                         negativeButton.dismiss()
                                     }

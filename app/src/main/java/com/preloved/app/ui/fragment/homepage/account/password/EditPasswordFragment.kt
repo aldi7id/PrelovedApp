@@ -93,14 +93,14 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
         viewModel.userSessionResult().observe(viewLifecycleOwner) {
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
                 AlertDialog.Builder(context)
-                    .setTitle("Warning")
-                    .setMessage("Kamu Belum Login Nih")
-                    .setPositiveButton("Login") { dialogP, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.please_login))
+                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
                         findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
                     }
-                    .setNegativeButton("Tidak") { dialogN, _ ->
+                    .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
                         findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
@@ -128,9 +128,9 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
                     showContent(true)
                     if(it.message == "HTTP 400 Bad Request"){
                         AlertDialog.Builder(context)
-                            .setTitle("Warning")
-                            .setMessage("Password Salah")
-                            .setPositiveButton("Baik") { dialogP, _ ->
+                            .setTitle(getString(R.string.warning))
+                            .setMessage(getString(R.string.wrong_password))
+                            .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
                                 dialogP.dismiss()
                             }
                             .setCancelable(false)
@@ -142,7 +142,7 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
     }
     private fun showToastSuccess() {
         val snackBarView =
-            Snackbar.make(getViewBinding().root, "Password Berhasil Di Edit.", Snackbar.LENGTH_LONG)
+            Snackbar.make(getViewBinding().root, getString(R.string.success_edit_password), Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()

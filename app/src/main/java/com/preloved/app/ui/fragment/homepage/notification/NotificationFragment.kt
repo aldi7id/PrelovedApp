@@ -34,7 +34,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                 AlertDialog.Builder(context)
                     .setTitle(getString(R.string.warning))
                     .setMessage(getString(R.string.please_login))
-                    .setPositiveButton(R.string.login) { dialogP, _ ->
+                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
                         findNavController().navigate(R.id.action_notificationFragment_to_loginFragment3)
                         dialogP.dismiss()

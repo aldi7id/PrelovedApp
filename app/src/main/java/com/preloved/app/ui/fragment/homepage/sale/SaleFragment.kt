@@ -195,9 +195,9 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                             )
                                         } else {
                                             AlertDialog.Builder(context)
-                                                .setTitle("Warning")
-                                                .setMessage("Kamu Tidak Bisa Edit Produk Yang Sold / Sedang Di Tawar")
-                                                .setPositiveButton("OKE") { dialogP, _ ->
+                                                .setTitle(getString(R.string.warning))
+                                                .setMessage(getString(R.string.message_cant_edit_product))
+                                                .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
                                                     dialogP.dismiss()
                                                 }
                                                 .setCancelable(false)
@@ -238,14 +238,14 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
         viewModel.userSessionResult().observe(viewLifecycleOwner) {
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
                 AlertDialog.Builder(context)
-                    .setTitle("Warning")
-                    .setMessage("Kamu Belum Login Nih")
-                    .setPositiveButton("Login") { dialogP, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.please_login))
+                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
                         findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
                         dialogP.dismiss()
                     }
-                    .setNegativeButton("Tidak") { dialogN, _ ->
+                    .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
                         findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
@@ -320,9 +320,9 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                         )
                                     } else {
                                         AlertDialog.Builder(context)
-                                            .setTitle("Warning")
-                                            .setMessage("Kamu Tidak Bisa Edit Produk Yang Sold / Sedang Di Tawar")
-                                            .setPositiveButton("OKE") { dialogP, _ ->
+                                            .setTitle(getString(R.string.warning))
+                                            .setMessage(getString(R.string.message_cant_edit_product))
+                                            .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
                                                 dialogP.dismiss()
                                             }
                                             .setCancelable(false)
