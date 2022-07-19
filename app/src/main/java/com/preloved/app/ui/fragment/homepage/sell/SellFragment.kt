@@ -133,6 +133,10 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     isFormValid = false
                     tfDeksipsi.error = getString(R.string.enter_desc_product)
                 }
+                uri.isEmpty() -> {
+                    isFormValid = false
+                    Toast.makeText(context, getString(R.string.inser_image_first), Toast.LENGTH_SHORT).show()
+                }
                 else -> {
                     tfNamaProduk.isErrorEnabled = false
                     tfHargaProduk.isErrorEnabled = false

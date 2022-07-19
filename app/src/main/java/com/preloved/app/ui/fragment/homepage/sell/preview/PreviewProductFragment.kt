@@ -47,7 +47,6 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
         )
         getViewBinding().apply {
             val bundle = arguments
-            val token = bundle?.getString(USER_TOKEN)
             val productName = bundle?.getString(TITLE_PRODUCT)
             val priceProduct = bundle?.getString(PRICE_PRODUCT)
             val descProduct = bundle?.getString(DESC_PRODUCT)
@@ -56,7 +55,6 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
             val userImage = bundle?.getString(IMAGE_USER)
             val categoryProduct = bundle?.getString(CATEGORY_PRODUCT)
             val imageProduct = bundle?.getString(IMAGE_PRODUCT)
-            Log.d("token edit", token.toString())
             tvProdukName.text = productName
             tvProdukHarga.text = priceProduct
             tvDeskripsiProduk.text = descProduct
@@ -87,9 +85,9 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
                 val token = bundle?.getString(USER_TOKEN)
                 val imageProduct = bundle?.getString(IMAGE_PRODUCT)
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Pesan")
-                    .setMessage("Terbitkan Produk?")
-                    .setPositiveButton("Iya") { positiveButton, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.post_the_product))
+                    .setPositiveButton(getString(R.string.sure)) { positiveButton, _ ->
                         if (token != null) {
                             viewModel.postProductData(
                                 token,
@@ -103,7 +101,7 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
                         }
                         positiveButton.dismiss()
                     }
-                    .setNegativeButton("Batal") { negativeButton, _ ->
+                    .setNegativeButton(getString(R.string.cancel)) { negativeButton, _ ->
                         negativeButton.dismiss()
                     }
                     .show()
@@ -117,7 +115,7 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
                         showLoading(false)
                         showToastSuccess()
                         findNavController().navigate(R.id.action_previewProductFragment_to_saleFragment)
-                        Toast.makeText(requireContext(), "Add Product Success!", Toast.LENGTH_SHORT).show()
+
                     }
                     is Resource.Error -> {
                         showLoading(false)
@@ -125,13 +123,13 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
                         var message = ""
                         when(response.message){
                             "HTTP 400 Bad Request" -> {
-                                message = "Max Upload 5 Product"
+                                message = getString(R.string.max_upload)
                             }
                         }
                         AlertDialog.Builder(context)
-                            .setTitle("Maaf")
+                            .setTitle(getString(R.string.sorry))
                             .setMessage(message)
-                            .setPositiveButton("Mengerti") { positiveButton, _ ->
+                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
                                 positiveButton.dismiss()
                             }
                             .show()
