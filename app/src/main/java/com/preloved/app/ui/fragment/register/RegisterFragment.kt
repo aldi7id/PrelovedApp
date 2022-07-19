@@ -1,6 +1,9 @@
 package com.preloved.app.ui.fragment.register
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
@@ -19,6 +22,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
         onClick()
     }
 
+    override fun showLoading(isVisible: Boolean) {
+        super.showLoading(isVisible)
+        getViewBinding().pbLoading.isVisible = isVisible
+    }
+
     private fun onClick() {
         getViewBinding().apply {
             btnRegister.setOnClickListener {
@@ -30,9 +38,36 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+            etNama.addTextChangedListener(textWatcher)
+            etAddress.addTextChangedListener(textWatcher)
+            etCity.addTextChangedListener(textWatcher)
+            etEmail.addTextChangedListener(textWatcher)
+            etPassword.addTextChangedListener(textWatcher)
+            etRepassword.addTextChangedListener(textWatcher)
         }
     }
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            getViewBinding().apply {
+                tfPassword.error = null
+                tfRepassword.error = null
+                tfPhone.error = null
+                tfNama.error = null
+                tfEmail.error = null
+                tfAddress.error = null
+                tfCity.error = null
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+
+        }
+
+    }
     private fun authRegisterUser() {
         getViewBinding().apply {
             if (checkFormValidation()){
@@ -77,8 +112,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                     tfPassword.isErrorEnabled = true
                     isValid = false
                 }
+                etPassword.text!!.length < 8 -> {
+                    tfPassword.isErrorEnabled = true
+                    tfPassword.error = "Minimum Password 8 Character"
+                    isValid = false
+                }
                 etRepassword.text.toString().isEmpty() -> {
                     tfRepassword.error = "Please fill your repassword"
+                    tfRepassword.isErrorEnabled = true
+                    isValid = false
+                }
+                etPassword.text.toString() != etRepassword.text.toString() -> {
+                    tfPassword.error = "Password must same"
+                    tfRepassword.error = "Password must same"
+                    tfPassword.isErrorEnabled = true
                     tfRepassword.isErrorEnabled = true
                     isValid = false
                 }
@@ -97,25 +144,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                     tfAddress.isErrorEnabled = true
                     isValid = false
                 }
-                etPassword.text.toString() != etRepassword.text.toString() -> {
-                    tfPassword.error = "Password must same"
-                    tfRepassword.error = "Password must same"
-                    tfPassword.isErrorEnabled = true
-                    tfRepassword.isErrorEnabled = true
-                    isValid = false
-                }
 
-                etPassword.text!!.length < 8 -> {
-                    tfPassword.isErrorEnabled = true
-                    tfPassword.error = "Minimum Password 8 Character"
-                    isValid = false
-                }
                 else -> {
                     tfPassword.error = null
                     tfRepassword.error = null
                     tfPhone.error = null
                     tfNama.error = null
                     tfEmail.error = null
+                    tfCity.error = null
                     tfAddress.error = null
                 }
             }
