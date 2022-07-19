@@ -47,7 +47,7 @@ class SaleAcceptedAdapter(): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder
                     .into(binding.ivProductImage)
                 tvNamaProduk.text = data.product.name
                 tvHargaAwalProduk.text = basePrice
-                tvHargaDitawarProduk.text = "Ditawar $priceNego"
+                tvHargaDitawarProduk.text = "Offered $priceNego"
                 tvTanggal.text = date
 //                if (data.status != "declined") {
 //                    root.setOnClickListener {

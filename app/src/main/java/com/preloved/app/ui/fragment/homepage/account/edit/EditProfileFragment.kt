@@ -109,7 +109,7 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
                     Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(requireContext(), "Tast Cancelled", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.task_cancelled), Toast.LENGTH_SHORT).show()
                 }
             }
         }

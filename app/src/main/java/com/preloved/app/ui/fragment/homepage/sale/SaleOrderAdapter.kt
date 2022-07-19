@@ -49,7 +49,7 @@ class SaleOrderAdapter(private val OnItemClick: OnClickListener) :
                     .into(binding.ivProductImage)
                 tvNamaProduk.text = data.product.name
                 tvHargaAwalProduk.text = basePrice
-                tvHargaDitawarProduk.text = "Ditawar $priceNego"
+                tvHargaDitawarProduk.text = "Offer $priceNego"
                 tvTanggal.text = date
                 if (data.status != "declined") {
                     root.setOnClickListener {

@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
@@ -70,31 +72,76 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     kategori += ", $element"
                 }
                 getViewBinding().etKategory.setText(kategori.drop(2))
-                Log.d("HAYO 1", listCategoryId.toString())
 
             } else
                 getViewBinding().etKategory.setText(getString(R.string.choose_category))
-                Log.d("HAYO 2", listCategoryId.toString())
+
+        }
+        getViewBinding().apply {
+            etNamaProduk.addTextChangedListener(textWatcher)
+            etHargaProduk.addTextChangedListener(textWatcher)
+            etDeskripsi.addTextChangedListener(textWatcher)
+            etKategory.addTextChangedListener(textWatcher)
+        }
+    }
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            getViewBinding().apply {
+                tfDeksipsi.error = null
+                tfHargaProduk.error = null
+                tfKategory.error = null
+                tfNamaProduk.error = null
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+
         }
     }
 
-    override fun checkFormValidation(): Boolean {
+
+
+        override fun checkFormValidation(): Boolean {
         getViewBinding().apply {
             var isFormValid = true
             val nameProduct = etNamaProduk.text.toString()
+            val priceProduct = etHargaProduk.text.toString()
+            val descProduct = etDeskripsi.text.toString()
+            val categoryProduct = etKategory.text.toString()
             when {
                 nameProduct.isEmpty() -> {
                     isFormValid = false
                     tfNamaProduk.isErrorEnabled = true
-                    tfNamaProduk.error = "Harap Masukkan Nama Produk"
-                    tfNamaProduk.helperText
-                } else -> {
-                tfNamaProduk.isErrorEnabled = false
-            }
+                    tfNamaProduk.error = getString(R.string.enter_name_product)
+                }
+                priceProduct.isEmpty() -> {
+                    isFormValid = false
+                    tfHargaProduk.isErrorEnabled = true
+                    tfHargaProduk.error = getString(R.string.enter_price_product)
+                }
+                categoryProduct.isEmpty() -> {
+                    isFormValid = false
+                    tfKategory.isErrorEnabled = true
+                    tfKategory.error = getString(R.string.please_choose_category)
+
+                }
+                descProduct.isEmpty() -> {
+                    isFormValid = false
+                    tfDeksipsi.error = getString(R.string.enter_desc_product)
+                }
+                else -> {
+                    tfNamaProduk.isErrorEnabled = false
+                    tfHargaProduk.isErrorEnabled = false
+                    tfDeksipsi.isErrorEnabled = false
+                    tfKategory.isErrorEnabled = false
+                }
             }
             return isFormValid
         }
-
     }
 
     override fun setDataToView(data: List<CategoryResponseItem>) {
@@ -159,7 +206,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(requireContext(), "Tast Cancelled", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.task_cancelled), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -207,7 +254,6 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         showLoading(false)
                         showToastSuccess()
                         findNavController().navigate(R.id.action_sellFragment_to_saleFragment)
-                        Toast.makeText(requireContext(), "Add Product Success!", Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Error -> {
                         showLoading(false)
@@ -215,13 +261,13 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         var message = ""
                         when(response.message){
                             "HTTP 400 Bad Request" -> {
-                                message = "Max Upload 5 Product"
+                                message = getString(R.string.max_upload)
                             }
                         }
                         AlertDialog.Builder(context)
-                            .setTitle("Maaf")
+                            .setTitle(getString(R.string.sorry))
                             .setMessage(message)
-                            .setPositiveButton("Mengerti") { positiveButton, _ ->
+                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
                                 positiveButton.dismiss()
                             }
                             .show()
@@ -297,7 +343,6 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                 } else {
                     token = it.access_token
                     viewModel.getUserData(it.access_token)
-                    Log.d ("token", token)
                     bundle.putString(USER_TOKEN,it.access_token)
                 }
             }
@@ -328,8 +373,6 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                                     .show()
                             } else {
                                 citySeller = it.data.city
-                                Log.d("City", citySeller)
-                                //Bundle
                                 bundle.putString(CITY_USER,it.data.city)
                                 bundle.putString(NAME_USER, it.data.fullName)
                                 bundle.putString(IMAGE_USER, it.data.imageUrl.toString())
@@ -341,7 +384,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         showLoading(false)
                         AlertDialog.Builder(requireContext())
                             .setMessage(it.message)
-                            .setPositiveButton("Ok") { dialog, _ ->
+                            .setPositiveButton(getString(R.string.OK)) { dialog, _ ->
                                 dialog.dismiss()
                                 findNavController().popBackStack()
                             }
@@ -354,7 +397,7 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
     }
     private fun showToastSuccess() {
         val snackBarView =
-            Snackbar.make(getViewBinding().root, "Produk berhasil di terbitkan.", Snackbar.LENGTH_LONG)
+            Snackbar.make(getViewBinding().root, getString(R.string.toast_product_add), Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()

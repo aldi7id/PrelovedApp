@@ -85,5 +85,14 @@
     <string name="add_3">Add \n Product (3/5)</string>
     <string name="add_4">Add \n Product (4/5)</string>
     <string name="add_5">Add \n Product (5/5)</string>
+    <string name="sorry">Sorry</string>
+    <string name="remove_first">Remove Your Product First Before Add Other Product</string>
+    <string name="enter_name_product">Please enter name of product</string>
+    <string name="enter_price_product">Please enter price of product</string>
+    <string name="enter_desc_product">Please enter description of product</string>
+    <string name="task_cancelled">Task Cancelled</string>
+    <string name="max_upload">Max Upload 5 Product</string>
+    <string name="toast_product_add">Successfully Add Your Product.</string>
+    <string name="please_choose_category">Please Choose Category</string>
 
 </resources>

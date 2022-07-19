@@ -1,8 +1,6 @@
 import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
-import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
@@ -37,8 +35,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     override val viewModel: EditProductViewModel by viewModel()
     private var token = ""
     private var selectedPicture: File? = null
-    private var uri: String = ""
-    private val bundle = Bundle()
     private var location = ""
 
 
@@ -131,23 +127,21 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                     kategori += ", $element"
                 }
                 getViewBinding().etKategory.setText(kategori.drop(2))
-                Log.d("HAYO 1", listCategoryId.toString())
 
             } else
-                getViewBinding().etKategory.setText("Pilih Kategory")
-            Log.d("HAYO 2", listCategoryId.toString())
+                getViewBinding().etKategory.setText(getString(R.string.choose_category))
         }
         viewModel.userSessionResult().observe(viewLifecycleOwner) {
             if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN){
                 AlertDialog.Builder(context)
                     .setTitle(getString(R.string.warning))
-                    .setMessage("Kamu Belum Login Nih")
-                    .setPositiveButton("Login") { dialogP, _ ->
+                    .setMessage(getString(R.string.please_login))
+                    .setPositiveButton(R.string.login) { dialogP, _ ->
                         //ToLogin Fragment
                         findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
                     }
-                    .setNegativeButton("Tidak") { dialogN, _ ->
+                    .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
                         findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
@@ -160,7 +154,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                 val bundle = arguments
                 val idProduct =  bundle?.getInt(PRODUCT_ID)
                 viewModel.getSellerProduct(token, idProduct!!)
-                Log.d("DIDIDI", bundle.toString())
 
             }
         }
@@ -226,7 +219,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                     Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(requireContext(), "Tast Cancelled", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.task_cancelled), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -242,7 +235,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     override fun setDataToView(data: SellerProductResponseItem) {
         getViewBinding().apply {
             location = data.location
-            Log.d("HAYO", location)
             etNamaProduk.setText(data.name)
             etHargaProduk.setText(data.basePrice.toString())
             etDeskripsi.setText(data.description)
@@ -284,23 +276,23 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     override fun checkFormValidation(): Boolean {
         getViewBinding().apply {
             var isFormValid = true
-            var nameProduct = etNamaProduk.text.toString()
-            var priceProduct = etHargaProduk.text.toString()
-            var descProduct = etDeskripsi.text.toString()
+            val nameProduct = etNamaProduk.text.toString()
+            val priceProduct = etHargaProduk.text.toString()
+            val descProduct = etDeskripsi.text.toString()
             when {
                 nameProduct.isEmpty() -> {
                     isFormValid = false
                     tfNamaProduk.isErrorEnabled = true
-                    tfNamaProduk.error = "Harap Masukkan Nama Produk"
+                    tfNamaProduk.error = getString(R.string.enter_name_product)
                 }
                 priceProduct.isEmpty() -> {
                     isFormValid = false
                     tfHargaProduk.isErrorEnabled = true
-                    tfHargaProduk.error = "Harga Belum Dimasukkan"
+                    tfHargaProduk.error = getString(R.string.enter_price_product)
                 }
                 descProduct.isEmpty() -> {
                     isFormValid = false
-                    tfDeksipsi.error = "Deskripsi Blm Ada"
+                    tfDeksipsi.error = getString(R.string.enter_desc_product)
                 }
                 else -> {
                 tfNamaProduk.isErrorEnabled = false

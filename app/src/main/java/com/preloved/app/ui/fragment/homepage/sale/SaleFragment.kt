@@ -392,9 +392,9 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                     tvAddProduct.text = getString(R.string.add_5)
                                     addProductCard.setOnClickListener {
                                         AlertDialog.Builder(context)
-                                            .setTitle("Maaf")
-                                            .setMessage("Hampus Produk Kamu Dlu")
-                                            .setPositiveButton("Mengerti") { positiveButton, _ ->
+                                            .setTitle(getString(R.string.sorry))
+                                            .setMessage(getString(R.string.remove_first))
+                                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
                                                 positiveButton.dismiss()
                                             }
                                             .show()
