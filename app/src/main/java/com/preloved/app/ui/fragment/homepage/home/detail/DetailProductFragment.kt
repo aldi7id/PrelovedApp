@@ -26,17 +26,18 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
     private fun onClick() {
         getViewBinding().apply {
             ibBack.setOnClickListener {
-                when(args.status) {
-                    0 -> {
-                        findNavController().navigate(R.id.action_detailProductFragment_to_mainFragment)
-                    }
-                    else -> {
-                        findNavController().navigate(R.id.action_detailProductFragment2_to_searchProductFragment)
-                    }
-                }
+//                when(args.status) {
+//                    0 -> {
+//                        findNavController().navigate(R.id.action_detailProductFragment_to_mainFragment)
+//                    }
+//                    else -> {
+//                        findNavController().navigate(R.id.action_detailProductFragment2_to_searchProductFragment)
+//                    }
+//                }
             }
         }
     }
+
 
     override fun getDataDetail() {
         viewModel.apply {
