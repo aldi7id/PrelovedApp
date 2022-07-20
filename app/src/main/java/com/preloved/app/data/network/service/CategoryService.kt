@@ -1,14 +1,16 @@
 package com.preloved.app.data.network.service
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.preloved.app.data.network.model.request.bid.BidRequest
+import com.preloved.app.data.network.model.response.bid.get.GetBidResponse
+import com.preloved.app.data.network.model.response.bid.post.PostBidResponse
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 interface CategoryService {
@@ -24,6 +26,12 @@ interface CategoryService {
 
     @GET("buyer/product/{id}")
     suspend fun getDetailCategoryById(@Path("id") detailById: Int): CategoryDetailResponse
+
+    @GET("buyer/order")
+    suspend fun getBidProductOrder(@Header("access_token") accessToken: String): GetBidResponse
+
+    @POST("buyer/order")
+    suspend fun postBidProductOrder(@Header("access_token") accessToken: String, @Body bidRequest: BidRequest): Response<PostBidResponse>
 
     companion object {
         @JvmStatic

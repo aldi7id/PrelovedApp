@@ -8,6 +8,7 @@ import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import com.preloved.app.databinding.FragmentDetailProductBinding
+import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailProductViewModel>(
@@ -67,7 +68,9 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
             with(getViewBinding()) {
                 dataCategory?.let {
                     tvTitleItem.text = it.name
-                    tvCategoryItem.text = it.categories.toString()
+                    tvCategoryItem.text = it.categories.joinToString{ data ->
+                        data.name
+                    }
                     tvPriceItem.text = it.basePrice.toString()
                     Glide.with(root)
                         .load(it.imageUrl)
@@ -75,6 +78,9 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     tvUsername.text = it.user.fullName
                     tvUserLocation.text = it.user.city
                     tvItemDescription.text = it.description
+                    btnBuy.setOnClickListener {
+                        PopUpBidFragment(args.productId).showsDialog
+                    }
                 }
             }
         }
