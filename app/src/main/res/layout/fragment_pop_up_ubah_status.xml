@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/vw_shape"
+        android:layout_width="100dp"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/card_shape"
+        android:backgroundTint="@color/gray"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_popup_title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Perbarui status penjualan produkmu"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vw_shape"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"/>
+
+    <RadioGroup
+        android:id="@+id/rg_status"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_popup_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_popup_title"
+        android:layout_marginTop="20dp">
+
+        <RadioButton
+            android:id="@+id/rb_sold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sudah Laku"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="14sp"
+            android:textColor="@color/black">
+        </RadioButton>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kamu telah sepakat menjual produk ini kepada pembeli"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="14sp"/>
+
+        <RadioButton
+            android:id="@+id/rb_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transaksi dibatalkan"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="14sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kamu membatalkan transaksi produk ini dengan pembeli"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="14sp"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_hubungi"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:text="Ubah Status"
+        android:fontFamily="@font/poppinsmedium"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
