@@ -96,5 +96,7 @@
     <string name="please_choose_category">Please Choose Category</string>
     <string name="inser_image_first">Insert Image First</string>
     <string name="post_the_product">Post The Product?</string>
+    <string name="congratulations">Congratulations, You Had Got Best Price</string>
+    <string name="immediately">Immediately contact the buyer via whatsapp for further transactions</string>
 
 </resources>

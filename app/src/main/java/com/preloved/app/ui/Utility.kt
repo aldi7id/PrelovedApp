@@ -17,6 +17,7 @@ import java.util.*
 
 val listCategory : MutableList<String> = ArrayList()
 val listCategoryId : MutableList<Int> = ArrayList()
+val listProductAvail : MutableList<String> = ArrayList()
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 private val timeStamp: String = SimpleDateFormat(

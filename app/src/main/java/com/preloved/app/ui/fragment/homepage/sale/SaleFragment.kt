@@ -293,6 +293,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     }
                     is Resource.Success -> {
                         showLoading(false)
+                        val availableProductSize = it.data?.filter { it.status == "available" }?.size
                     if (it.data != null) {
                         val saleProductAdapter =
                             SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
@@ -328,8 +329,9 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         saleProductAdapter.submitData(it.data)
                         getViewBinding().rvProduct.adapter = saleProductAdapter
                         getViewBinding().rvProduct.visibility = View.VISIBLE
+
                     }
-                        when(it.data?.size){
+                        when(availableProductSize){
                             0 -> {
                                 getViewBinding().apply {
                                     lottieEmpty.visibility = View.VISIBLE
