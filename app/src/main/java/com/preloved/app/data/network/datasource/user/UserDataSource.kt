@@ -8,6 +8,9 @@ import com.preloved.app.data.network.model.response.*
 import com.preloved.app.data.network.model.response.auth.LoginResponse
 import com.preloved.app.data.network.model.response.auth.RegisterResponse
 import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.Path
 import java.io.File
 
 interface UserDataSource {
@@ -57,4 +60,9 @@ interface UserDataSource {
                                     image : File? = null) : PostProductResponse
     suspend fun getBuyerOrderById(token: String, id: Int) : BuyerOrderResponse
     suspend fun getSellerOrderById(token: String, id: Int) : SellerOrderResponse
+    suspend fun approveOrder(
+        @Header("access_token") token: String,
+        @Path("id") orderId: Int,
+        @Body requestApproveOrder: RequestApproveOrder
+    ): ApproveOrderResponse
    }

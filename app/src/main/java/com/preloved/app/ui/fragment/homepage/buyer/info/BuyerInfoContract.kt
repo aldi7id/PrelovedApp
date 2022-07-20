@@ -20,11 +20,14 @@ interface BuyerInfoContract {
         fun userSessionResult(): LiveData<DatastorePreferences>
         fun getSellerOrderById(token: String, id: Int)
         fun getSellerOrderByIdResult(): LiveData<Resource<SellerOrderResponse>>
+        fun statusOrder(token: String, orderId: Int, requestApproveOrder: RequestApproveOrder)
+        fun statusOrderResult() : LiveData<Resource<ApproveOrderResponse>>
     }
 
     interface Repository {
         suspend fun userSession(): Flow<DatastorePreferences>
         suspend fun getSellerOrderById(token : String, id: Int) : SellerOrderResponse
+        suspend fun approveOrder(token: String, id: Int, requestApproveOrder: RequestApproveOrder) : ApproveOrderResponse
 
     }
 }

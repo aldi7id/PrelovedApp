@@ -85,6 +85,12 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): SellerOrderResponse
+    @PATCH("seller/order/{id}")
+    suspend fun approveOrder(
+        @Header("access_token") token: String,
+        @Path("id") orderId: Int,
+        @Body requestApproveOrder: RequestApproveOrder
+    ): ApproveOrderResponse
 
 
     companion object {

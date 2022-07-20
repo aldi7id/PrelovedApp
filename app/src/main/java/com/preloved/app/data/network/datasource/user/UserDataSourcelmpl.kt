@@ -99,6 +99,14 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getSellerOrderById(token, id)
     }
 
+    override suspend fun approveOrder(
+        token: String,
+        orderId: Int,
+        requestApproveOrder: RequestApproveOrder
+    ): ApproveOrderResponse {
+        return preLovedService.approveOrder(token, orderId, requestApproveOrder)
+    }
+
     override suspend fun putPassword(
         token: String,
         current_password: String,

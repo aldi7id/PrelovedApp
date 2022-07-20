@@ -1,4 +1,6 @@
 import android.app.AlertDialog
+import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -6,6 +8,7 @@ import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
+import com.preloved.app.data.network.model.response.RequestApproveOrder
 import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.databinding.FragmentBuyerInfoBinding
 import com.preloved.app.ui.currency
@@ -13,12 +16,23 @@ import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoContract
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.properties.Delegates
 
 class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewModel>(
     FragmentBuyerInfoBinding::inflate
 ) , BuyerInfoContract.View {
     override val viewModel: BuyerInfoViewModel by viewModel()
     private var token = ""
+    private lateinit var status: String
+    private lateinit var namaPenawar: String
+    private lateinit var kotaPenawar: String
+    private lateinit var imagePenawar: String
+    private lateinit var productName: String
+    private lateinit var productPrice: String
+    private lateinit var productBid : String
+    private lateinit var imageProduct: String
+
+
     override fun initView() {
         viewModel.userSession()
         setOnClickListeners()
@@ -28,7 +42,58 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
         getViewBinding().apply {
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
+            }
+            btnTerima.setOnClickListener {
+                val bundle = arguments
+                val idOrder = bundle?.getInt(SaleFragment.ORDER_ID)
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Pesan")
+                    .setMessage("Terima Tawaran?")
+                    .setPositiveButton("Iya"){ positive, _ ->
+                        status = "accepted"
+                        val body = RequestApproveOrder(
+                            status
+                        )
+                        if (token != null && idOrder != null) {
+                            viewModel.statusOrder(token, idOrder, body)
+                            positive.dismiss()
+                        }
 
+                    }
+                    .setNegativeButton("Tidak"){ negative, _ ->
+                        negative.dismiss()
+                    }
+                    .show()
+            }
+            btnTolak.setOnClickListener {
+                val bundle = arguments
+                val idOrder = bundle?.getInt(SaleFragment.ORDER_ID)
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Pesan")
+                    .setMessage("Tolak Tawaran?")
+                    .setPositiveButton("Iya"){ positive, _ ->
+                        status = "declined"
+                        val body = RequestApproveOrder(
+                            status
+                        )
+                        if (token != null && idOrder != null) {
+                            viewModel.statusOrder(token, idOrder, body)
+                            positive.dismiss()
+                        }
+                    }
+                    .setNegativeButton("Tidak"){ negative, _ ->
+                        negative.dismiss()
+                    }
+                    .show()
+            }
+            btnHubungi.setOnClickListener {
+                val bottomFragment = BottomSheetBuyerInfoFragment(
+                    namaPenawar, kotaPenawar, imagePenawar, productName, productPrice, productBid, imageProduct
+                )
+                bottomFragment.show(parentFragmentManager, "Tag")
+            }
+            btnStatus.setOnClickListener {
+                //StatusBottomNav
             }
         }
     }
@@ -58,6 +123,22 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 .into(getViewBinding().ivProductImage)
             tvHargaAwalProduk.text = currency(data.product.basePrice)
             tvHargaDitawarProduk.text = currency(data.price)
+            namaPenawar = data.user.fullName
+            imagePenawar = data.user.imageUrl
+            productName = data.productName
+            productPrice = data.basePrice
+            productBid = data.price.toString()
+            kotaPenawar = data.user.city
+            imageProduct = data.product.imageUrl
+
+            if(data.status == "accepted"){
+                btnGroup.visibility = View.GONE
+                btnGroupAccepted.visibility = View.VISIBLE
+                val bottomFragment = BottomSheetBuyerInfoFragment(
+                    namaPenawar, kotaPenawar, imagePenawar, productName, productPrice, productBid, imageProduct
+                )
+                bottomFragment.show(parentFragmentManager, "Tag")
+            }
         }
     }
 
@@ -84,7 +165,6 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 token = it.access_token
 
                 val bundle = arguments
-                val idProduct =  bundle?.getInt(SaleFragment.PRODUCT_ID)
                 val idOrderBuyer = bundle?.getInt(SaleFragment.ORDER_ID)
                 viewModel.getSellerOrderById(token, idOrderBuyer!!)
             }
@@ -103,6 +183,20 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 is Resource.Error -> {
                     showLoading(true)
                     showContent(false)
+                }
+            }
+        }
+        viewModel.statusOrderResult().observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is Resource.Loading -> {
+                    showLoading(true)
+                }
+                is Resource.Success -> {
+                    showLoading(false)
+                    Toast.makeText(context, "Produk Berhasil Di ${status}", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    showLoading(true)
                 }
             }
         }

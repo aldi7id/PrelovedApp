@@ -221,12 +221,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_jual"
+                android:id="@+id/btn_status"
                 style="@style/ThemeOverlay.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Status"
+                android:backgroundTint="@color/gray"
                 android:textAllCaps="false"
                 android:fontFamily="@font/poppinsregular"
                 />
@@ -237,7 +238,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Hubungi"
-                app:backgroundTint="@color/gray"
+                android:layout_marginHorizontal="4dp"
+                app:backgroundTint="@color/primary"
                 android:drawableEnd="@drawable/ic_wa"
                 android:textAllCaps="false"
                 android:fontFamily="@font/poppinsregular"
