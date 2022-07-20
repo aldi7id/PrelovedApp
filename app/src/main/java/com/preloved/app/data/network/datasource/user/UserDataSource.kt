@@ -1,5 +1,6 @@
 package com.preloved.app.data.network.datasource
 
+import com.preloved.app.data.network.model.BuyerOrderResponse
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
@@ -54,4 +55,6 @@ interface UserDataSource {
                                     category: List<Int>,
                                     location: String,
                                     image : File? = null) : PostProductResponse
+    suspend fun getBuyerOrderById(token: String, id: Int) : BuyerOrderResponse
+    suspend fun getSellerOrderById(token: String, id: Int) : SellerOrderResponse
    }

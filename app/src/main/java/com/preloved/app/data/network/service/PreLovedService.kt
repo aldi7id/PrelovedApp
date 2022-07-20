@@ -1,6 +1,7 @@
 package com.preloved.app.data.network.services
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.preloved.app.data.network.model.BuyerOrderResponse
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.*
@@ -68,6 +69,22 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): Response<SellerDeleteResponse>
+
+    @GET("buyer/order")
+    suspend fun getBuyerOrder(
+        @Header("access_token") token: String
+    ): List<BuyerOrderResponse>
+
+    @GET("buyer/order/{id}")
+    suspend fun getBuyerOrderById(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): BuyerOrderResponse
+    @GET("seller/order/{id}")
+    suspend fun getSellerOrderById(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): SellerOrderResponse
 
 
     companion object {

@@ -1,6 +1,7 @@
 package com.preloved.app.data.network.datasource.user
 
 import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.model.BuyerOrderResponse
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
@@ -89,6 +90,15 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         }
         return preLovedService.updateSellerProduct(token,id,requestBodyBuilder.build())
     }
+
+    override suspend fun getBuyerOrderById(token: String, id: Int): BuyerOrderResponse {
+        return preLovedService.getBuyerOrderById(token, id)
+    }
+
+    override suspend fun getSellerOrderById(token: String, id: Int): SellerOrderResponse {
+        return preLovedService.getSellerOrderById(token, id)
+    }
+
     override suspend fun putPassword(
         token: String,
         current_password: String,

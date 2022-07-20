@@ -67,6 +67,9 @@
             app:destination="@id/editProductFragment"
             app:popUpTo="@id/saleFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_saleFragment_to_buyerInfoFragment"
+            app:destination="@id/buyerInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -180,4 +183,8 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/buyerInfoFragment"
+        android:name="BuyerInfoFragment"
+        android:label="BuyerInfoFragment" />
 </navigation>

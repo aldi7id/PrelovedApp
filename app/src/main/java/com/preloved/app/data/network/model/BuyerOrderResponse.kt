@@ -1,8 +1,9 @@
-package com.preloved.app.data.network.model.response
+package com.preloved.app.data.network.model
+
 
 import com.google.gson.annotations.SerializedName
 
-data class SellerOrderResponse(
+data class BuyerOrderResponse(
     @SerializedName("base_price")
     val basePrice: String,
     @SerializedName("buyer_id")

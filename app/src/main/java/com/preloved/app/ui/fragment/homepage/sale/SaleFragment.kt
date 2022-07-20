@@ -115,11 +115,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                     override fun onClickItem(data: SellerOrderResponse) {
                                         bundlePenawar.putString(
                                             USER_NAME,
-                                            data.buyerInformation.fullName
+                                            data.user.fullName
                                         )
                                         bundlePenawar.putString(
                                             USER_CITY,
-                                            data.buyerInformation.city.toString()
+                                            data.user.city.toString()
                                         )
                                         bundlePenawar.putInt(ORDER_ID, data.id)
                                         bundlePenawar.putString(ORDER_STATUS, data.status)
@@ -140,10 +140,9 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                             PRODUCT_BID_DATE,
                                             data.createdAt
                                         )
-//                                        findNavController().navigate(
-//                                            R.id.action_daftarJualFragment_to_infoPenawarFragment,
-//                                            bundlePenawar
-//                                        )
+                                        findNavController().navigate(
+                                            R.id.action_saleFragment_to_buyerInfoFragment, bundlePenawar
+                                        )
                                     }
                                 })
                             sellerOrderAdapter.submitData(it.data)

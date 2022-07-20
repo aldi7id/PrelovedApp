@@ -1,6 +1,7 @@
 import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
+import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
@@ -76,6 +77,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                     val productDesc = etDeskripsi.text.toString()
                     val bundle = arguments
                     val idProduct =  bundle?.getInt(PRODUCT_ID)
+                    Log.d("HAYO", bundle.toString())
                     if (idProduct != null) {
                         viewModel.updateProductData(
                             token = token,

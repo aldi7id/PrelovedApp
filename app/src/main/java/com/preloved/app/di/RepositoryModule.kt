@@ -38,6 +38,7 @@ import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
 import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileRepository
+import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -80,5 +81,5 @@ val repositoryModule = module {
     singleOf(::DetailProductRepository)
     singleOf(::CategoryElectronicRepository)
     singleOf(::CategoryComputerRepository)
-
+    singleOf(::BuyerInfoRepository)
 }

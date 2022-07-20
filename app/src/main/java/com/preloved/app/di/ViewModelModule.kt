@@ -38,6 +38,7 @@ import com.preloved.app.ui.fragment.login.LoginViewModel
 import com.preloved.app.ui.fragment.splash.SplashViewModel
 import com.preloved.app.ui.fragment.register.RegisterViewModel
 import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileViewModel
+import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -80,4 +81,5 @@ val viewModelModule = module {
     viewModelOf(::NotificationViewModel)
     viewModelOf(::EditProductViewModel)
     viewModelOf(::EditPasswordViewModel)
+    viewModelOf(::BuyerInfoViewModel)
 }
