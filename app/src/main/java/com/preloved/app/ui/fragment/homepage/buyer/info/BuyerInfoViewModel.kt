@@ -44,7 +44,7 @@ class BuyerInfoViewModel(val buyerInfoRepository: BuyerInfoRepository)
         }
     }
 
-    override fun getSellerOrderByIdResult(): LiveData<Resource<SellerOrderResponse>> = _buyerOrder
+    override fun getSellerOrderByIdResult(): MutableLiveData<Resource<SellerOrderResponse>> = _buyerOrder
     override fun statusOrder(
         token: String,
         orderId: Int,

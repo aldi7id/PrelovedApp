@@ -71,7 +71,8 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                                     ).show()
                                 }
                             })
-                        notificationAdapter.submitData(it.data)
+                        val sorted = it.data.sortedByDescending { it.id }
+                        notificationAdapter.submitData(sorted)
                         getViewBinding().rvNotification.adapter = notificationAdapter
                     } else {
                         getViewBinding().emptyNotif.visibility = View.VISIBLE

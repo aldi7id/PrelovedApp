@@ -61,6 +61,9 @@ class SaleOrderAdapter(private val OnItemClick: OnClickListener) :
                     tvHargaDitawarProduk.apply {
                         text = striketroughtText(this,priceNego)
                     }
+                    root.setOnClickListener {
+                        OnItemClick.onClickItem(data)
+                    }
                 }
             }
         }

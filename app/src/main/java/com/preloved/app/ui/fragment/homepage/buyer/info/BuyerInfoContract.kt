@@ -19,7 +19,7 @@ interface BuyerInfoContract {
         fun userSession()
         fun userSessionResult(): LiveData<DatastorePreferences>
         fun getSellerOrderById(token: String, id: Int)
-        fun getSellerOrderByIdResult(): LiveData<Resource<SellerOrderResponse>>
+        fun getSellerOrderByIdResult(): MutableLiveData<Resource<SellerOrderResponse>>
         fun statusOrder(token: String, orderId: Int, requestApproveOrder: RequestApproveOrder)
         fun statusOrderResult() : LiveData<Resource<ApproveOrderResponse>>
     }

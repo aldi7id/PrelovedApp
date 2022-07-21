@@ -67,16 +67,22 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
             viewModel.getSellerProductOrderAcceptedResult().observe(viewLifecycleOwner){
                 when (it) {
                     is Resource.Loading -> {
-
+                        showLoading(true)
                     }
                     is Resource.Success -> {
+                        showLoading(false)
                         val saleOrderAcceptedAdapter = SaleAcceptedAdapter()
-                        saleOrderAcceptedAdapter.submitData(it.data)
+                        val sorted = it.data?.sortedByDescending { it.id }
+                        saleOrderAcceptedAdapter.submitData(sorted)
                         getViewBinding().rvTerjual.adapter = saleOrderAcceptedAdapter
                         getViewBinding().rvTerjual.visibility = View.VISIBLE
-                        if (it.data?.size == 0) {
-                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
-                    }
+                        if(it.data?.size == 0){
+                            getViewBinding().apply {
+                                lottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.text = getString(R.string.no_product_selled)
+                            }
+                        }
 
                     }
                     is Resource.Error -> {
@@ -105,6 +111,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             rvDiminati.visibility = View.GONE
                             rvTerjual.visibility = View.GONE
                             lottieEmpty.visibility = View.GONE
+                            tvLottieEmpty.visibility = View.GONE
                         }
                     }
                     is Resource.Success -> {
@@ -150,7 +157,15 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             sellerOrderAdapter.submitData(sorted)
                             getViewBinding().rvDiminati.adapter = sellerOrderAdapter
                             getViewBinding().rvDiminati.visibility = View.VISIBLE
+                            if(it.data.size == 0){
+                                getViewBinding().apply {
+                                lottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.visibility = View.VISIBLE
+                                    tvLottieEmpty.text = getString(R.string.no_product_interested)
+                                }
+                            }
                         }
+
 
                     }
                     is Resource.Error -> {
@@ -350,8 +365,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         when(availableProductSize){
                             0 -> {
                                 getViewBinding().apply {
-                                    lottieEmpty.visibility = View.VISIBLE
-                                    tvLottieEmpty.visibility = View.VISIBLE
+                                    //lottieEmpty.visibility = View.VISIBLE
+                                    //tvLottieEmpty.visibility = View.VISIBLE
                                     //buttonGrup.visibility = View.GONE
                                     addProductCard.visibility = View.VISIBLE
                                     addProductCard.setOnClickListener {
@@ -418,6 +433,13 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                     }
                                 }
                             }
+                        }
+                        if(it.data?.size == 0){
+                            getViewBinding().apply {
+                                lottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.visibility = View.VISIBLE
+                            }
+
                         }
                         //pbloading
                         getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))

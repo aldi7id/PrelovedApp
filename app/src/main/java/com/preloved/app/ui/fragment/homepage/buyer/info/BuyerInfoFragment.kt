@@ -1,11 +1,17 @@
+import android.app.ActionBar
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
@@ -60,6 +66,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                         )
                         if (token != null && idOrder != null) {
                             viewModel.statusOrder(token, idOrder, body)
+                            viewModel.getSellerOrderById(token,idOrder)
                             positive.dismiss()
                         }
 
@@ -207,12 +214,53 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 }
                 is Resource.Success -> {
                     showLoading(false)
-                    Toast.makeText(context, "Produk Berhasil Di ${status}", Toast.LENGTH_SHORT).show()
+                    if(status == "accept"){
+                        showToastAccept()
+                        findNavController().navigate(R.id.action_buyerInfoFragment_to_saleFragment)
+                    }
                 }
                 is Resource.Error -> {
                     showLoading(true)
                 }
             }
         }
+    }
+    private fun showToastAccept() {
+        val snackBarView =
+            Snackbar.make(getViewBinding().root, getString(R.string.congratulation_sell), Snackbar.LENGTH_LONG)
+        val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
+        snackBarView.setAction(" ") {
+            snackBarView.dismiss()
+        }
+        val textView =
+            snackBarView.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_close, 0)
+        textView.compoundDrawablePadding = 16
+        layoutParams.gravity = Gravity.TOP
+        layoutParams.setMargins(32, 150, 32, 0)
+        snackBarView.view.setPadding(24, 16, 0, 16)
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
+        snackBarView.view.layoutParams = layoutParams
+        snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+        snackBarView.show()
+    }
+    private fun showToastDecline() {
+        val snackBarView =
+            Snackbar.make(getViewBinding().root, getString(R.string.offer_decline), Snackbar.LENGTH_LONG)
+        val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
+        snackBarView.setAction(" ") {
+            snackBarView.dismiss()
+        }
+        val textView =
+            snackBarView.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_close, 0)
+        textView.compoundDrawablePadding = 16
+        layoutParams.gravity = Gravity.TOP
+        layoutParams.setMargins(32, 150, 32, 0)
+        snackBarView.view.setPadding(24, 16, 0, 16)
+        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
+        snackBarView.view.layoutParams = layoutParams
+        snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+        snackBarView.show()
     }
 }
