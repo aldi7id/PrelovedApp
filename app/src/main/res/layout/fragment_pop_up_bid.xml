@@ -118,6 +118,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_tawaran"
             android:hint="Tawaranmu"
+            android:inputType="number"
             android:fontFamily="@font/poppinsmedium"
             android:paddingStart="16dp"
             android:drawableStart="@drawable/ic_rp"
@@ -127,20 +128,24 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_tawar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_tawaran"
-        android:text="Tawar"
-        android:textAllCaps="false"
-        android:fontFamily="@font/poppinsmedium"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"/>
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="40dp"
+        app:layout_constraintTop_toBottomOf="@id/til_tawaran">
+
+        <Button
+            android:id="@+id/btn_tawar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="Tawar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

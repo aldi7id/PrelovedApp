@@ -57,7 +57,7 @@ class CategoryComputerFragment : BaseFragment<FragmentCategoryComputerBinding, C
                     )
                     findNavController().navigate(passData)
                 }
-                listComputerAdapter.submitList(data)
+                listComputerAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listComputerAdapter
             }
         }

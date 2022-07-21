@@ -100,9 +100,7 @@ class HomeFragment : Fragment() {
                 CategoryBookAndPenFragment(),
                 CategoryVoucherFragment(),
                 CategorySouvenirFragment(),
-                CategoryPhotographerFragment(),
-                CategorySmartphoneFragment(),
-                CategoryComputerFragment()
+                CategoryPhotographerFragment()
             )
 
             val vpAdapter =

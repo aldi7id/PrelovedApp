@@ -28,4 +28,7 @@
     <string name="keluar">Keluar</string>
     <string name="version_app">Version 1.0.0</string>
     <string name="enter_your_city">Enter Your City</string>
+    <string name="please_login">Please Login First, Before Use This Feature</string>
+    <string name="warning">Warning</string>
+    <string name="later">Later</string>
 </resources>

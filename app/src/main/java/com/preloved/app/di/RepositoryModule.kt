@@ -1,6 +1,7 @@
 package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountRepository
+import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidRepository
 import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
 import com.preloved.app.ui.fragment.homepage.home.category.automotive.CategoryAutomotiveRepository
@@ -64,7 +65,7 @@ val repositoryModule = module {
     singleOf(::CategoryVoucherRepository)
     singleOf(::CategorySouvenirRepository)
     singleOf(::CategoryPhotographerRepository)
-    singleOf(::CategorySmartphoneRepository)
     singleOf(::DetailProductRepository)
+    singleOf(::PopUpBidRepository)
     singleOf(::AccountRepository)
 }

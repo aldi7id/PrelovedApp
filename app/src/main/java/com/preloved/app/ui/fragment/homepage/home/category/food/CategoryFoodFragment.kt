@@ -61,7 +61,7 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
                     )
                     findNavController().navigate(passData)
                 }
-                listCategoryAdapter.submitList(data)
+                listCategoryAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listCategoryAdapter
             }
         }

@@ -57,7 +57,7 @@ class CategoryHomeSuppliesFragment : BaseFragment<FragmentCategoryHomesuppliesBi
                     )
                     findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data)
+                listAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listAdapter
             }
         }

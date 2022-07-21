@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/border_grey.xml" value="0.13" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_detail_product.xml" value="0.19814814814814816" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_pop_up_bid.xml" value="0.19814814814814816" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.13" />
       </map>
     </option>
   </component>

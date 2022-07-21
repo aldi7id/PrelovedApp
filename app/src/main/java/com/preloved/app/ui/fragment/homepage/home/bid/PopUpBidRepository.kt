@@ -7,6 +7,7 @@ import com.preloved.app.data.network.datasource.category.CategoryDataSource
 import com.preloved.app.data.network.model.request.bid.BidRequest
 import com.preloved.app.data.network.model.response.bid.get.GetBidResponse
 import com.preloved.app.data.network.model.response.bid.post.PostBidResponse
+import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -14,6 +15,10 @@ class PopUpBidRepository(
     private val localDataSource: LocalDataSource,
     private val categoryDataSource: CategoryDataSource
 ): BaseRepositorylmpl(), PopUpBidContract.Repository {
+    override suspend fun getDetailProductById(productId: Int): CategoryDetailResponse {
+        return categoryDataSource.getDetailProduct(productId)
+    }
+
     override suspend fun getBidProductOrder(accessToken: String): GetBidResponse {
         return categoryDataSource.getDataProductOrder(accessToken)
     }

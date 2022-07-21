@@ -58,7 +58,7 @@ class CategoryBookAndPenFragment : BaseFragment<FragmentCategoryBookandpenBindin
                     )
                     findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data)
+                listAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listAdapter
             }
         }
