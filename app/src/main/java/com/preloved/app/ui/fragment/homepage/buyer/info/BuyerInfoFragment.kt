@@ -1,4 +1,6 @@
 import android.app.AlertDialog
+import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -15,6 +17,7 @@ import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoContract
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
+import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.ORDER_ID
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.properties.Delegates
 
@@ -31,6 +34,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
     private lateinit var productPrice: String
     private lateinit var productBid : String
     private lateinit var imageProduct: String
+    private var idProduct by Delegates.notNull<Int>()
 
 
     override fun initView() {
@@ -93,7 +97,11 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 bottomFragment.show(parentFragmentManager, "Tag")
             }
             btnStatus.setOnClickListener {
-                //StatusBottomNav
+                Log.d("HAYO3",idProduct.toString())
+                val bottomFragmentStatus = BottomSheetBuyerInfoStatusFragment(
+                    idProduct = idProduct
+                )
+                bottomFragmentStatus.show(parentFragmentManager, "Tag")
             }
         }
     }
@@ -124,12 +132,17 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
             tvHargaAwalProduk.text = currency(data.product.basePrice)
             tvHargaDitawarProduk.text = currency(data.price)
             namaPenawar = data.user.fullName
-            imagePenawar = data.user.imageUrl
+            if(data.user.imageUrl != null){
+                imagePenawar = data.user.imageUrl
+            } else {
+                imagePenawar = "https://icon-library.com/images/null-icon/null-icon-10.jpg"
+            }
             productName = data.productName
             productPrice = data.basePrice
             productBid = data.price.toString()
             kotaPenawar = data.user.city
             imageProduct = data.product.imageUrl
+            idProduct = data.id
 
             if(data.status == "accepted"){
                 btnGroup.visibility = View.GONE
@@ -138,6 +151,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                     namaPenawar, kotaPenawar, imagePenawar, productName, productPrice, productBid, imageProduct
                 )
                 bottomFragment.show(parentFragmentManager, "Tag")
+
             }
         }
     }

@@ -13,9 +13,9 @@ import com.preloved.app.ui.currency
 import com.preloved.app.ui.striketroughtText
 
 class BottomSheetBuyerInfoFragment (
-    private val namaPenawar: String,
+    private  val namaPenawar: String,
     private  val kotaPenawar: String,
-    private  val imagePenawar: String,
+    private  val imagePenawar: String?,
     private  val productName: String,
     private  val productPrice: String,
     private  val productBid : String,
@@ -39,12 +39,20 @@ class BottomSheetBuyerInfoFragment (
         binding.apply {
             tvNamaPembeli.text = namaPenawar
             tvKotaPembeli.text = kotaPenawar
-            Glide.with(requireContext())
-                .load(imagePenawar)
-                .placeholder(R.drawable.image_profile)
-                .centerCrop()
-                .transform(CenterCrop(), RoundedCorners(12))
-                .into(ivAvatarPembeli)
+            if(imagePenawar != null ){
+                Glide.with(requireContext())
+                    .load(imagePenawar)
+                    .placeholder(R.drawable.image_profile)
+                    .centerCrop()
+                    .transform(CenterCrop(), RoundedCorners(12))
+                    .into(ivAvatarPembeli)
+            } else {
+                ivAvatarPembeli.drawable.apply {
+                    R.drawable.image_profile
+                }
+            }
+
+
             tvNamaProduk.text = productName
             tvHargaSeller.apply {
                 text = striketroughtText(this, currency(productPrice.toInt()))

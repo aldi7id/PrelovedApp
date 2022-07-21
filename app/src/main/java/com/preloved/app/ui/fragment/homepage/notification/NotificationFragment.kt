@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
@@ -18,6 +19,10 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
 ) , NotificationContract.View {
     override val viewModel: NotificationViewModel by viewModel()
     private var token: String = ""
+    override fun showLoading(isVisible: Boolean) {
+        super.showLoading(isVisible)
+        getViewBinding().pbLoading.isVisible = isVisible
+    }
     override fun initView() {
         setOnClickListeners()
         viewModel.userSession()
@@ -51,8 +56,10 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
             when (it) {
                 is Resource.Loading -> {
                     showError(false)
+                    showLoading(true)
                 }
                 is Resource.Success -> {
+                    showLoading(false)
                     if (it.data!!.isNotEmpty()){
                         val notificationAdapter =
                             NotificationAdapter(object : NotificationAdapter.OnClickListener {
@@ -71,7 +78,22 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                     }
                 }
                 is Resource.Error -> {
-                    showError(true, it.message)
+                    showLoading(false)
+                    if(it.message!!.contains("403")){
+                        AlertDialog.Builder(context)
+                            .setTitle(getString(R.string.warning))
+                            .setMessage(getString(R.string.your_session))
+                            .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                dialogP.dismiss()
+                                findNavController().navigate(R.id.action_notificationFragment_to_loginFragment3)
+                            }
+                            .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
+                                negativeButton.dismiss()
+                                findNavController().popBackStack()
+                            }
+                            .setCancelable(false)
+                            .show()
+                    }
                 }
             }
         }

@@ -30,7 +30,7 @@ interface SellContract {
                             location: String,
                             image : File? = null)
         fun addCategory(category: List<String>)
-        fun getUserDataResult(): LiveData<Resource<UserResponse>>
+        fun getUserDataResult(): MutableLiveData<Resource<UserResponse>>
         fun getUserData(token: String)
         fun userSession()
         fun userSessionResult(): LiveData<DatastorePreferences>

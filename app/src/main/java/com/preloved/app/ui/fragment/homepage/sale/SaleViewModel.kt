@@ -33,10 +33,12 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     override fun getUserDataResult(): LiveData<Resource<UserResponse>> = _getUserData
 
     override fun getUserData(token: String) {
+        _getUserData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO){
             try {
+                val response = saleRepository.getUserData(token)
                 viewModelScope.launch(Dispatchers.Main) {
-                    _getUserData.value = Resource.Success(saleRepository.getUserData(token))
+                    _getUserData.value = Resource.Success(response)
                 }
 
             } catch (e: Exception) {
@@ -48,10 +50,12 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     }
 
     override fun getSellerProduct(token: String) {
+        _product.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO){
             try {
+                val response = saleRepository.getSellerProduct(token)
                 viewModelScope.launch(Dispatchers.Main) {
-                    _product.value = Resource.Success(saleRepository.getSellerProduct(token))
+                    _product.value = Resource.Success(response)
                 }
 
             } catch (e: Exception) {
@@ -64,6 +68,7 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
 
     override fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>> = _product
     override fun getSellerProductOrder(token: String) {
+        _order.value = Resource.Loading()
         viewModelScope.launch {
             try {
                 viewModelScope.launch(Dispatchers.Main){
@@ -79,10 +84,12 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
 
     override fun getSellerProductOrderResult(): LiveData<Resource<List<SellerOrderResponse>>> = _order
     override fun getSellerProductOrderAccepted(token: String, status: String) {
+        _status.value = Resource.Loading()
         viewModelScope.launch {
             try {
+                val response = saleRepository.getSellerProductOrderAccepted(token,status)
                 viewModelScope.launch(Dispatchers.Main){
-                    _status.value = Resource.Success(saleRepository.getSellerProductOrderAccepted(token,status))
+                    _status.value = Resource.Success(response)
                 }
             } catch (e: Exception){
                 viewModelScope.launch(Dispatchers.Main) {

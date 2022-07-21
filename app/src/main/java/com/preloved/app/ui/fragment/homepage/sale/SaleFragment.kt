@@ -109,6 +109,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     }
                     is Resource.Success -> {
                         showLoading(false)
+
                         if (it.data != null) {
                             val sellerOrderAdapter =
                                 SaleOrderAdapter(object : SaleOrderAdapter.OnClickListener {
@@ -145,7 +146,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                         )
                                     }
                                 })
-                            sellerOrderAdapter.submitData(it.data)
+                            val sorted = it.data.sortedByDescending { it.id }
+                            sellerOrderAdapter.submitData(sorted)
                             getViewBinding().rvDiminati.adapter = sellerOrderAdapter
                             getViewBinding().rvDiminati.visibility = View.VISIBLE
                         }
@@ -276,7 +278,21 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                     }
                     is Resource.Error -> {
-
+                        if(it.message!!.contains("403")){
+                            AlertDialog.Builder(context)
+                                .setTitle(getString(R.string.warning))
+                                .setMessage(getString(R.string.your_session))
+                                .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                    dialogP.dismiss()
+                                    findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
+                                }
+                                .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
+                                    negativeButton.dismiss()
+                                    findNavController().popBackStack()
+                                }
+                                .setCancelable(false)
+                                .show()
+                        }
                     }
                 }
             }
@@ -336,7 +352,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     lottieEmpty.visibility = View.VISIBLE
                                     tvLottieEmpty.visibility = View.VISIBLE
-                                    buttonGrup.visibility = View.GONE
+                                    //buttonGrup.visibility = View.GONE
                                     addProductCard.visibility = View.VISIBLE
                                     addProductCard.setOnClickListener {
                                         addProduct()
@@ -413,13 +429,6 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 message = "Server Error"
                             }
                         }
-                        AlertDialog.Builder(context)
-                            .setTitle("Maaf")
-                            .setMessage(message)
-                            .setPositiveButton("Mengerti") { positiveButton, _ ->
-                                positiveButton.dismiss()
-                            }
-                            .show()
                     }
                 }
             }

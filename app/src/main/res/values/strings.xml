@@ -98,5 +98,6 @@
     <string name="post_the_product">Post The Product?</string>
     <string name="congratulations">Congratulations, You Had Got Best Price</string>
     <string name="immediately">Immediately contact the buyer via whatsapp for further transactions</string>
+    <string name="your_session">Your Session Login Expired / Not Login , Please Login First</string>
 
 </resources>

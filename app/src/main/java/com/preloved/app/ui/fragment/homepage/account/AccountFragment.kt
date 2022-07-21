@@ -104,7 +104,21 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                             }
                         }
                         is Resource.Error -> {
-                            showLoading(true)
+                            if(it.message!!.contains("403")){
+                                AlertDialog.Builder(context)
+                                    .setTitle(getString(R.string.warning))
+                                    .setMessage(getString(R.string.your_session))
+                                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                        dialogP.dismiss()
+                                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+                                    }
+                                    .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
+                                        negativeButton.dismiss()
+                                        findNavController().popBackStack()
+                                    }
+                                    .setCancelable(false)
+                                    .show()
+                            }
                         }
                     }
                 }

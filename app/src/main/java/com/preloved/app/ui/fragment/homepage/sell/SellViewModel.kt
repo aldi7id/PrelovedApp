@@ -20,16 +20,18 @@ class SellViewModel(val sellRepository: SellRepository): BaseViewModellmpl(), Se
     private var _categoryList = MutableLiveData<List<String>>()
     val categoryList : LiveData<List<String>> get() = _categoryList
     private val _getUserData = MutableLiveData<Resource<UserResponse>>()
-    override fun getUserDataResult(): LiveData<Resource<UserResponse>> = _getUserData
+    override fun getUserDataResult(): MutableLiveData<Resource<UserResponse>> = _getUserData
 
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()
     override fun userSessionResult(): LiveData<DatastorePreferences> = _userSession
 
     override fun getUserData(token: String) {
+        _getUserData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO){
             try {
+                val response = sellRepository.getUserData(token)
                 viewModelScope.launch(Dispatchers.Main) {
-                    _getUserData.value = Resource.Success(sellRepository.getUserData(token))
+                    _getUserData.value = Resource.Success(response)
                 }
 
             } catch (e: Exception) {
