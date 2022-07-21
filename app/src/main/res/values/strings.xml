@@ -103,5 +103,9 @@
     <string name="no_product_interested">No Product Interested, Be Patient!</string>
     <string name="congratulation_sell">Congratulation, U Have Sell Your Product</string>
     <string name="offer_decline">Offer Decline</string>
+    <string name="choose_status">Choose Status First</string>
+    <string name="accept_offer">Accept the Offer?</string>
+    <string name="accept">Accept</string>
+    <string name="decline_the_offer">Decline the Offer?</string>
 
 </resources>

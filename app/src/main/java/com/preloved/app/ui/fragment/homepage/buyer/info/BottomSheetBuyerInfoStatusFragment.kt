@@ -3,7 +3,6 @@ import android.app.ActionBar
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -20,12 +18,9 @@ import com.preloved.app.R
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.RequestApproveOrder
-import com.preloved.app.databinding.FragmentBottomSheetBuyerInfoBinding
 import com.preloved.app.databinding.FragmentBottomSheetBuyerInfoStatusBinding
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.properties.Delegates
 
 class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomSheetDialogFragment() {
     private var _binding: FragmentBottomSheetBuyerInfoStatusBinding? = null
@@ -79,7 +74,7 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                 btnSayaTertarikNego.setOnClickListener {
                     when (status) {
                         "" -> {
-                            Toast.makeText(requireContext(), "Pilih Status Dlu", Toast.LENGTH_SHORT)
+                            Toast.makeText(requireContext(), getString(R.string.choose_status), Toast.LENGTH_SHORT)
                                 .show()
                         }
                         "accepted" -> {
@@ -103,7 +98,7 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    if(status == "accept"){
+                    if(status == "accepted"){
                         showToastAccept()
                         findNavController().navigate(R.id.homeFragment)
                         dismiss()

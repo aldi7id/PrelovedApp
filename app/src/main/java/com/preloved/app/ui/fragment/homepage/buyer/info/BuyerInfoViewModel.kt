@@ -65,5 +65,5 @@ class BuyerInfoViewModel(val buyerInfoRepository: BuyerInfoRepository)
         }
     }
 
-    override fun statusOrderResult(): LiveData<Resource<ApproveOrderResponse>> = _responseOrder
+    override fun statusOrderResult(): MutableLiveData<Resource<ApproveOrderResponse>> = _responseOrder
 }

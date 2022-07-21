@@ -1,11 +1,9 @@
 import android.app.ActionBar
 import android.app.AlertDialog
-import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -23,7 +21,6 @@ import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoContract
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.ORDER_ID
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.properties.Delegates
 
@@ -57,21 +54,20 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 val bundle = arguments
                 val idOrder = bundle?.getInt(SaleFragment.ORDER_ID)
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Pesan")
-                    .setMessage("Terima Tawaran?")
-                    .setPositiveButton("Iya"){ positive, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.accept_offer))
+                    .setPositiveButton(getString(R.string.accept)){ positive, _ ->
                         status = "accepted"
                         val body = RequestApproveOrder(
                             status
                         )
                         if (token != null && idOrder != null) {
                             viewModel.statusOrder(token, idOrder, body)
-                            viewModel.getSellerOrderById(token,idOrder)
                             positive.dismiss()
                         }
 
                     }
-                    .setNegativeButton("Tidak"){ negative, _ ->
+                    .setNegativeButton(getString(R.string.cancel)){ negative, _ ->
                         negative.dismiss()
                     }
                     .show()
@@ -80,9 +76,9 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 val bundle = arguments
                 val idOrder = bundle?.getInt(SaleFragment.ORDER_ID)
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Pesan")
-                    .setMessage("Tolak Tawaran?")
-                    .setPositiveButton("Iya"){ positive, _ ->
+                    .setTitle(getString(R.string.warning))
+                    .setMessage(getString(R.string.decline_the_offer))
+                    .setPositiveButton(getString(R.string.sure)){ positive, _ ->
                         status = "declined"
                         val body = RequestApproveOrder(
                             status
@@ -92,7 +88,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                             positive.dismiss()
                         }
                     }
-                    .setNegativeButton("Tidak"){ negative, _ ->
+                    .setNegativeButton(getString(R.string.cancel)){ negative, _ ->
                         negative.dismiss()
                     }
                     .show()
@@ -214,8 +210,18 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 }
                 is Resource.Success -> {
                     showLoading(false)
-                    if(status == "accept"){
+                    if(status == "accepted"){
                         showToastAccept()
+                        getViewBinding().apply {
+                            btnGroup.visibility = View.GONE
+                            btnGroupAccepted.visibility = View.VISIBLE
+                            val bottomFragment = BottomSheetBuyerInfoFragment(
+                                namaPenawar, kotaPenawar, imagePenawar, productName, productPrice, productBid, imageProduct
+                            )
+                            bottomFragment.show(parentFragmentManager, "Tag")
+                        }
+                    } else {
+                        showToastDecline()
                         findNavController().navigate(R.id.action_buyerInfoFragment_to_saleFragment)
                     }
                 }

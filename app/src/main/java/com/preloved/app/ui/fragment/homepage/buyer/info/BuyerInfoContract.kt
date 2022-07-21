@@ -21,7 +21,7 @@ interface BuyerInfoContract {
         fun getSellerOrderById(token: String, id: Int)
         fun getSellerOrderByIdResult(): MutableLiveData<Resource<SellerOrderResponse>>
         fun statusOrder(token: String, orderId: Int, requestApproveOrder: RequestApproveOrder)
-        fun statusOrderResult() : LiveData<Resource<ApproveOrderResponse>>
+        fun statusOrderResult() : MutableLiveData<Resource<ApproveOrderResponse>>
     }
 
     interface Repository {
