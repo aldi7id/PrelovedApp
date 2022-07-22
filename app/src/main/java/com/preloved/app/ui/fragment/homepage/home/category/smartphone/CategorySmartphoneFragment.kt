@@ -57,7 +57,7 @@ class CategorySmartphoneFragment : BaseFragment<FragmentCategorySmartphoneBindin
                     )
                     findNavController().navigate(passData)
                 }
-                listCategoryAdapter.submitList(data)
+                listCategoryAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listCategoryAdapter
             }
         }

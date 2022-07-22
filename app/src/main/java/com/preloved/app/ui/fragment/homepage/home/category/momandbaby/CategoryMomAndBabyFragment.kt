@@ -1,11 +1,13 @@
 package com.preloved.app.ui.fragment.homepage.home.category.momandbaby
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryHealthyBinding
 import com.preloved.app.databinding.FragmentCategoryMomandbabyBinding
+import com.preloved.app.ui.fragment.MainFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,9 +53,12 @@ class CategoryMomAndBabyFragment : BaseFragment<FragmentCategoryMomandbabyBindin
         viewModel.apply {
             with(getViewBinding()) {
                 val listAdapter = CategoryAllAdapter{
-
+                    val passData = MainFragmentDirections.actionMainFragmentToDetailProductFragment(
+                        productId = it.id
+                    )
+                    findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data)
+                listAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listAdapter
             }
         }

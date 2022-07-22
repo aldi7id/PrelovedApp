@@ -2,6 +2,7 @@ package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountViewModel
 import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordViewModel
+import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.automotive.CategoryAutomotiveViewModel
@@ -48,8 +49,9 @@ val viewModelModule = module {
     viewModelOf(::RegisterViewModel)
     viewModelOf(::SearchProductViewModel)
     viewModelOf(::CategoryAllViewModel)
-    viewModelOf(::CategoryComputerViewModel)
     viewModelOf(::CategoryElectronicViewModel)
+    viewModelOf(::CategoryComputerViewModel)
+    viewModelOf(::CategorySmartphoneViewModel)
     viewModelOf(::CategoryClothMenViewModel)
     viewModelOf(::CategoryShoesMenViewModel)
     viewModelOf(::CategoryBagMenViewModel)
@@ -73,6 +75,7 @@ val viewModelModule = module {
     viewModelOf(::CategoryPhotographerViewModel)
     viewModelOf(::CategorySmartphoneViewModel)
     viewModelOf(::DetailProductViewModel)
+    viewModelOf(::PopUpBidViewModel)
     viewModelOf(::AccountViewModel)
     viewModelOf(::EditProfileViewModel)
     viewModelOf(::SellViewModel)

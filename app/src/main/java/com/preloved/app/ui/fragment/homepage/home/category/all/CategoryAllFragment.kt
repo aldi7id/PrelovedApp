@@ -67,7 +67,7 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
                 )
                 findNavController().navigate(passData)
             }
-            listCategoryAdapter.submitList(data)
+            listCategoryAdapter.submitList(data?.filter {it.status == "available"})
             rvListCategory.adapter = listCategoryAdapter
         }
     }

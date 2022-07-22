@@ -1,28 +1,28 @@
-package com.preloved.app.ui.fragment.homepage.home.detail
+package com.preloved.app.ui.fragment.homepage.home.bid
 
 import androidx.lifecycle.MutableLiveData
 import com.preloved.app.base.arch.BaseContract
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
+import com.preloved.app.data.network.model.request.bid.BidRequest
 import com.preloved.app.data.network.model.response.bid.get.GetBidResponse
+import com.preloved.app.data.network.model.response.bid.post.PostBidResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
-interface DetailProductContract {
-    interface View: BaseContract.BaseView {
-        fun getDataDetail()
-    }
+interface PopUpBidContract {
     interface ViewModel: BaseContract.BaseViewModel {
-        fun getTokenAccessResult(): MutableLiveData<DatastorePreferences>
+        fun getBidProductOrderResult(): MutableLiveData<Resource<GetBidResponse>>
         fun getDetailProductResult(): MutableLiveData<Resource<CategoryDetailResponse>>
-        fun getBuyerOrderResult(): MutableLiveData<Resource<GetBidResponse>>
-        fun getTokenAccess()
+        fun postBidProductOrderByIdResult(): MutableLiveData<Resource<PostBidResponse>>
         fun getDetailProductById(productId: Int)
-        fun getBuyerOrder(tokenAccess: String)
+        fun postBidProductOrderById(bidRequest: BidRequest)
     }
     interface Repository: BaseContract.BaseRepository {
-        suspend fun getTokenAccess(): Flow<DatastorePreferences>
         suspend fun getDetailProductById(productId: Int): CategoryDetailResponse
-        suspend fun getBuyerOrder(tokenAccess: String): GetBidResponse
+        suspend fun getBidProductOrder(accessToken: String): GetBidResponse
+        suspend fun postBidProductOrderById(accessToken: String, bidRequest: BidRequest): Response<PostBidResponse>
+        suspend fun getAccessToken(): Flow<DatastorePreferences>
     }
 }

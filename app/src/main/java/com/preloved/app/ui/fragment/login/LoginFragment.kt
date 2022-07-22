@@ -24,7 +24,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                 loginAuthUser()
             }
             tvNoHaveAccount.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment3_to_registerFragment2)
+                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
         }
     }
@@ -38,7 +38,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                 is Resource.Success -> {
                     showError(false)
                     Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.homeFragment)
+//                    findNavController().navigate(R.id.action_loginFragment3_to_accountFragment)
+                    findNavController().popBackStack()
                 }
                 is Resource.Error -> {
                     showError(true, it.message)

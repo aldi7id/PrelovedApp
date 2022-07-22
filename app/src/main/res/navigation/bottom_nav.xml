@@ -189,6 +189,9 @@
             android:name="status"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detailProductFragment2_to_loginFragment3"
+            app:destination="@id/loginFragment3" />
     </fragment>
     <fragment
         android:id="@+id/buyerInfoFragment"

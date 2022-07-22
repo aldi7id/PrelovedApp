@@ -57,7 +57,7 @@ class CategoryElectronicFragment : BaseFragment<FragmentCategoryElectronicBindin
                     )
                     findNavController().navigate(passData)
                 }
-                listElectronicAdapter.submitList(data)
+                listElectronicAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listElectronicAdapter
             }
         }

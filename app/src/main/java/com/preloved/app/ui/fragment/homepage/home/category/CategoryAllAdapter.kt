@@ -18,21 +18,15 @@ class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponse
         fun bind(CategoryResponseItem: CategoryResponse.CategoryResponseItem) {
             binding.apply {
                 with(CategoryResponseItem) {
-                    when(status) {
-                        "available" -> {
-                            Glide.with(root)
-                                .load(imageUrl)
-                                .centerCrop()
-                                .into(sivImageItem)
-                            tvNameItem.text = name
-                            val listCategory = arrayListOf<String>()
-                            categories.forEach{
-                                listCategory.add(it.name)
-                            }
-                            tvCategoryItem.text = listCategory.toString()
-                            tvPriceItem.text = basePrice.toString()
-                        }
+                    Glide.with(root)
+                        .load(imageUrl)
+                        .centerCrop()
+                        .into(sivImageItem)
+                    tvNameItem.text = name
+                    tvCategoryItem.text = categories.joinToString{
+                        it.name
                     }
+                    tvPriceItem.text = basePrice.toString()
                     root.setOnClickListener {
                         onClick(CategoryResponseItem)
                     }

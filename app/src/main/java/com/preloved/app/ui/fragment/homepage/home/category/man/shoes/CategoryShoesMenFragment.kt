@@ -1,10 +1,12 @@
 package com.preloved.app.ui.fragment.homepage.home.category.man.shoes
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryShoesMenBinding
+import com.preloved.app.ui.fragment.MainFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,9 +52,12 @@ class CategoryShoesMenFragment : BaseFragment<FragmentCategoryShoesMenBinding, C
         viewModel.apply {
             with(getViewBinding()) {
                 val listAdapter = CategoryAllAdapter{
-
+                    val passData = MainFragmentDirections.actionMainFragmentToDetailProductFragment(
+                        productId = it.id
+                    )
+                    findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data)
+                listAdapter.submitList(data?.filter {it.status == "available"})
                 rvCategory.adapter = listAdapter
             }
         }
