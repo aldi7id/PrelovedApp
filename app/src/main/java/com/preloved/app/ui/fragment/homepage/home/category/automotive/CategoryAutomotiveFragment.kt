@@ -22,7 +22,7 @@ class CategoryAutomotiveFragment : BaseFragment<FragmentCategoryAutomotiveBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(114)
+            getDataById(19)
         }
     }
 

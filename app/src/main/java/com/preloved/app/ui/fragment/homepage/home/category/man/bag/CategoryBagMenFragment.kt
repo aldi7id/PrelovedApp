@@ -21,7 +21,7 @@ class CategoryBagMenFragment : BaseFragment<FragmentCategoryBagMenBinding, Categ
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(101)
+            getDataById(6)
         }
     }
 

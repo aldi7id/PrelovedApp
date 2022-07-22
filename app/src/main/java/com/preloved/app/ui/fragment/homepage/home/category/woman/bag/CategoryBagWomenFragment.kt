@@ -22,7 +22,7 @@ class CategoryBagWomenFragment : BaseFragment<FragmentCategoryBagWomenBinding, C
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(113)
+            getDataById(18)
         }
     }
 

@@ -21,7 +21,7 @@ class CategoryShoesMenFragment : BaseFragment<FragmentCategoryShoesMenBinding, C
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(100)
+            getDataById(5)
         }
     }
 

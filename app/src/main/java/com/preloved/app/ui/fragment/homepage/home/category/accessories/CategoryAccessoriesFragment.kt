@@ -22,7 +22,7 @@ class CategoryAccessoriesFragment : BaseFragment<FragmentCategoryAccessoriesBind
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(102)
+            getDataById(7)
         }
     }
 

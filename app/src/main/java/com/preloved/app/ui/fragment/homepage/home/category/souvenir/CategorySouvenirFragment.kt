@@ -22,7 +22,7 @@ class CategorySouvenirFragment : BaseFragment<FragmentCategorySouvenirBinding, C
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(118)
+            getDataById(23)
         }
     }
 

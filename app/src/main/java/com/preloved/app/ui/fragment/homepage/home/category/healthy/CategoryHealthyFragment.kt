@@ -21,7 +21,7 @@ class CategoryHealthyFragment : BaseFragment<FragmentCategoryHealthyBinding, Cat
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(103)
+            getDataById(8)
         }
     }
 
