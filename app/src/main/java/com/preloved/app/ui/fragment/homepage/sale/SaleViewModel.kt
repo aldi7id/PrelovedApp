@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
+import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.data.network.model.response.UserResponse
@@ -19,6 +20,7 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     private val _product: MutableLiveData<Resource<List<SellerProductResponseItem>>> = MutableLiveData()
     private val _order: MutableLiveData<Resource<List<SellerOrderResponse>>> = MutableLiveData()
     private val _status: MutableLiveData<Resource<List<SellerOrderResponse>>> = MutableLiveData()
+    private val  _history: MutableLiveData<Resource<List<HistoryResponseItem>>> = MutableLiveData()
 
     override fun userSession() {
         viewModelScope.launch {
@@ -100,6 +102,23 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     }
 
     override fun getSellerProductOrderAcceptedResult(): LiveData<Resource<List<SellerOrderResponse>>> = _status
+    override fun getHistory(token: String) {
+        _history.value = Resource.Loading()
+        viewModelScope.launch {
+            try {
+                val response = saleRepository.getHistory(token)
+                viewModelScope.launch(Dispatchers.Main){
+                    _history.value = Resource.Success(response)
+                }
+            } catch (e: Exception){
+                viewModelScope.launch(Dispatchers.Main) {
+                    _history.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    override fun getHistoryResult(): MutableLiveData<Resource<List<HistoryResponseItem>>> = _history
 
 
 }

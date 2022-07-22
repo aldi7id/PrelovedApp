@@ -2,6 +2,7 @@ package com.preloved.app.data.network.datasource.user
 
 import com.preloved.app.data.network.datasource.UserDataSource
 import com.preloved.app.data.network.model.BuyerOrderResponse
+import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
@@ -105,6 +106,10 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         requestApproveOrder: RequestApproveOrder
     ): ApproveOrderResponse {
         return preLovedService.approveOrder(token, orderId, requestApproveOrder)
+    }
+
+    override suspend fun getHistory(token: String): List<HistoryResponseItem> {
+        return preLovedService.getHistory(token)
     }
 
     override suspend fun putPassword(

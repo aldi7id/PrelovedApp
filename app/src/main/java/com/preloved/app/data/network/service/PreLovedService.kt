@@ -2,6 +2,7 @@ package com.preloved.app.data.network.services
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.preloved.app.data.network.model.BuyerOrderResponse
+import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.response.*
@@ -91,6 +92,10 @@ interface PreLovedService {
         @Path("id") orderId: Int,
         @Body requestApproveOrder: RequestApproveOrder
     ): ApproveOrderResponse
+
+    //HISTORY
+    @GET("history")
+    suspend fun getHistory(@Header("access_token") token: String): List<HistoryResponseItem>
 
 
     companion object {

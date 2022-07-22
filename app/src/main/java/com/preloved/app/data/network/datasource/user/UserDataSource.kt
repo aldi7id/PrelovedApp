@@ -1,6 +1,7 @@
 package com.preloved.app.data.network.datasource
 
 import com.preloved.app.data.network.model.BuyerOrderResponse
+import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
@@ -65,4 +66,5 @@ interface UserDataSource {
         @Path("id") orderId: Int,
         @Body requestApproveOrder: RequestApproveOrder
     ): ApproveOrderResponse
+    suspend fun getHistory(token: String) : List<HistoryResponseItem>
    }

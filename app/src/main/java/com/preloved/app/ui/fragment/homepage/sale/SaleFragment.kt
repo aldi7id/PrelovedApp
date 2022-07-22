@@ -14,6 +14,7 @@ import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
+import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.data.network.model.response.SellerOrderResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentSaleBinding
@@ -54,6 +55,65 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     }
 
     override fun setOnClickListeners() {
+        getViewBinding().btnHistory.setOnClickListener {
+            getViewBinding().apply {
+                addProductCard.visibility = View.GONE
+                rvProduct.visibility = View.GONE
+                rvDiminati.visibility = View.GONE
+                rvTerjual.visibility = View.GONE
+                btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnDiminati.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnTerjual.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnHistory.setBackgroundColor(Color.parseColor("#06283D"))
+                viewModel.getHistory(token)
+                viewModel.getHistoryResult().observe(viewLifecycleOwner) {
+                    when (it) {
+                        is Resource.Loading -> {
+                            showLoading(true)
+                        }
+                        is Resource.Success -> {
+                            getViewBinding().apply {
+                                rvProduct.visibility = View.GONE
+                                rvTerjual.visibility = View.GONE
+                                rvDiminati.visibility = View.GONE
+                            }
+                            showLoading(false)
+                            val saleHistoryAdapter = SaleHistoryAdapter(object : SaleHistoryAdapter.OnClickListener{
+                                override fun onClickItem(data: HistoryResponseItem) {
+                                    val passData = SaleFragmentDirections.actionSaleFragmentToDetailProductFragment2(
+                                        productId = data.productId,
+                                        status = 0
+                                    )
+                                    findNavController().navigate(
+                                        passData
+                                    )
+                                }
+                            }
+
+                            )
+                            val sorted = it.data?.sortedByDescending { it.id }
+                            saleHistoryAdapter.submitData(sorted)
+                            getViewBinding().rvHistory.adapter = saleHistoryAdapter
+                            getViewBinding().rvHistory.visibility = View.VISIBLE
+                            if(it.data?.size == 0){
+                                getViewBinding().apply {
+                                    lottieEmpty.visibility = View.VISIBLE
+                                    tvLottieEmpty.visibility = View.VISIBLE
+                                    tvLottieEmpty.text = "No History Show"
+                                }
+                            } else {
+                                lottieEmpty.visibility = View.GONE
+                                tvLottieEmpty.visibility = View.GONE
+                            }
+
+                        }
+                        is Resource.Error -> {
+
+                        }
+                    }
+                }
+            }
+        }
         getViewBinding().btnTerjual.setOnClickListener {
             getViewBinding().apply {
                 addProductCard.visibility = View.GONE
@@ -62,6 +122,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                 btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
                 btnDiminati.setBackgroundColor(Color.parseColor("#EC698F"))
                 btnTerjual.setBackgroundColor(Color.parseColor("#06283D"))
+                btnHistory.setBackgroundColor(Color.parseColor("#EC698F"))
             }
             viewModel.getSellerProductOrderAccepted(token,status)
             viewModel.getSellerProductOrderAcceptedResult().observe(viewLifecycleOwner){
@@ -70,8 +131,48 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         showLoading(true)
                     }
                     is Resource.Success -> {
+                        getViewBinding().apply {
+                            rvProduct.visibility = View.GONE
+                            rvHistory.visibility = View.GONE
+                            rvDiminati.visibility = View.GONE
+                        }
                         showLoading(false)
-                        val saleOrderAcceptedAdapter = SaleAcceptedAdapter()
+                        val saleOrderAcceptedAdapter = SaleAcceptedAdapter(object : SaleAcceptedAdapter.OnClickListener{
+                            override fun onClickItem(data: SellerOrderResponse) {
+                                bundlePenawar.putString(
+                                    USER_NAME,
+                                    data.user.fullName
+                                )
+                                bundlePenawar.putString(
+                                    USER_CITY,
+                                    data.user.city.toString()
+                                )
+                                bundlePenawar.putInt(ORDER_ID, data.id)
+                                bundlePenawar.putString(ORDER_STATUS, data.status)
+                                bundlePenawar.putString(PRODUCT_NAME, data.product.name)
+                                bundlePenawar.putString(
+                                    PRODUCT_PRICE,
+                                    data.product.basePrice.toString()
+                                )
+                                bundlePenawar.putString(
+                                    PRODUCT_BID,
+                                    data.price.toString()
+                                )
+                                bundlePenawar.putString(
+                                    PRODUCT_IMAGE,
+                                    data.product.imageUrl
+                                )
+                                bundlePenawar.putString(
+                                    PRODUCT_BID_DATE,
+                                    data.createdAt
+                                )
+                                findNavController().navigate(
+                                    R.id.action_saleFragment_to_buyerInfoFragment,bundlePenawar
+                                )
+                            }
+                        }
+
+                        )
                         val sorted = it.data?.sortedByDescending { it.id }
                         saleOrderAcceptedAdapter.submitData(sorted)
                         getViewBinding().rvTerjual.adapter = saleOrderAcceptedAdapter
@@ -82,6 +183,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 tvLottieEmpty.visibility = View.VISIBLE
                                 tvLottieEmpty.text = getString(R.string.no_product_selled)
                             }
+                        } else {
+
                         }
 
                     }
@@ -96,6 +199,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                 addProductCard.visibility = View.GONE
                 rvProduct.visibility = View.GONE
                 rvTerjual.visibility = View.GONE
+                rvHistory.visibility = View.GONE
+                btnHistory.setBackgroundColor(Color.parseColor("#EC698F"))
                 btnProduk.setBackgroundColor(Color.parseColor("#EC698F"))
                 btnDiminati.setBackgroundColor(Color.parseColor("#06283D"))
                 btnTerjual.setBackgroundColor(Color.parseColor("#EC698F"))
@@ -163,6 +268,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 tvLottieEmpty.visibility = View.VISIBLE
                                     tvLottieEmpty.text = getString(R.string.no_product_interested)
                                 }
+                            } else {
+                                getViewBinding().apply {
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                }
                             }
                         }
 
@@ -179,9 +289,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                 addProductCard.visibility = View.GONE
                 rvDiminati.visibility = View.GONE
                 rvTerjual.visibility = View.GONE
+                rvHistory.visibility = View.GONE
                 btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                 btnDiminati.setBackgroundColor(Color.parseColor("#EC698F"))
                 btnTerjual.setBackgroundColor(Color.parseColor("#EC698F"))
+                btnHistory.setBackgroundColor(Color.parseColor("#EC698F"))
             }
             viewModel.getSellerProduct(token)
             viewModel.getSellerProductResult().observe(viewLifecycleOwner){
@@ -192,6 +304,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                     }
                     is Resource.Success -> {
+                        getViewBinding().apply {
+                            rvDiminati.visibility = View.GONE
+                            rvTerjual.visibility = View.GONE
+                            rvHistory.visibility = View.GONE
+                        }
                         if (it.data != null) {
                             val saleProductAdapter =
                                 SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
@@ -226,6 +343,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                         if (it.data?.size == 0){
                             getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                        } else {
+                            getViewBinding().apply {
+                                lottieEmpty.visibility = View.GONE
+                                tvLottieEmpty.visibility = View.GONE
+                            }
                         }
                         getViewBinding().buttonGrup.visibility = View.VISIBLE
                         //pbloading
@@ -324,6 +446,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     }
                     is Resource.Success -> {
                         showLoading(false)
+                        getViewBinding().apply {
+                            rvDiminati.visibility = View.GONE
+                            rvTerjual.visibility = View.GONE
+                            rvHistory.visibility = View.GONE
+                        }
                         val availableProductSize = it.data?.filter { it.status == "available" }?.size
                     if (it.data != null) {
                         val saleProductAdapter =
@@ -365,8 +492,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         when(availableProductSize){
                             0 -> {
                                 getViewBinding().apply {
-                                    //lottieEmpty.visibility = View.VISIBLE
-                                    //tvLottieEmpty.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
                                     //buttonGrup.visibility = View.GONE
                                     addProductCard.visibility = View.VISIBLE
                                     addProductCard.setOnClickListener {
@@ -377,6 +504,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             }
                             1 -> {
                                 getViewBinding().apply {
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
                                     addProductCard.visibility = View.VISIBLE
                                     tvAddProduct.text = getString(R.string.add_1)
                                     addProductCard.setOnClickListener {
@@ -389,6 +518,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
                                     lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
                                     tvAddProduct.text = getString(R.string.add_2)
                                     addProductCard.setOnClickListener {
                                         addProduct()
@@ -400,6 +530,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                 addProductCard.visibility = View.VISIBLE
                                 lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
                                 tvAddProduct.text = getString(R.string.add_3)
                                     addProductCard.setOnClickListener {
                                         addProduct()
@@ -411,6 +542,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
                                     lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
                                     tvAddProduct.text = getString(R.string.add_4)
                                     addProductCard.setOnClickListener {
                                         addProduct()
@@ -421,6 +553,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 getViewBinding().apply {
                                     addProductCard.visibility = View.VISIBLE
                                     lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
                                     tvAddProduct.text = getString(R.string.add_5)
                                     addProductCard.setOnClickListener {
                                         AlertDialog.Builder(context)
@@ -440,8 +573,12 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 tvLottieEmpty.visibility = View.VISIBLE
                             }
 
+                        }else {
+                            getViewBinding().apply {
+                                lottieEmpty.visibility = View.GONE
+                                tvLottieEmpty.visibility = View.GONE
+                            }
                         }
-                        //pbloading
                         getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                     }
                     is Resource.Error -> {

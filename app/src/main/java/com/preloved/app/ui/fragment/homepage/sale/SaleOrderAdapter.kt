@@ -30,7 +30,7 @@ class SaleOrderAdapter(private val OnItemClick: OnClickListener) :
             oldItem: SellerOrderResponse,
             newItem: SellerOrderResponse
         ): Boolean {
-            return oldItem.id == oldItem.id
+            return oldItem.hashCode() == newItem.hashCode()
         }
 
     }

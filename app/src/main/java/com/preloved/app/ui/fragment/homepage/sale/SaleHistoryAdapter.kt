@@ -8,35 +8,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.preloved.app.data.network.model.response.SellerOrderResponse
-import com.preloved.app.databinding.ItemDiminatiBinding
-import com.preloved.app.databinding.ItemSelledBinding
+import com.preloved.app.data.network.model.HistoryResponseItem
+import com.preloved.app.databinding.ItemHistoryBinding
 import com.preloved.app.ui.convertDate
 import com.preloved.app.ui.currency
-import com.preloved.app.ui.striketroughtText
 
-class SaleAcceptedAdapter(private val OnItemClick: OnClickListener): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder>() {
-    private val diffCallback = object : DiffUtil.ItemCallback<SellerOrderResponse>() {
+class SaleHistoryAdapter(private val OnItemClick: OnClickListener) : RecyclerView.Adapter<SaleHistoryAdapter.ViewHolder>() {
+    private val diffCallback = object  : DiffUtil.ItemCallback<HistoryResponseItem>() {
         override fun areItemsTheSame(
-            oldItem: SellerOrderResponse,
-            newItem: SellerOrderResponse
+            oldItem: HistoryResponseItem,
+            newItem: HistoryResponseItem
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: SellerOrderResponse,
-            newItem: SellerOrderResponse
+            oldItem: HistoryResponseItem,
+            newItem: HistoryResponseItem
         ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
 
     }
     private val differ = AsyncListDiffer(this, diffCallback)
-    fun submitData(value: List<SellerOrderResponse>?) = differ.submitList(value)
-    inner class ViewHolder(private val binding: ItemSelledBinding) :
+    fun submitData(value: List<HistoryResponseItem>?) = differ.submitList(value)
+    inner class ViewHolder(private val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: SellerOrderResponse) {
+        fun bind(data: HistoryResponseItem) {
             val basePrice = currency(data.product.basePrice)
             val priceNego = currency(data.price)
             val date = convertDate(data.createdAt)
@@ -64,14 +62,15 @@ class SaleAcceptedAdapter(private val OnItemClick: OnClickListener): RecyclerVie
         }
     }
     interface OnClickListener {
-        fun onClickItem(data: SellerOrderResponse)
-    }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SaleAcceptedAdapter.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(ItemSelledBinding.inflate(inflater, parent, false))
+        fun onClickItem(data: HistoryResponseItem)
     }
 
-    override fun onBindViewHolder(holder: SaleAcceptedAdapter.ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return ViewHolder(ItemHistoryBinding.inflate(inflater, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = differ.currentList[position]
         data.let {
             holder.bind(data)

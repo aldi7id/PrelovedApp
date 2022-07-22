@@ -25,7 +25,7 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/shape_transparent.xml" value="0.177" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/tab_color_selector.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/unselected_tab.xml" value="0.1705" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout-v31/fragment_sale.xml" value="0.1" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout-v31/fragment_sale.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/activity_sale.xml" value="0.18802083333333333" />
@@ -59,10 +59,12 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_splash.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_add_product.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_diminati.xml" value="0.5" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_history.xml" value="0.5" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_notification.xml" value="0.33" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_product_home.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_selled.xml" value="0.33" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.177" />
       </map>
     </option>
   </component>
