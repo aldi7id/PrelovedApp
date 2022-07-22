@@ -48,6 +48,7 @@ interface UserDataSource {
         new_password: String,
         confirm_password: String) : UpdatePasswordResponse
     suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
+    suspend fun getSellerProductSold(token: String, status: String) : List<SellerProductResponseItem>
     suspend fun getSellerProductOrderAccepted(token: String, status: String) : List<SellerOrderResponse>
     suspend fun getNotification(token: String) : List<NotificationResponse>
     suspend fun getSellerProductId(token: String, id:Int): SellerProductResponseItem
@@ -67,4 +68,9 @@ interface UserDataSource {
         @Body requestApproveOrder: RequestApproveOrder
     ): ApproveOrderResponse
     suspend fun getHistory(token: String) : List<HistoryResponseItem>
+    suspend fun approveProduct(
+        @Header("access_token") token: String,
+        @Path("id") productId: Int,
+        @Body requestApproveOrder: RequestApproveOrder
+    ): ApproveProductResponse
    }

@@ -43,13 +43,15 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()
@@ -65,11 +67,11 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
             binding.apply {
                 rbSold.setOnClickListener {
                     btnSayaTertarikNego.setBackgroundColor(Color.parseColor("#EC698F"))
-                    status = "accepted"
+                    status = "sold"
                 }
                 rbCancel.setOnClickListener {
                     btnSayaTertarikNego.setBackgroundColor(Color.parseColor("#EC698F"))
-                    status = "declined"
+                    status = "available"
                 }
                 btnSayaTertarikNego.setOnClickListener {
                     when (status) {
@@ -77,28 +79,28 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                             Toast.makeText(requireContext(), getString(R.string.choose_status), Toast.LENGTH_SHORT)
                                 .show()
                         }
-                        "accepted" -> {
+                        "sold" -> {
                             val body = RequestApproveOrder(
                                 status
                             )
-                            viewModel.statusOrder(token, idProduct, body)
+                            viewModel.statusProcut(token, idProduct, body)
                         }
-                        "declined" -> {
+                        "available" -> {
                             val body = RequestApproveOrder(
                                 status
                             )
-                            viewModel.statusOrder(token, idProduct, body)
+                            viewModel.statusProcut(token, idProduct, body)
                         }
                     }
                 }
 
             }
-        viewModel.statusOrderResult().observe(viewLifecycleOwner) { response ->
+        viewModel.statusProcutResult().observe(viewLifecycleOwner) { response ->
             when(response) {
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    if(status == "accepted"){
+                    if(status == "sold"){
                         showToastAccept()
                         findNavController().navigate(R.id.homeFragment)
                         dismiss()

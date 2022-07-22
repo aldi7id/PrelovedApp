@@ -39,11 +39,11 @@ class SaleRepository(private val userDataSource: UserDataSource,
         return userDataSource.getSellerProductOrder(token)
     }
 
-    override suspend fun getSellerProductOrderAccepted(
+    override suspend fun getSellerProductSold(
         token: String,
         status: String
-    ): List<SellerOrderResponse> {
-        return userDataSource.getSellerProductOrderAccepted(token,status)
+    ): List<SellerProductResponseItem> {
+        return userDataSource.getSellerProductSold(token,status)
     }
 
     override suspend fun getHistory(token: String): List<HistoryResponseItem> {

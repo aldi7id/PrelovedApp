@@ -7,6 +7,7 @@ import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.model.response.ApproveOrderResponse
+import com.preloved.app.data.network.model.response.ApproveProductResponse
 import com.preloved.app.data.network.model.response.RequestApproveOrder
 import com.preloved.app.data.network.model.response.SellerOrderResponse
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,7 @@ class BuyerInfoViewModel(val buyerInfoRepository: BuyerInfoRepository)
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()
     private val _buyerOrder: MutableLiveData<Resource<SellerOrderResponse>> = MutableLiveData()
     private val _responseOrder: MutableLiveData<Resource<ApproveOrderResponse>> = MutableLiveData()
+    private val _reponseProcut: MutableLiveData<Resource<ApproveProductResponse>> = MutableLiveData()
 
     override fun userSession() {
         viewModelScope.launch {
@@ -66,4 +68,25 @@ class BuyerInfoViewModel(val buyerInfoRepository: BuyerInfoRepository)
     }
 
     override fun statusOrderResult(): MutableLiveData<Resource<ApproveOrderResponse>> = _responseOrder
+    override fun statusProcut(
+        token: String,
+        productId: Int,
+        requestApproveOrder: RequestApproveOrder
+    ) {
+        _reponseProcut.value = Resource.Loading()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = buyerInfoRepository.approveProduct(token, productId, requestApproveOrder)
+                viewModelScope.launch(Dispatchers.Main) {
+                    _reponseProcut.value = Resource.Success(response)
+                }
+            } catch (e: Exception) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    _reponseProcut.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    override fun statusProcutResult(): MutableLiveData<Resource<ApproveProductResponse>> = _reponseProcut
 }

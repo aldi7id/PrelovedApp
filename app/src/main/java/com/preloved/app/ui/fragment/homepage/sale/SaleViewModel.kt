@@ -19,7 +19,7 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     private val _getUserData = MutableLiveData<Resource<UserResponse>>()
     private val _product: MutableLiveData<Resource<List<SellerProductResponseItem>>> = MutableLiveData()
     private val _order: MutableLiveData<Resource<List<SellerOrderResponse>>> = MutableLiveData()
-    private val _status: MutableLiveData<Resource<List<SellerOrderResponse>>> = MutableLiveData()
+    private val _status: MutableLiveData<Resource<List<SellerProductResponseItem>>> = MutableLiveData()
     private val  _history: MutableLiveData<Resource<List<HistoryResponseItem>>> = MutableLiveData()
 
     override fun userSession() {
@@ -85,11 +85,11 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
     }
 
     override fun getSellerProductOrderResult(): LiveData<Resource<List<SellerOrderResponse>>> = _order
-    override fun getSellerProductOrderAccepted(token: String, status: String) {
+    override fun getSellerProductSold(token: String, status: String) {
         _status.value = Resource.Loading()
         viewModelScope.launch {
             try {
-                val response = saleRepository.getSellerProductOrderAccepted(token,status)
+                val response = saleRepository.getSellerProductSold(token,status)
                 viewModelScope.launch(Dispatchers.Main){
                     _status.value = Resource.Success(response)
                 }
@@ -101,7 +101,7 @@ class SaleViewModel(private val saleRepository: SaleRepository) : BaseViewModell
         }
     }
 
-    override fun getSellerProductOrderAcceptedResult(): LiveData<Resource<List<SellerOrderResponse>>> = _status
+    override fun getSellerProductSoldResult(): MutableLiveData<Resource<List<SellerProductResponseItem>>> = _status
     override fun getHistory(token: String) {
         _history.value = Resource.Loading()
         viewModelScope.launch {

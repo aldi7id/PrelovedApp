@@ -29,6 +29,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
     private val bundleEdit = Bundle()
     private val bundlePenawar = Bundle()
     private var status = "accepted"
+    private var statusProduct = "sold"
 
     companion object {
         const val USER_TOKEN = "UserToken"
@@ -124,8 +125,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                 btnTerjual.setBackgroundColor(Color.parseColor("#06283D"))
                 btnHistory.setBackgroundColor(Color.parseColor("#EC698F"))
             }
-            viewModel.getSellerProductOrderAccepted(token,status)
-            viewModel.getSellerProductOrderAcceptedResult().observe(viewLifecycleOwner){
+            viewModel.getSellerProductSold(token,statusProduct)
+            viewModel.getSellerProductSoldResult().observe(viewLifecycleOwner){
                 when (it) {
                     is Resource.Loading -> {
                         showLoading(true)
@@ -138,34 +139,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                         showLoading(false)
                         val saleOrderAcceptedAdapter = SaleAcceptedAdapter(object : SaleAcceptedAdapter.OnClickListener{
-                            override fun onClickItem(data: SellerOrderResponse) {
-                                bundlePenawar.putString(
-                                    USER_NAME,
-                                    data.user.fullName
-                                )
-                                bundlePenawar.putString(
-                                    USER_CITY,
-                                    data.user.city.toString()
-                                )
-                                bundlePenawar.putInt(ORDER_ID, data.id)
-                                bundlePenawar.putString(ORDER_STATUS, data.status)
-                                bundlePenawar.putString(PRODUCT_NAME, data.product.name)
-                                bundlePenawar.putString(
-                                    PRODUCT_PRICE,
-                                    data.product.basePrice.toString()
-                                )
-                                bundlePenawar.putString(
-                                    PRODUCT_BID,
-                                    data.price.toString()
-                                )
-                                bundlePenawar.putString(
-                                    PRODUCT_IMAGE,
-                                    data.product.imageUrl
-                                )
-                                bundlePenawar.putString(
-                                    PRODUCT_BID_DATE,
-                                    data.createdAt
-                                )
+                            override fun onClickItem(data: SellerProductResponseItem) {
                                 findNavController().navigate(
                                     R.id.action_saleFragment_to_buyerInfoFragment,bundlePenawar
                                 )
@@ -173,8 +147,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
 
                         )
-                        val sorted = it.data?.sortedByDescending { it.id }
-                        saleOrderAcceptedAdapter.submitData(sorted)
+                        val sortedSell = it.data?.sortedByDescending { it.id }
+                        saleOrderAcceptedAdapter.submitData(sortedSell)
                         getViewBinding().rvTerjual.adapter = saleOrderAcceptedAdapter
                         getViewBinding().rvTerjual.visibility = View.VISIBLE
                         if(it.data?.size == 0){
@@ -184,7 +158,10 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 tvLottieEmpty.text = getString(R.string.no_product_selled)
                             }
                         } else {
-
+                            getViewBinding().apply {
+                                lottieEmpty.visibility = View.GONE
+                                tvLottieEmpty.visibility = View.GONE
+                            }
                         }
 
                     }
@@ -309,6 +286,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             rvTerjual.visibility = View.GONE
                             rvHistory.visibility = View.GONE
                         }
+                        val availableProductSize = it.data?.filter { it.status == "available" }?.size
                         if (it.data != null) {
                             val saleProductAdapter =
                                 SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
@@ -341,16 +319,97 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             getViewBinding().rvProduct.adapter = saleProductAdapter
                             getViewBinding().rvProduct.visibility = View.VISIBLE
                         }
-                        if (it.data?.size == 0){
-                            getViewBinding().lottieEmpty.visibility = View.VISIBLE
-                        } else {
+                        when(availableProductSize){
+                            0 -> {
+                                getViewBinding().apply {
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                    //buttonGrup.visibility = View.GONE
+                                    addProductCard.visibility = View.VISIBLE
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                    tvAddProduct.text = getString(R.string.add_0)
+                                }
+                            }
+                            1 -> {
+                                getViewBinding().apply {
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                    addProductCard.visibility = View.VISIBLE
+                                    tvAddProduct.text = getString(R.string.add_1)
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+
+                            }
+                            2 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = getString(R.string.add_2)
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+
+                            }
+                            3 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = getString(R.string.add_3)
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+
+                            }
+                            4 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = getString(R.string.add_4)
+                                    addProductCard.setOnClickListener {
+                                        addProduct()
+                                    }
+                                }
+                            }
+                            5 -> {
+                                getViewBinding().apply {
+                                    addProductCard.visibility = View.VISIBLE
+                                    lottieEmpty.visibility = View.GONE
+                                    tvLottieEmpty.visibility = View.GONE
+                                    tvAddProduct.text = getString(R.string.add_5)
+                                    addProductCard.setOnClickListener {
+                                        AlertDialog.Builder(context)
+                                            .setTitle(getString(R.string.sorry))
+                                            .setMessage(getString(R.string.remove_first))
+                                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
+                                                positiveButton.dismiss()
+                                            }
+                                            .show()
+                                    }
+                                }
+                            }
+                        }
+                        if(it.data?.size == 0){
+                            getViewBinding().apply {
+                                lottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.text = getString(R.string.no_products)
+                            }
+
+                        }else {
                             getViewBinding().apply {
                                 lottieEmpty.visibility = View.GONE
                                 tvLottieEmpty.visibility = View.GONE
                             }
                         }
-                        getViewBinding().buttonGrup.visibility = View.VISIBLE
-                        //pbloading
                         getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                     }
                     is Resource.Error -> {
@@ -376,13 +435,15 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()
@@ -571,6 +632,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             getViewBinding().apply {
                                 lottieEmpty.visibility = View.VISIBLE
                                 tvLottieEmpty.visibility = View.VISIBLE
+                                tvLottieEmpty.text = getString(R.string.no_products)
                             }
 
                         }else {

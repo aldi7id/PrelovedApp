@@ -54,6 +54,9 @@ interface PreLovedService {
     @GET("seller/order")
     suspend fun getSellerOrderAccepted(@Header("access_token") token: String,
                                        @Query("status")  status: String): List<SellerOrderResponse>
+    @GET("seller/product")
+    suspend fun getSellerProductSold(@Header("access_token") token: String,
+                                       @Query("status")  status: String): List<SellerProductResponseItem>
     @GET("seller/product/{id}")
     suspend fun getSellerProductId(@Header("access_token") token: String,
                                    @Path("id") id:Int) : SellerProductResponseItem
@@ -89,9 +92,16 @@ interface PreLovedService {
     @PATCH("seller/order/{id}")
     suspend fun approveOrder(
         @Header("access_token") token: String,
-        @Path("id") orderId: Int,
+        @Path("id") productId: Int,
         @Body requestApproveOrder: RequestApproveOrder
     ): ApproveOrderResponse
+
+    @PATCH("seller/product/{id}")
+    suspend fun approveProduct(
+        @Header("access_token") token: String,
+        @Path("id") orderId: Int,
+        @Body requestApproveOrder: RequestApproveOrder
+    ): ApproveProductResponse
 
     //HISTORY
     @GET("history")

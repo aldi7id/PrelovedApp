@@ -22,12 +22,15 @@ interface BuyerInfoContract {
         fun getSellerOrderByIdResult(): MutableLiveData<Resource<SellerOrderResponse>>
         fun statusOrder(token: String, orderId: Int, requestApproveOrder: RequestApproveOrder)
         fun statusOrderResult() : MutableLiveData<Resource<ApproveOrderResponse>>
+        fun statusProcut(token: String, productId: Int, requestApproveOrder: RequestApproveOrder)
+        fun statusProcutResult() : MutableLiveData<Resource<ApproveProductResponse>>
     }
 
     interface Repository {
         suspend fun userSession(): Flow<DatastorePreferences>
         suspend fun getSellerOrderById(token : String, id: Int) : SellerOrderResponse
         suspend fun approveOrder(token: String, id: Int, requestApproveOrder: RequestApproveOrder) : ApproveOrderResponse
+        suspend fun approveProduct(token: String, id: Int, requestApproveOrder: RequestApproveOrder) : ApproveProductResponse
 
     }
 }

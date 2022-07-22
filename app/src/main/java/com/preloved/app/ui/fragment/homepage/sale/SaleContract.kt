@@ -22,8 +22,8 @@ interface SaleContract {
         fun getSellerProductResult(): LiveData<Resource<List<SellerProductResponseItem>>>
         fun getSellerProductOrder(token: String)
         fun getSellerProductOrderResult(): LiveData<Resource<List<SellerOrderResponse>>>
-        fun getSellerProductOrderAccepted(token: String, status: String)
-        fun getSellerProductOrderAcceptedResult(): LiveData<Resource<List<SellerOrderResponse>>>
+        fun getSellerProductSold(token: String, status: String)
+        fun getSellerProductSoldResult(): MutableLiveData<Resource<List<SellerProductResponseItem>>>
         fun getHistory(token: String)
         fun getHistoryResult(): MutableLiveData<Resource<List<HistoryResponseItem>>>
     }
@@ -34,7 +34,7 @@ interface SaleContract {
         suspend fun getUserData(token: String): UserResponse
         suspend fun userSession(): Flow<DatastorePreferences>
         suspend fun getSellerProductOrder(token: String) : List<SellerOrderResponse>
-        suspend fun getSellerProductOrderAccepted(token: String, status: String): List<SellerOrderResponse>
+        suspend fun getSellerProductSold(token: String, status: String): List<SellerProductResponseItem>
         suspend fun getHistory(token: String) : List<HistoryResponseItem>
     }
 }

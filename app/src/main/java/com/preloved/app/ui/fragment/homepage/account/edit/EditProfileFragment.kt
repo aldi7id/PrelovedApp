@@ -122,13 +122,15 @@ class EditProfileFragment() : BaseFragment<FragmentEditProfileBinding, EditProfi
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()

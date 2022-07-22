@@ -51,6 +51,13 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getSellerOrder(token)
     }
 
+    override suspend fun getSellerProductSold(
+        token: String,
+        status: String
+    ): List<SellerProductResponseItem> {
+        return preLovedService.getSellerProductSold(token, status)
+    }
+
     override suspend fun getSellerProductOrderAccepted(token: String,status: String): List<SellerOrderResponse> {
         return preLovedService.getSellerOrderAccepted(token, status)
     }
@@ -110,6 +117,14 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
 
     override suspend fun getHistory(token: String): List<HistoryResponseItem> {
         return preLovedService.getHistory(token)
+    }
+
+    override suspend fun approveProduct(
+        token: String,
+        productId: Int,
+        requestApproveOrder: RequestApproveOrder
+    ): ApproveProductResponse {
+        return preLovedService.approveProduct(token,productId,requestApproveOrder)
     }
 
     override suspend fun putPassword(

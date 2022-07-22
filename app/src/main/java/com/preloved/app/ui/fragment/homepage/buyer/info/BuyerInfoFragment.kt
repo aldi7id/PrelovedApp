@@ -38,6 +38,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
     private lateinit var productBid : String
     private lateinit var imageProduct: String
     private var idProduct by Delegates.notNull<Int>()
+    private var idOrder by Delegates.notNull<Int>()
 
 
     override fun initView() {
@@ -145,7 +146,8 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
             productBid = data.price.toString()
             kotaPenawar = data.user.city
             imageProduct = data.product.imageUrl
-            idProduct = data.id
+            idProduct = data.productId
+            idOrder = data.id
 
             if(data.status == "accepted"){
                 btnGroup.visibility = View.GONE
@@ -168,13 +170,15 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(R.string.login) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()
