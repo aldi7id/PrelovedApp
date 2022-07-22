@@ -47,7 +47,6 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
                     }
                     is Resource.Success -> {
                         showLoading(false)
-                        showError(true, it.message)
                         getData(it.data)
                     }
                     is Resource.Error -> {
