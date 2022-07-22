@@ -115,7 +115,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     tvCategoryItem.text = it.categories.joinToString{ data ->
                         data.name
                     }
-                    tvPriceItem.text = it.basePrice.toString()
+                    tvPriceItem.text = "Rp. ${it.basePrice}"
                     Glide.with(root)
                         .load(it.imageUrl)
                         .into(ivUserPhoto)
