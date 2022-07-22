@@ -21,7 +21,7 @@ class CategoryHomeSuppliesFragment : BaseFragment<FragmentCategoryHomesuppliesBi
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(107)
+            getDataById(12)
         }
     }
 

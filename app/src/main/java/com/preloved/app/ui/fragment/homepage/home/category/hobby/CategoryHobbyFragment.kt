@@ -21,7 +21,7 @@ class CategoryHobbyFragment : BaseFragment<FragmentCategoryHobbyBinding, Categor
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(104)
+            getDataById(8)
         }
     }
 

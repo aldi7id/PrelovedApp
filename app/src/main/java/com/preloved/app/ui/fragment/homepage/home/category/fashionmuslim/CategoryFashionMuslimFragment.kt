@@ -22,7 +22,7 @@ class CategoryFashionMuslimFragment : BaseFragment<FragmentCategoryFashionmuslim
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(109)
+            getDataById(14)
         }
     }
 

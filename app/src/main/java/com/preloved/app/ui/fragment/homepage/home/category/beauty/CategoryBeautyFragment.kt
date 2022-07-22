@@ -22,7 +22,7 @@ class CategoryBeautyFragment : BaseFragment<FragmentCategoryBeautyBinding, Categ
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(106)
+            getDataById(11)
         }
     }
 

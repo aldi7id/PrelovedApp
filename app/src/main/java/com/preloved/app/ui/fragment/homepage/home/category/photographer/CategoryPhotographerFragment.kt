@@ -22,7 +22,7 @@ class CategoryPhotographerFragment : BaseFragment<FragmentCategoryPhotographerBi
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(119)
+            getDataById(24)
         }
     }
 

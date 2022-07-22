@@ -21,7 +21,7 @@ class CategoryComputerFragment : BaseFragment<FragmentCategoryComputerBinding, C
 
     override fun getCategoryElectronic() {
         viewModel.apply {
-            getDataComputerById(97)
+            getDataComputerById(2)
         }
     }
 

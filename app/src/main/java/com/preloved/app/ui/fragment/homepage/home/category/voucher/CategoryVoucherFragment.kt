@@ -22,7 +22,7 @@ class CategoryVoucherFragment : BaseFragment<FragmentCategoryVoucherBinding, Cat
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(117)
+            getDataById(22)
         }
     }
 

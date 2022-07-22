@@ -22,7 +22,7 @@ class CategoryBookAndPenFragment : BaseFragment<FragmentCategoryBookandpenBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(116)
+            getDataById(21)
         }
     }
 

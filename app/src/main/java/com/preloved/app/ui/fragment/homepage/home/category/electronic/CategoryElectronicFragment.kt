@@ -21,7 +21,7 @@ class CategoryElectronicFragment : BaseFragment<FragmentCategoryElectronicBindin
 
     override fun getCategoryElectronic() {
         viewModel.apply {
-            getDataElectronicById(96)
+            getDataElectronicById(1)
         }
     }
 

@@ -22,7 +22,7 @@ class CategoryClothWomenFragment : BaseFragment<FragmentCategoryClothWomenBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(108)
+            getDataById(13)
         }
     }
 

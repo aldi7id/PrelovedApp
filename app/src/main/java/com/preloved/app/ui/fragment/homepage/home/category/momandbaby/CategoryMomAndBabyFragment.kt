@@ -22,7 +22,7 @@ class CategoryMomAndBabyFragment : BaseFragment<FragmentCategoryMomandbabyBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(111)
+            getDataById(16)
         }
     }
 

@@ -26,7 +26,7 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
     }
 
     override fun getDataFoodCategory() {
-        viewModel.getDataFoodCategory(105)
+        viewModel.getDataFoodCategory(10)
     }
 
     override fun showLoading(isVisible: Boolean) {

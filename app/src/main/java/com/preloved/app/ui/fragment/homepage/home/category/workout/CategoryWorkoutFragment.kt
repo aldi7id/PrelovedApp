@@ -22,7 +22,7 @@ class CategoryWorkoutFragment : BaseFragment<FragmentCategoryWorkoutBinding, Cat
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(115)
+            getDataById(20)
         }
     }
 

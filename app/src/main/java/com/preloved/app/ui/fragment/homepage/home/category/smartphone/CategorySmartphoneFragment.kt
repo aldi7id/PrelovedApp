@@ -21,7 +21,7 @@ class CategorySmartphoneFragment : BaseFragment<FragmentCategorySmartphoneBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(98)
+            getDataById(3)
         }
     }
 
