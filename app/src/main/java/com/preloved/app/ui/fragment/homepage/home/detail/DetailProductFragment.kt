@@ -111,13 +111,18 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
         viewModel.apply {
             with(getViewBinding()) {
                 dataCategory?.let {
+                    Glide.with(root)
+                        .load(it.imageUrl)
+                        .centerCrop()
+                        .into(ivItem)
                     tvTitleItem.text = it.name
                     tvCategoryItem.text = it.categories.joinToString{ data ->
                         data.name
                     }
-                    tvPriceItem.text = it.basePrice.toString()
+                    tvPriceItem.text = "Rp. ${it.basePrice}"
                     Glide.with(root)
-                        .load(it.imageUrl)
+                        .load(it.user.imageUrl)
+                        .centerCrop()
                         .into(ivUserPhoto)
                     tvUsername.text = it.user.fullName
                     tvUserLocation.text = it.user.city

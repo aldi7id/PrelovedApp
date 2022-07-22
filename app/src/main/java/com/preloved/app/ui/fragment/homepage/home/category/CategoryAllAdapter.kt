@@ -26,7 +26,7 @@ class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponse
                     tvCategoryItem.text = categories.joinToString{
                         it.name
                     }
-                    tvPriceItem.text = basePrice.toString()
+                    tvPriceItem.text = "Rp. $basePrice"
                     root.setOnClickListener {
                         onClick(CategoryResponseItem)
                     }

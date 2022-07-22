@@ -119,7 +119,7 @@ class PopUpBidFragment(
                     tvProductCategory.text = it.categories.joinToString{ data ->
                         data.name
                     }
-                    tvProductPrice.text = it.basePrice.toString()
+                    tvProductPrice.text = "Rp. ${it.basePrice}"
                 }
             }
         }
