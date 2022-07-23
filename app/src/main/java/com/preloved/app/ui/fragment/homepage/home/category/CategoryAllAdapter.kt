@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.CardItemCategoryBinding
+import com.preloved.app.ui.currency
 
 class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponseItem) -> Unit) :
     ListAdapter<CategoryResponse.CategoryResponseItem, CategoryAllAdapter.CategoryHolder>(Differ()) {
@@ -26,7 +27,7 @@ class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponse
                     tvCategoryItem.text = categories.joinToString{
                         it.name
                     }
-                    tvPriceItem.text = "Rp. $basePrice"
+                    tvPriceItem.text = currency(basePrice)
                     root.setOnClickListener {
                         onClick(CategoryResponseItem)
                     }

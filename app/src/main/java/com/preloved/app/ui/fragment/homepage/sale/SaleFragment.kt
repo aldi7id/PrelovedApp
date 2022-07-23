@@ -437,6 +437,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         //ToLogin Fragment
                         dialogP.dismiss()
                         findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
+                        viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
 
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
@@ -447,13 +448,14 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     }
                     .setCancelable(false)
                     .show()
-                //viewModel.checkLogin().removeObserver(viewLifecycleOwner)
+                viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
             } else {
                 bundle.putString(USER_TOKEN,it.access_token)
                 viewModel.getUserData(it.access_token)
                 token = it.access_token
                 viewModel.getSellerProduct(token)
             }
+            viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
             viewModel.getUserDataResult().observe(viewLifecycleOwner){
                 when (it) {
                     is Resource.Loading -> {

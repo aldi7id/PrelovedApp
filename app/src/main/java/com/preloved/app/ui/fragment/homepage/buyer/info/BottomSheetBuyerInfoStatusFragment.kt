@@ -101,12 +101,12 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                 }
                 is Resource.Success -> {
                     if(status == "sold"){
-                        showToastAccept()
-                        findNavController().navigate(R.id.homeFragment)
+                        Toast.makeText(requireContext(), "Product Accepted", Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
                         dismiss()
                     } else {
-                        showToastDecline()
-                        findNavController().navigate(R.id.homeFragment)
+                        findNavController().popBackStack()
+                        Toast.makeText(requireContext(), "Product Canceled", Toast.LENGTH_SHORT).show()
                         dismiss()
                     }
                 }

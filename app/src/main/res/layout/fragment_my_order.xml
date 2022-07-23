@@ -6,6 +6,36 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_back"
+            android:background="@color/white"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/contentbackbutton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="My Order"
+            android:textColor="@color/black"
+            android:textSize="@dimen/header" />
+
+    </androidx.appcompat.widget.Toolbar>
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_empty"
             android:layout_width="250dp"
@@ -20,40 +50,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
+            app:layout_constraintTop_toTopOf="parent"/>
         <TextView
-            android:id="@id/tv_lottie_empty"
+            android:id="@+id/tv_lottie_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppinsregular"
-            android:gravity="center"
-            android:text="@string/no_notification"
-            android:textSize="14sp"
             android:visibility="gone"
+            android:textAlignment="center"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppinssemibold"
+            android:textSize="@dimen/subcontent"
+            android:text="No Order Show"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lottie_empty"
             />
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/notification"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppinssemibold"
-            android:textSize="@dimen/header"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            />
 
-    </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,15 +75,16 @@
         app:layout_constraintStart_toStartOf="parent"
         android:scrollbars="none"
         >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_notification" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_my_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_my_order" />
+
     </ScrollView>
     <ProgressBar
         android:id="@+id/pb_loading"

@@ -103,6 +103,14 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getBuyerOrderById(token, id)
     }
 
+    override suspend fun getBuyerOrder(token: String): List<BuyerOrderResponse> {
+        return preLovedService.getBuyerOrder(token)
+    }
+
+    override suspend fun deleteBuyerOrderById(token: String, id: Int): BuyerOrderResponse {
+        return preLovedService.deleteBuyerOrderById(token, id)
+    }
+
     override suspend fun getSellerOrderById(token: String, id: Int): SellerOrderResponse {
         return preLovedService.getSellerOrderById(token, id)
     }

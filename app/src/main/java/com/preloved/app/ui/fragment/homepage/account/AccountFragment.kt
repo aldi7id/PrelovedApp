@@ -30,6 +30,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
 
         viewModel.userSession()
         getViewBinding().apply {
+            tvMyOrder.setOnClickListener {
+                findNavController().navigate(R.id.action_accountFragment_to_myOrderFragment)
+            }
             tvChangePassword.setOnClickListener {
                 findNavController().navigate(R.id.action_accountFragment_to_editPasswordFragment)
             }

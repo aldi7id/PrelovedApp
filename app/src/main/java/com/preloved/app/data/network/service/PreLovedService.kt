@@ -73,7 +73,7 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): Response<SellerDeleteResponse>
-
+    //BUYER
     @GET("buyer/order")
     suspend fun getBuyerOrder(
         @Header("access_token") token: String
@@ -84,6 +84,13 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): BuyerOrderResponse
+
+    @DELETE("buyer/order/{id}")
+    suspend fun deleteBuyerOrderById(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): BuyerOrderResponse
+
     @GET("seller/order/{id}")
     suspend fun getSellerOrderById(
         @Header("access_token") token: String,

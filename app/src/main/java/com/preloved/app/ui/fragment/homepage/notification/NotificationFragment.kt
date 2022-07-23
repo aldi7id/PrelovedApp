@@ -35,7 +35,7 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                         //ToLogin Fragment
                         dialogP.dismiss()
                         findNavController().navigate(R.id.action_notificationFragment_to_loginFragment3)
-
+                        viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
@@ -47,11 +47,10 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                     .show()
             } else {
                 token = it.access_token
-                //viewModel.getUserData(it.access_token)
                 Log.d ("token", token)
                 viewModel.getNotification(token)
-                //bundle.putString(SellFragment.USER_TOKEN,it.access_token)
             }
+            viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
         }
 
         viewModel.getNotificationResult().observe(viewLifecycleOwner){
@@ -77,8 +76,10 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                         notificationAdapter.submitData(sorted)
                         getViewBinding().rvNotification.adapter = notificationAdapter
                     } else {
-                        getViewBinding().emptyNotif.visibility = View.VISIBLE
+                        getViewBinding().lottieEmpty.visibility = View.VISIBLE
+                        getViewBinding().tvLottieEmpty.visibility = View.VISIBLE
                     }
+                    viewModel.getNotificationResult().removeObservers(viewLifecycleOwner)
                 }
                 is Resource.Error -> {
                     showLoading(false)

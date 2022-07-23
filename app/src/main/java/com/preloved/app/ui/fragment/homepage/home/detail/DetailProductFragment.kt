@@ -2,6 +2,7 @@ package com.preloved.app.ui.fragment.homepage.home.detail
 
 import android.app.AlertDialog
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -12,6 +13,7 @@ import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.bid.get.GetBidResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import com.preloved.app.databinding.FragmentDetailProductBinding
+import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -91,7 +93,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                             data[order].productId == args.productId && data[order].status == "pending" -> {
                                 btnBuy.isEnabled = false
                                 btnBuy.text = "Menunggu"
-                                btnBuy.setBackgroundColor(R.color.grey_shade)
+                                btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
                             }
                             data[order].productId == args.productId && data[order].status == "accepted" -> {
                                 btnBuy.visibility = View.GONE
@@ -119,7 +121,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     tvCategoryItem.text = it.categories.joinToString{ data ->
                         data.name
                     }
-                    tvPriceItem.text = "Rp. ${it.basePrice}"
+                    tvPriceItem.text = currency(it.basePrice)
                     Glide.with(root)
                         .load(it.user.imageUrl)
                         .centerCrop()

@@ -108,5 +108,6 @@
     <string name="accept">Accept</string>
     <string name="decline_the_offer">Decline the Offer?</string>
     <string name="history">History</string>
+    <string name="my_order">My Order</string>
 
 </resources>

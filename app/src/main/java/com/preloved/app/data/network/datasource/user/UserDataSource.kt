@@ -61,6 +61,8 @@ interface UserDataSource {
                                     location: String,
                                     image : File? = null) : PostProductResponse
     suspend fun getBuyerOrderById(token: String, id: Int) : BuyerOrderResponse
+    suspend fun getBuyerOrder(token: String) : List<BuyerOrderResponse>
+    suspend fun deleteBuyerOrderById(token: String, id: Int) : BuyerOrderResponse
     suspend fun getSellerOrderById(token: String, id: Int) : SellerOrderResponse
     suspend fun approveOrder(
         @Header("access_token") token: String,

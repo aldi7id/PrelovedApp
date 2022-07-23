@@ -94,6 +94,9 @@
         <action
             android:id="@+id/action_accountFragment_to_editPasswordFragment"
             app:destination="@id/editPasswordFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_myOrderFragment"
+            app:destination="@id/myOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment3"
@@ -133,9 +136,9 @@
     </fragment>
     <fragment
         android:id="@+id/popUpTawaranFragment"
-        android:name="com.preloved.app.PopUpTawaranFragment"
+        android:name="com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidFragment"
         android:label="fragment_pop_up_tawaran"
-        tools:layout="@layout/fragment_pop_up_tawaran" />
+        tools:layout="@layout/fragment_pop_up_bid" />
     <fragment
         android:id="@+id/editProductFragment"
         android:name="EditProductFragment"
@@ -213,4 +216,8 @@
             app:popUpTo="@id/saleFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/myOrderFragment"
+        android:name="MyOrderFragment"
+        android:label="MyOrderFragment" />
 </navigation>
