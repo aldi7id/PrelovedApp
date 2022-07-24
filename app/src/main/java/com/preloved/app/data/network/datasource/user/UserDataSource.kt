@@ -60,6 +60,7 @@ interface UserDataSource {
                                     category: List<Int>,
                                     location: String,
                                     image : File? = null) : PostProductResponse
+    suspend fun updateBuyerOrder(token: String, id: Int, bid_price : Int) : BuyerOrderEditResponse
     suspend fun getBuyerOrderById(token: String, id: Int) : BuyerOrderResponse
     suspend fun getBuyerOrder(token: String) : List<BuyerOrderResponse>
     suspend fun deleteBuyerOrderById(token: String, id: Int) : BuyerOrderResponse

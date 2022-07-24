@@ -189,6 +189,10 @@
             app:argType="integer"
             android:defaultValue="0" />
         <argument
+            android:name="orderId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
             android:name="status"
             app:argType="integer"
             android:defaultValue="0" />
@@ -219,5 +223,11 @@
     <fragment
         android:id="@+id/myOrderFragment"
         android:name="MyOrderFragment"
-        android:label="MyOrderFragment" />
+        android:label="MyOrderFragment" >
+        <action
+            android:id="@+id/action_myOrderFragment_to_detailProductFragment2"
+            app:destination="@id/detailProductFragment2"
+            app:popUpTo="@id/accountFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

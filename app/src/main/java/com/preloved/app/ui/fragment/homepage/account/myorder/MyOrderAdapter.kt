@@ -42,14 +42,35 @@ class MyOrderAdapter(private val OnItemClick: OnClickListener):RecyclerView.Adap
         fun bind(data: BuyerOrderResponse) {
            binding.apply {
                tvNamaProduk.text = data.productName
-               tvHargaAwalProduk.text = currency(data.basePrice.toInt())
-               tvHargaDitawarProduk.text = currency(data.price)
+               tvHargaAwalProduk.apply {
+                   text = striketroughtText(this, currency(data.basePrice.toInt()))
+               }
+               tvHargaDitawarProduk.text = "Your Bid: ".plus(currency(data.price))
                Glide.with(binding.root)
                    .load(data.imageProduct)
                    .transform(CenterCrop(), RoundedCorners(12))
                    .into(binding.ivProductImage)
                tvTanggal.text = convertDate(data.transactionDate.toString())
-               tvTipeProduk.text = data.status
+               when(data.status){
+                   "accepted" -> {
+                       tvPesan.text = "Congratulation Your Bid Accepted"
+                       root.setOnClickListener {
+                           OnItemClick.onClickItem(data)
+                       }
+                   }
+                   "declined" -> {
+                       tvPesan.text = "Unfortunately, Your Bid Declined By Seller"
+                       root.setOnClickListener {
+                           OnItemClick.onClickItem(data)
+                       }
+                   }
+                   "pending" -> {
+                       tvPesan.text = "Your Bid Still Pending, Please Wait!"
+                       root.setOnClickListener {
+                           OnItemClick.onClickItem(data)
+                       }
+                   }
+               }
            }
         }
     }

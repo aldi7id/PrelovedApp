@@ -125,6 +125,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
             tvNamaPenawar.text = data.user.fullName
             tvKotaPenawar.text = data.user.city.toString()
             Glide.with(requireContext())
+            Glide.with(requireContext())
                 .load(data.user.imageUrl)
                 .placeholder(R.drawable.image_profile)
                 .into(getViewBinding().ivAvatarPenawar)

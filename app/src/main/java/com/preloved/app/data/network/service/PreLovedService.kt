@@ -90,7 +90,11 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): BuyerOrderResponse
+    @PUT("buyer/order/{id}")
+    suspend fun updateBuyerOrder(@Header("access_token") token: String,
+                                    @Path("id") id:Int, @Body data: RequestBody) : BuyerOrderEditResponse
 
+    //SELLER
     @GET("seller/order/{id}")
     suspend fun getSellerOrderById(
         @Header("access_token") token: String,

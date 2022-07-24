@@ -148,6 +148,13 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
             .addFormDataPart("confirm_password", confirm_password)
         return preLovedService.putChangePassword(token, requestBodyBuilder.build())
     }
+
+    override suspend fun updateBuyerOrder(token: String, id: Int, bid_price: Int) : BuyerOrderEditResponse{
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("bid_price", bid_price.toString())
+        return preLovedService.updateBuyerOrder(token,id,requestBodyBuilder.build())
+    }
     override suspend fun updateProfileData(token: String,
                                            email: String,
                                            nama: String,

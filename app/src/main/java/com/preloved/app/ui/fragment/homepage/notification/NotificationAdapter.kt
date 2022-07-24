@@ -60,7 +60,7 @@ class NotificationAdapter(
                                     tvPesan.text = "Tawaranmu belum diterima oleh penjual, sabar ya!"
                                 }
                             } else {
-                                tvPesan.text = "Produk Sudah di hapus"
+                                tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
                         "declined" -> {
@@ -72,7 +72,7 @@ class NotificationAdapter(
                                     tvPesan.text = "Tawaran Anda ditolak oleh Penjual"
                                 }
                             } else {
-                                tvPesan.text = "Produk Sudah di hapus"
+                                tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
                         "accepted" -> {
@@ -84,7 +84,7 @@ class NotificationAdapter(
                                     tvPesan.text = "Tawaran Anda diterima oleh Penjual"
                                 }
                             } else {
-                                tvPesan.text = "Produk Sudah di hapus"
+                                tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
                         else -> {

@@ -179,6 +179,69 @@
         android:fontFamily="@font/poppinsmedium"
         android:textSize="14sp"
         android:textColor="@color/white"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="100dp"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/btn_buy"
+        app:layout_constraintStart_toStartOf="@id/btn_buy"
+        app:layout_constraintTop_toBottomOf="@id/btn_buy">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:gravity="center">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete"
+            style="@style/ThemeOverlay.Material3.Button"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:text="Delete"
+            android:layout_marginRight="10dp"
+            app:backgroundTint="@color/gray"
+            app:layout_constraintEnd_toStartOf="@+id/btn_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:gravity="center">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_edit"
+            style="@style/ThemeOverlay.Material3.Button"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:text="Edit"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

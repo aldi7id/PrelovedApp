@@ -55,7 +55,7 @@ class PopUpBidViewModel(
                                 }
                             }
                             400 -> {
-                                postDataBidProduct.value = Resource.Error(null, "You has order for this product")
+                                postDataBidProduct.value = Resource.Error(null, "You has order for this product or you cannot bid your own product")
                             }
                             403 -> {
                                 postDataBidProduct.value = Resource.Error(null, "You are not login")

@@ -6,6 +6,7 @@ import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderRepository
 import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordRepository
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoRepository
 import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidRepository
+import com.preloved.app.ui.fragment.homepage.home.bid.edit.PopUpBidEditRepository
 import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
 import com.preloved.app.ui.fragment.homepage.home.category.automotive.CategoryAutomotiveRepository
@@ -86,5 +87,6 @@ val repositoryModule = module {
     singleOf(::EditPasswordRepository)
     singleOf(::BuyerInfoRepository)
     singleOf(::MyOrderRepository)
+    singleOf(::PopUpBidEditRepository)
 
 }

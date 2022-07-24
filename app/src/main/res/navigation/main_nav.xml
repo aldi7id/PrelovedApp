@@ -57,6 +57,10 @@
             android:name="productId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="status"
+            app:argType="integer"
+            android:defaultValue="0" />
         <action
             android:id="@+id/action_detailProductFragment_to_mainFragment"
             app:destination="@id/mainFragment" />

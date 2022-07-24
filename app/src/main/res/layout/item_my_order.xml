@@ -82,7 +82,7 @@
         android:id="@+id/tv_pesan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/notif_message"
+        android:text="@string/notification"
         android:textColor="@color/black"
         android:fontFamily="@font/poppinsregular"
         app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk"
@@ -92,7 +92,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:background="#E5E5E5"
         app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk" />
 

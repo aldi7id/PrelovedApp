@@ -109,5 +109,10 @@
     <string name="decline_the_offer">Decline the Offer?</string>
     <string name="history">History</string>
     <string name="my_order">My Order</string>
+    <string name="your_bid">Your Bid Had Accepted By Buyer</string>
+    <string name="Unfortunately">Unfortunately, Your Bid Declined By Buyer, But U Can Re-bid Again, Edit Your Bid</string>
+    <string name="enter_your_bid">Enter Your Bid Price</string>
+    <string name="your_bid_forwaded">Your bid will be forwarded to the Seller. If the Seller agrees to your offer, the Seller will contact you.</string>
+    <string name="your_bid_text">Your Bid</string>
 
 </resources>

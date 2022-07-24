@@ -41,6 +41,7 @@ import com.preloved.app.ui.fragment.register.RegisterViewModel
 import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileViewModel
 import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderViewModel
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
+import com.preloved.app.ui.fragment.homepage.home.bid.edit.PopUpBidEditViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -86,4 +87,5 @@ val viewModelModule = module {
     viewModelOf(::EditPasswordViewModel)
     viewModelOf(::BuyerInfoViewModel)
     viewModelOf(::MyOrderViewModel)
+    viewModelOf(::PopUpBidEditViewModel)
 }

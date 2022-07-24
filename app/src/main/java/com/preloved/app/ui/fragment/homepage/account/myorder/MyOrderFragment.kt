@@ -1,4 +1,5 @@
 import android.app.AlertDialog
+import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -7,17 +8,17 @@ import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.BuyerOrderResponse
-import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.databinding.FragmentMyOrderBinding
 import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderAdapter
 import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderContract
 import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderViewModel
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragmentDirections
-import com.preloved.app.ui.fragment.homepage.sale.SaleHistoryAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyOrderFragment : BaseFragment<FragmentMyOrderBinding, MyOrderViewModel>
     (FragmentMyOrderBinding::inflate), MyOrderContract.View {
+    companion object {
+        const val USER_ORDER = "OrderId"
+    }
     override val viewModel: MyOrderViewModel by viewModel()
     override fun initView() {
         viewModel.userSession()
@@ -70,9 +71,10 @@ class MyOrderFragment : BaseFragment<FragmentMyOrderBinding, MyOrderViewModel>
                     showLoading(false)
                     val myOrderAdapter = MyOrderAdapter(object  : MyOrderAdapter.OnClickListener{
                         override fun onClickItem(data: BuyerOrderResponse) {
-                            val passData = SaleFragmentDirections.actionSaleFragmentToDetailProductFragment2(
+                            val passData = MyOrderFragmentDirections.actionMyOrderFragmentToDetailProductFragment2(
                                 productId = data.productId,
-                                status = 0
+                                status = 1,
+                                orderId = data.id
                             )
                             findNavController().navigate(
                                 passData
