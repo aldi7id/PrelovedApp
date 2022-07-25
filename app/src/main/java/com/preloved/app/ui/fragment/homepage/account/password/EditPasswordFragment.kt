@@ -67,6 +67,9 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
 
     override fun setOnClickListeners() {
        getViewBinding().apply {
+           ibBack.setOnClickListener {
+               findNavController().popBackStack()
+           }
            btnEdit.setOnClickListener {
                if (checkFormValidation()) {
                    val oldPassword = etOldPassword.text.toString()
@@ -92,13 +95,15 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()

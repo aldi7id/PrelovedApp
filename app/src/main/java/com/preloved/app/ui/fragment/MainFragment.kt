@@ -49,6 +49,15 @@ class MainFragment : Fragment() {
                 R.id.searchProductFragment -> {
                     binding.navigationBar.visibility = View.GONE
                 }
+                R.id.buyerInfoFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
+                R.id.myOrderFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
+                R.id.editProductFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
                 else -> {
                     binding.navigationBar.visibility = View.VISIBLE
                 }

@@ -21,7 +21,7 @@ class CategoryComputerFragment : BaseFragment<FragmentCategoryComputerBinding, C
 
     override fun getCategoryElectronic() {
         viewModel.apply {
-            getDataComputerById(97)
+            getDataComputerById(2)
         }
     }
 
@@ -57,7 +57,7 @@ class CategoryComputerFragment : BaseFragment<FragmentCategoryComputerBinding, C
                     )
                     findNavController().navigate(passData)
                 }
-                listComputerAdapter.submitList(data)
+                listComputerAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listComputerAdapter
             }
         }

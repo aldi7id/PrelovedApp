@@ -1,6 +1,8 @@
 package com.preloved.app.data.network.model.response
 
 import com.google.gson.annotations.SerializedName
+import com.preloved.app.data.network.model.Product
+import com.preloved.app.data.network.model.User
 
 data class NotificationResponse(
     @SerializedName("base_price")
@@ -15,8 +17,12 @@ data class NotificationResponse(
     val id: Int,
     @SerializedName("image_url")
     val imageUrl: String,
+    @SerializedName("notification_type")
+    val notificationType: String,
+    @SerializedName("order_id")
+    val orderId: Int,
     @SerializedName("Product")
-    val product: ProductNotif,
+    val product: Product,
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("product_name")
@@ -30,31 +36,9 @@ data class NotificationResponse(
     @SerializedName("status")
     val status: String,
     @SerializedName("transaction_date")
-    val transactionDate: String?,
-    @SerializedName("updatedAt")
-    val updatedAt: String
-)
-data class ProductNotif(
-    @SerializedName("base_price")
-    val basePrice: Int,
-    @SerializedName("createdAt")
-    val createdAt: String,
-    @SerializedName("description")
-    val description: String,
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("image_name")
-    val imageName: String,
-    @SerializedName("image_url")
-    val imageUrl: String,
-    @SerializedName("location")
-    val location: String,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("status")
-    val status: String,
+    val transactionDate: String,
     @SerializedName("updatedAt")
     val updatedAt: String,
-    @SerializedName("user_id")
-    val userId: Int
+    @SerializedName("User")
+    val user: User
 )

@@ -43,7 +43,7 @@ class PreviewProductFragment : BaseFragment<FragmentPreviewProductBinding, Previ
 
     override fun initView() {
         getViewBinding().statusBar.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT, HomeFragment.result
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
         getViewBinding().apply {
             val bundle = arguments

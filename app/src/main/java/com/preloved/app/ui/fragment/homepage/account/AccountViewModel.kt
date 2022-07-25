@@ -32,10 +32,12 @@ class AccountViewModel(private val accountRepository: AccountRepository
     override fun getUserDataResult(): LiveData<Resource<UserResponse>> = _getUserData
 
     override fun getUserData(token: String) {
+        _getUserData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO){
             try {
+                val response = accountRepository.getUserData(token)
                     viewModelScope.launch(Dispatchers.Main) {
-                        _getUserData.value = Resource.Success(accountRepository.getUserData(token))
+                        _getUserData.value = Resource.Success(response)
                     }
 
             } catch (e: Exception) {

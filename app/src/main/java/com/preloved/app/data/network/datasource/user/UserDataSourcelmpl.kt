@@ -1,6 +1,8 @@
 package com.preloved.app.data.network.datasource.user
 
 import com.preloved.app.data.network.datasource.UserDataSource
+import com.preloved.app.data.network.model.BuyerOrderResponse
+import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.data.network.model.request.auth.LoginRequest
 import com.preloved.app.data.network.model.request.auth.RegisterRequest
 import com.preloved.app.data.network.model.request.auth.UpdateProfileRequest
@@ -49,6 +51,13 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         return preLovedService.getSellerOrder(token)
     }
 
+    override suspend fun getSellerProductSold(
+        token: String,
+        status: String
+    ): List<SellerProductResponseItem> {
+        return preLovedService.getSellerProductSold(token, status)
+    }
+
     override suspend fun getSellerProductOrderAccepted(token: String,status: String): List<SellerOrderResponse> {
         return preLovedService.getSellerOrderAccepted(token, status)
     }
@@ -89,6 +98,43 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
         }
         return preLovedService.updateSellerProduct(token,id,requestBodyBuilder.build())
     }
+
+    override suspend fun getBuyerOrderById(token: String, id: Int): BuyerOrderResponse {
+        return preLovedService.getBuyerOrderById(token, id)
+    }
+
+    override suspend fun getBuyerOrder(token: String): List<BuyerOrderResponse> {
+        return preLovedService.getBuyerOrder(token)
+    }
+
+    override suspend fun deleteBuyerOrderById(token: String, id: Int): BuyerOrderResponse {
+        return preLovedService.deleteBuyerOrderById(token, id)
+    }
+
+    override suspend fun getSellerOrderById(token: String, id: Int): SellerOrderResponse {
+        return preLovedService.getSellerOrderById(token, id)
+    }
+
+    override suspend fun approveOrder(
+        token: String,
+        orderId: Int,
+        requestApproveOrder: RequestApproveOrder
+    ): ApproveOrderResponse {
+        return preLovedService.approveOrder(token, orderId, requestApproveOrder)
+    }
+
+    override suspend fun getHistory(token: String): List<HistoryResponseItem> {
+        return preLovedService.getHistory(token)
+    }
+
+    override suspend fun approveProduct(
+        token: String,
+        productId: Int,
+        requestApproveOrder: RequestApproveOrder
+    ): ApproveProductResponse {
+        return preLovedService.approveProduct(token,productId,requestApproveOrder)
+    }
+
     override suspend fun putPassword(
         token: String,
         current_password: String,
@@ -101,6 +147,13 @@ class UserDataSourcelmpl(private val preLovedService: PreLovedService): UserData
             .addFormDataPart("new_password", new_password)
             .addFormDataPart("confirm_password", confirm_password)
         return preLovedService.putChangePassword(token, requestBodyBuilder.build())
+    }
+
+    override suspend fun updateBuyerOrder(token: String, id: Int, bid_price: Int) : BuyerOrderEditResponse{
+        val requestBodyBuilder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("bid_price", bid_price.toString())
+        return preLovedService.updateBuyerOrder(token,id,requestBodyBuilder.build())
     }
     override suspend fun updateProfileData(token: String,
                                            email: String,

@@ -1,10 +1,12 @@
 package com.preloved.app.ui.fragment.homepage.home.category.hobby
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryHobbyBinding
+import com.preloved.app.ui.fragment.MainFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,7 +21,7 @@ class CategoryHobbyFragment : BaseFragment<FragmentCategoryHobbyBinding, Categor
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(104)
+            getDataById(8)
         }
     }
 
@@ -50,9 +52,12 @@ class CategoryHobbyFragment : BaseFragment<FragmentCategoryHobbyBinding, Categor
         viewModel.apply {
             with(getViewBinding()) {
                 val listAdapter = CategoryAllAdapter{
-
+                    val passData = MainFragmentDirections.actionMainFragmentToDetailProductFragment(
+                        productId = it.id
+                    )
+                    findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data)
+                listAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listAdapter
             }
         }

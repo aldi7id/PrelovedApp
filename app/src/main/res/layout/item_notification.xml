@@ -86,13 +86,13 @@
         android:textColor="@color/black"
         android:fontFamily="@font/poppinsregular"
         app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk"
-        app:layout_constraintStart_toStartOf="@id/tv_harga_ditawar_produk"
+        app:layout_constraintStart_toStartOf="@id/tv_harga_awal_produk"
         app:layout_constraintEnd_toEndOf="parent"
         />
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="#E5E5E5"
         app:layout_constraintTop_toBottomOf="@id/tv_harga_ditawar_produk" />
 

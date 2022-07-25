@@ -1,7 +1,13 @@
 package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountRepository
+import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileRepository
+import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderRepository
 import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordRepository
+import com.preloved.app.ui.fragment.homepage.account.wishlist.WishlistRepository
+import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoRepository
+import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidRepository
+import com.preloved.app.ui.fragment.homepage.home.bid.edit.PopUpBidEditRepository
 import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesRepository
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllRepository
 import com.preloved.app.ui.fragment.homepage.home.category.automotive.CategoryAutomotiveRepository
@@ -37,7 +43,6 @@ import com.preloved.app.ui.fragment.homepage.sell.preview.PreviewProductReposito
 import com.preloved.app.ui.fragment.login.LoginRepository
 import com.preloved.app.ui.fragment.register.RegisterRepository
 import com.preloved.app.ui.fragment.splash.SplashRepository
-import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -46,15 +51,9 @@ val repositoryModule = module {
     singleOf(::LoginRepository)
     singleOf(::RegisterRepository)
     singleOf(::SearchProductRepository)
-    singleOf(::EditProfileRepository)
     singleOf(::CategoryAllRepository)
-    singleOf(::AccountRepository)
-    singleOf(::SellRepository)
-    singleOf(::PreviewProductRepository)
-    singleOf(::SaleRepository)
-    singleOf(::NotificationRepository)
-    singleOf(::EditProductRepository)
-    singleOf(::EditPasswordRepository)
+    singleOf(::CategoryElectronicRepository)
+    singleOf(::CategoryComputerRepository)
     singleOf(::CategoryClothMenRepository)
     singleOf(::CategoryShoesMenRepository)
     singleOf(::CategoryBagMenRepository)
@@ -78,7 +77,17 @@ val repositoryModule = module {
     singleOf(::CategoryPhotographerRepository)
     singleOf(::CategorySmartphoneRepository)
     singleOf(::DetailProductRepository)
-    singleOf(::CategoryElectronicRepository)
-    singleOf(::CategoryComputerRepository)
-
+    singleOf(::PopUpBidRepository)
+    singleOf(::AccountRepository)
+    singleOf(::EditProfileRepository)
+    singleOf(::SellRepository)
+    singleOf(::PreviewProductRepository)
+    singleOf(::SaleRepository)
+    singleOf(::NotificationRepository)
+    singleOf(::EditProductRepository)
+    singleOf(::EditPasswordRepository)
+    singleOf(::BuyerInfoRepository)
+    singleOf(::MyOrderRepository)
+    singleOf(::PopUpBidEditRepository)
+    singleOf(::WishlistRepository)
 }

@@ -80,7 +80,7 @@ class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchP
                 )
                 findNavController().navigate(passData)
             }
-            searchAdapter.submitList(data)
+            searchAdapter.submitList(data?.filter {it.status == "available"})
             rvListCategory.adapter = searchAdapter
         }
     }

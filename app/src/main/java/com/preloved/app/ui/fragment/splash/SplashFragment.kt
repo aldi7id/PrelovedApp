@@ -28,16 +28,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(
             splashSessionResult().observe(viewLifecycleOwner) {
                 Handler(Looper.getMainLooper()).postDelayed({
                     findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
-//                    it?.access_token.let {
-//                        when (it) {
-//                            DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
-//                                findNavController().navigate(R.id.action_splashFragment_to_authActivity)
-//                            }
-//                            else -> {
-//                                findNavController().navigate(R.id.action_splashFragment_to_mainActivity2)
-//                            }
-//                        }
-//                    }
                 }, 3000)
             }
         }

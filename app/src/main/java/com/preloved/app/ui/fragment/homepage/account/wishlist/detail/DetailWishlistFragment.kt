@@ -1,19 +1,20 @@
-package com.preloved.app
+package com.preloved.app.ui.fragment.homepage.account.wishlist.detail
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
+import com.preloved.app.R
 
-class PopUpTawaranFragment : DialogFragment() {
+class DetailWishlistFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pop_up_tawaran, container, false)
+        return inflater.inflate(R.layout.fragment_detail_wishlist, container, false)
     }
 
 }

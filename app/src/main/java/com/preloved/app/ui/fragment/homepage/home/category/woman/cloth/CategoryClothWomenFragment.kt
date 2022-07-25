@@ -1,11 +1,13 @@
 package com.preloved.app.ui.fragment.homepage.home.category.woman.cloth
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.FragmentCategoryClothWomenBinding
 import com.preloved.app.databinding.FragmentCategoryHealthyBinding
+import com.preloved.app.ui.fragment.MainFragmentDirections
 import com.preloved.app.ui.fragment.homepage.home.category.CategoryAllAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,7 +22,7 @@ class CategoryClothWomenFragment : BaseFragment<FragmentCategoryClothWomenBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(108)
+            getDataById(13)
         }
     }
 
@@ -51,9 +53,12 @@ class CategoryClothWomenFragment : BaseFragment<FragmentCategoryClothWomenBindin
         viewModel.apply {
             with(getViewBinding()) {
                 val listAdapter = CategoryAllAdapter{
-
+                    val passData = MainFragmentDirections.actionMainFragmentToDetailProductFragment(
+                        productId = it.id
+                    )
+                    findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data)
+                listAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listAdapter
             }
         }

@@ -21,7 +21,7 @@ class CategoryElectronicFragment : BaseFragment<FragmentCategoryElectronicBindin
 
     override fun getCategoryElectronic() {
         viewModel.apply {
-            getDataElectronicById(96)
+            getDataElectronicById(1)
         }
     }
 
@@ -57,7 +57,7 @@ class CategoryElectronicFragment : BaseFragment<FragmentCategoryElectronicBindin
                     )
                     findNavController().navigate(passData)
                 }
-                listElectronicAdapter.submitList(data)
+                listElectronicAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listElectronicAdapter
             }
         }

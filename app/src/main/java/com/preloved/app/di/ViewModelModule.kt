@@ -2,6 +2,7 @@ package com.preloved.app.di
 
 import com.preloved.app.ui.fragment.homepage.account.AccountViewModel
 import com.preloved.app.ui.fragment.homepage.account.password.EditPasswordViewModel
+import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.accessories.CategoryAccessoriesViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.all.CategoryAllViewModel
 import com.preloved.app.ui.fragment.homepage.home.category.automotive.CategoryAutomotiveViewModel
@@ -38,6 +39,10 @@ import com.preloved.app.ui.fragment.login.LoginViewModel
 import com.preloved.app.ui.fragment.splash.SplashViewModel
 import com.preloved.app.ui.fragment.register.RegisterViewModel
 import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileViewModel
+import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderViewModel
+import com.preloved.app.ui.fragment.homepage.account.wishlist.WishlistViewModel
+import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
+import com.preloved.app.ui.fragment.homepage.home.bid.edit.PopUpBidEditViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -47,8 +52,8 @@ val viewModelModule = module {
     viewModelOf(::RegisterViewModel)
     viewModelOf(::SearchProductViewModel)
     viewModelOf(::CategoryAllViewModel)
-    viewModelOf(::CategoryComputerViewModel)
     viewModelOf(::CategoryElectronicViewModel)
+    viewModelOf(::CategoryComputerViewModel)
     viewModelOf(::CategoryClothMenViewModel)
     viewModelOf(::CategoryShoesMenViewModel)
     viewModelOf(::CategoryBagMenViewModel)
@@ -72,6 +77,7 @@ val viewModelModule = module {
     viewModelOf(::CategoryPhotographerViewModel)
     viewModelOf(::CategorySmartphoneViewModel)
     viewModelOf(::DetailProductViewModel)
+    viewModelOf(::PopUpBidViewModel)
     viewModelOf(::AccountViewModel)
     viewModelOf(::EditProfileViewModel)
     viewModelOf(::SellViewModel)
@@ -80,4 +86,8 @@ val viewModelModule = module {
     viewModelOf(::NotificationViewModel)
     viewModelOf(::EditProductViewModel)
     viewModelOf(::EditPasswordViewModel)
+    viewModelOf(::BuyerInfoViewModel)
+    viewModelOf(::MyOrderViewModel)
+    viewModelOf(::PopUpBidEditViewModel)
+    viewModelOf(::WishlistViewModel)
 }

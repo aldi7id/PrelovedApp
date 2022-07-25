@@ -21,7 +21,7 @@ class CategorySmartphoneFragment : BaseFragment<FragmentCategorySmartphoneBindin
 
     override fun getCategory() {
         viewModel.apply {
-            getDataById(98)
+            getDataById(3)
         }
     }
 
@@ -57,7 +57,7 @@ class CategorySmartphoneFragment : BaseFragment<FragmentCategorySmartphoneBindin
                     )
                     findNavController().navigate(passData)
                 }
-                listCategoryAdapter.submitList(data)
+                listCategoryAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listCategoryAdapter
             }
         }

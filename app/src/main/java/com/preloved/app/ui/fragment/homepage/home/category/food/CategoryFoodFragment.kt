@@ -26,7 +26,7 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
     }
 
     override fun getDataFoodCategory() {
-        viewModel.getDataFoodCategory(105)
+        viewModel.getDataFoodCategory(10)
     }
 
     override fun showLoading(isVisible: Boolean) {
@@ -61,7 +61,7 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding, CategoryF
                     )
                     findNavController().navigate(passData)
                 }
-                listCategoryAdapter.submitList(data)
+                listCategoryAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listCategoryAdapter
             }
         }

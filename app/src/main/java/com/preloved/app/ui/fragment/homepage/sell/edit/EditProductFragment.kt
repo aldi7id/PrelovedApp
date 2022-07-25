@@ -1,6 +1,7 @@
 import android.app.ActionBar
 import android.app.Activity
 import android.app.AlertDialog
+import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -20,6 +22,7 @@ import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentEditProductBinding
+import com.preloved.app.ui.fragment.homepage.home.detail.DetailProductFragmentArgs
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_ID
 import com.preloved.app.ui.fragment.homepage.sell.BottomSheetChooseCategoryFragment
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductContract
@@ -36,16 +39,23 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     private var token = ""
     private var selectedPicture: File? = null
     private var location = ""
+    private val args by navArgs<EditProductFragmentArgs>()
 
 
     override fun initView() {
         viewModel.userSession()
         viewModel.getCategoryData()
         setOnClickListeners()
+        val idProducts = args.productId
+        Log.d("HAYO", idProducts.toString())
+        Log.d("HAYOO", args.toString())
     }
 
     override fun setOnClickListeners() {
         getViewBinding().apply {
+            ibBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
             etKategory.setOnClickListener {
                 val bottomFragment = BottomSheetChooseCategoryFragment(
                     update = {
@@ -76,6 +86,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                     val productDesc = etDeskripsi.text.toString()
                     val bundle = arguments
                     val idProduct =  bundle?.getInt(PRODUCT_ID)
+                    Log.d("HAYO", bundle.toString())
                     if (idProduct != null) {
                         viewModel.updateProductData(
                             token = token,
@@ -138,13 +149,15 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(R.string.login) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()

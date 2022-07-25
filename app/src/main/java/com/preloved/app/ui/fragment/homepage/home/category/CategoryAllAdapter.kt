@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.preloved.app.data.network.model.response.category.CategoryResponse
 import com.preloved.app.databinding.CardItemCategoryBinding
+import com.preloved.app.ui.currency
 
 class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponseItem) -> Unit) :
     ListAdapter<CategoryResponse.CategoryResponseItem, CategoryAllAdapter.CategoryHolder>(Differ()) {
@@ -18,21 +19,15 @@ class CategoryAllAdapter(private val onClick: (CategoryResponse.CategoryResponse
         fun bind(CategoryResponseItem: CategoryResponse.CategoryResponseItem) {
             binding.apply {
                 with(CategoryResponseItem) {
-                    when(status) {
-                        "available" -> {
-                            Glide.with(root)
-                                .load(imageUrl)
-                                .centerCrop()
-                                .into(sivImageItem)
-                            tvNameItem.text = name
-                            val listCategory = arrayListOf<String>()
-                            categories.forEach{
-                                listCategory.add(it.name)
-                            }
-                            tvCategoryItem.text = listCategory.toString()
-                            tvPriceItem.text = basePrice.toString()
-                        }
+                    Glide.with(root)
+                        .load(imageUrl)
+                        .centerCrop()
+                        .into(sivImageItem)
+                    tvNameItem.text = name
+                    tvCategoryItem.text = categories.joinToString{
+                        it.name
                     }
+                    tvPriceItem.text = currency(basePrice)
                     root.setOnClickListener {
                         onClick(CategoryResponseItem)
                     }

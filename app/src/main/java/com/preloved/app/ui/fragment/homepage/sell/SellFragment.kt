@@ -304,7 +304,6 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
         }
 
     }
-
     override fun observeData() {
         super.observeData()
 
@@ -334,13 +333,16 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         .setMessage(getString(R.string.please_login))
                         .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                             //ToLogin Fragment
-                            findNavController().navigate(R.id.action_sellFragment_to_loginFragment3)
                             dialogP.dismiss()
+                            findNavController().navigate(R.id.action_sellFragment_to_loginFragment3)
+                            viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
+
                         }
                         .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                             //ToHomeFragment
-                            findNavController().navigate(R.id.homeFragment)
                             dialogN.dismiss()
+                            findNavController().navigate(R.id.homeFragment)
+
                         }
                         .setCancelable(false)
                         .show()
@@ -349,7 +351,9 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                     viewModel.getUserData(it.access_token)
                     bundle.putString(USER_TOKEN,it.access_token)
                 }
+                viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
             }
+
             viewModel.getUserDataResult().observe(viewLifecycleOwner){
                 when (it) {
                     is Resource.Loading -> {
@@ -362,18 +366,19 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                             val address = it.data.address
                             val photo = it.data.imageUrl
                             val phone = it.data.phoneNumber
-                            if(city.isEmpty() || address.isEmpty() || photo == "noImage" || phone.isEmpty()){
+                            if(city.isEmpty() || address.isEmpty() || photo == null || phone.isEmpty()){
                                 AlertDialog.Builder(requireContext())
                                     .setTitle(getString(R.string.warning))
                                     .setMessage(getString(R.string.message_complate_account))
                                     .setPositiveButton(getString(R.string.OK)){ positiveButton, _ ->
-                                        findNavController().navigate(R.id.action_sellFragment_to_editProfileFragment)
                                         positiveButton.dismiss()
+                                        findNavController().navigate(R.id.action_sellFragment_to_editProfileFragment)
                                     }
                                     .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
-                                        findNavController().popBackStack()
                                         negativeButton.dismiss()
+                                        findNavController().popBackStack()
                                     }
+                                    .setCancelable(false)
                                     .show()
                             } else {
                                 citySeller = it.data.city
@@ -385,14 +390,21 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         }
                     }
                     is Resource.Error -> {
-                        showLoading(false)
-                        AlertDialog.Builder(requireContext())
-                            .setMessage(it.message)
-                            .setPositiveButton(getString(R.string.OK)) { dialog, _ ->
-                                dialog.dismiss()
-                                findNavController().popBackStack()
-                            }
-                            .show()
+                        if(it.message!!.contains("403")){
+                            AlertDialog.Builder(context)
+                                .setTitle(getString(R.string.warning))
+                                .setMessage(getString(R.string.your_session))
+                                .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                    dialogP.dismiss()
+                                    findNavController().navigate(R.id.action_sellFragment_to_loginFragment3)
+                                }
+                                .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
+                                    negativeButton.dismiss()
+                                    findNavController().popBackStack()
+                                }
+                                .setCancelable(false)
+                                .show()
+                        }
                     }
                 }
             }

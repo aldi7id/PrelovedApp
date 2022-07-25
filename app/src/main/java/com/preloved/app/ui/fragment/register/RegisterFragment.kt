@@ -33,7 +33,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                 authRegisterUser()
             }
             tvGoToLogin.setOnClickListener {
-                findNavController().navigate(R.id.action_registerFragment2_to_loginFragment3)
+                findNavController().popBackStack()
             }
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
@@ -172,6 +172,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                         showLoading(false)
                         Toast.makeText(requireContext(), "Register Success", Toast.LENGTH_SHORT).show()
                         findNavController().popBackStack()
+                        getRegisterUserLiveData().removeObservers(viewLifecycleOwner)
                     }
                     is Resource.Error -> {
                         showLoading(false)

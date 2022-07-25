@@ -30,7 +30,7 @@ class SaleOrderAdapter(private val OnItemClick: OnClickListener) :
             oldItem: SellerOrderResponse,
             newItem: SellerOrderResponse
         ): Boolean {
-            return oldItem.id == oldItem.id
+            return oldItem.hashCode() == newItem.hashCode()
         }
 
     }
@@ -60,6 +60,9 @@ class SaleOrderAdapter(private val OnItemClick: OnClickListener) :
                     root.alpha = 0.5f
                     tvHargaDitawarProduk.apply {
                         text = striketroughtText(this,priceNego)
+                    }
+                    root.setOnClickListener {
+                        OnItemClick.onClickItem(data)
                     }
                 }
             }

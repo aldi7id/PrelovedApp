@@ -1,6 +1,7 @@
 package com.preloved.app.ui.fragment.homepage.sale
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -9,13 +10,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.preloved.app.data.network.model.response.SellerOrderResponse
+import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.ItemDiminatiBinding
 import com.preloved.app.databinding.ItemSelledBinding
 import com.preloved.app.ui.convertDate
 import com.preloved.app.ui.currency
 import com.preloved.app.ui.striketroughtText
 
-class SaleAcceptedAdapter(): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder>() {
+class SaleAcceptedAdapter(private val OnItemClick: OnClickListener): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<SellerOrderResponse>() {
         override fun areItemsTheSame(
             oldItem: SellerOrderResponse,
@@ -28,7 +30,7 @@ class SaleAcceptedAdapter(): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder
             oldItem: SellerOrderResponse,
             newItem: SellerOrderResponse
         ): Boolean {
-            return oldItem.id == oldItem.id
+            return oldItem.hashCode() == newItem.hashCode()
         }
 
     }
@@ -37,22 +39,29 @@ class SaleAcceptedAdapter(): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder
     inner class ViewHolder(private val binding: ItemSelledBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SellerOrderResponse) {
-            val basePrice = currency(data.product.basePrice)
-            val priceNego = currency(data.price)
-            val date = convertDate(data.createdAt)
-            binding.apply {
-                Glide.with(binding.root)
-                    .load(data.product.imageUrl)
-                    .transform(CenterCrop(), RoundedCorners(12))
-                    .into(binding.ivProductImage)
-                tvNamaProduk.text = data.product.name
-                tvHargaAwalProduk.text = basePrice
-                tvHargaDitawarProduk.text = "Offered $priceNego"
-                tvTanggal.text = date
-//                if (data.status != "declined") {
-//                    root.setOnClickListener {
-//                        OnItemClick.onClickItem(data)
-//                    }
+            if(data.status != "available") {
+                val basePrice = currency(data.basePrice.toInt())
+                val priceNego = currency(data.price)
+                val date = convertDate(data.createdAt)
+                binding.apply {
+                    Glide.with(binding.root)
+                        .load(data.product.imageUrl)
+                        .transform(CenterCrop(), RoundedCorners(12))
+                        .into(binding.ivProductImage)
+                    tvNamaProduk.text = data.productName
+                    tvHargaAwalProduk.apply {
+                        text = striketroughtText(this, basePrice)
+                    }
+                    tvHargaDitawarProduk.text = "Selled: ".plus(priceNego)
+                    tvTanggal.text = date
+                    root.setOnClickListener {
+                        OnItemClick.onClickItem(data)
+                    }
+                }
+            }
+
+//                if (data.status != "available") {
+
 //                }
 //                if (data.status == "declined") {
 //                    root.alpha = 0.5f
@@ -60,8 +69,11 @@ class SaleAcceptedAdapter(): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder
 //                        text = striketroughtText(this,priceNego)
 //                    }
 //                }
-            }
+
         }
+    }
+    interface OnClickListener {
+        fun onClickItem(data: SellerOrderResponse)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SaleAcceptedAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

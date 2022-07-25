@@ -4,6 +4,7 @@ import android.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -54,6 +55,9 @@ RecyclerView.Adapter<SaleProductAdapter.ViewHolder>() {
                 }
                 val price = currency(data.basePrice)
                 tvHarga.text = price
+                if(data.status == "sold") {
+                    ivSold.visibility = View.VISIBLE
+                }
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)
                 }

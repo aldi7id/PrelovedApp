@@ -47,7 +47,6 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
                     }
                     is Resource.Success -> {
                         showLoading(false)
-                        showError(true, it.message)
                         getData(it.data)
                     }
                     is Resource.Error -> {
@@ -67,7 +66,7 @@ class CategoryAllFragment : BaseFragment<FragmentCategoryAllBinding, CategoryAll
                 )
                 findNavController().navigate(passData)
             }
-            listCategoryAdapter.submitList(data)
+            listCategoryAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id } )
             rvListCategory.adapter = listCategoryAdapter
         }
     }

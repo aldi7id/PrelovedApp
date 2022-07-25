@@ -30,11 +30,17 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
 
         viewModel.userSession()
         getViewBinding().apply {
+            tvMyOrder.setOnClickListener {
+                findNavController().navigate(R.id.action_accountFragment_to_myOrderFragment)
+            }
             tvChangePassword.setOnClickListener {
                 findNavController().navigate(R.id.action_accountFragment_to_editPasswordFragment)
             }
             tvChangeProfile.setOnClickListener{
                 findNavController().navigate(R.id.action_accountFragment_to_editProfileFragment,bundle)
+            }
+            tvWishlist.setOnClickListener {
+                findNavController().navigate(R.id.action_accountFragment_to_wishlistFragment)
             }
             tvExit.setOnClickListener {
                 AlertDialog
@@ -70,13 +76,15 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                     .setMessage(getString(R.string.please_login))
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
-                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
                         dialogP.dismiss()
+                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
-                        findNavController().navigate(R.id.homeFragment)
                         dialogN.dismiss()
+                        findNavController().navigate(R.id.homeFragment)
+
                     }
                     .setCancelable(false)
                     .show()
@@ -104,7 +112,21 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                             }
                         }
                         is Resource.Error -> {
-                            showLoading(true)
+                            if(it.message!!.contains("403")){
+                                AlertDialog.Builder(context)
+                                    .setTitle(getString(R.string.warning))
+                                    .setMessage(getString(R.string.your_session))
+                                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                        dialogP.dismiss()
+                                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+                                    }
+                                    .setNegativeButton(getString(R.string.later)) { negativeButton, _ ->
+                                        negativeButton.dismiss()
+                                        findNavController().popBackStack()
+                                    }
+                                    .setCancelable(false)
+                                    .show()
+                            }
                         }
                     }
                 }
