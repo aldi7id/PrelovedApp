@@ -111,6 +111,9 @@
         <action
             android:id="@+id/action_accountFragment_to_myOrderFragment"
             app:destination="@id/myOrderFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment3"
@@ -259,5 +262,14 @@
             app:destination="@id/detailProductFragment2"
             app:popUpTo="@id/accountFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.preloved.app.ui.fragment.homepage.account.wishlist.WishlistFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wishlist" >
+        <action
+            android:id="@+id/action_wishlistFragment_to_detailProductFragment2"
+            app:destination="@id/detailProductFragment2" />
     </fragment>
 </navigation>
