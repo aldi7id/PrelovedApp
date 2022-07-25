@@ -4,11 +4,11 @@ import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.databinding.FragmentWishlistBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistRepository>(
+class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel>(
     FragmentWishlistBinding::inflate
 ), WishlistContract.View {
 
-    override val viewModel: WishlistRepository by viewModel()
+    override val viewModel: WishlistViewModel by viewModel()
 
     override fun initView() {
         getViewBinding().apply {

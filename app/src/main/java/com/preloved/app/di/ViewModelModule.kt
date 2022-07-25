@@ -40,7 +40,7 @@ import com.preloved.app.ui.fragment.splash.SplashViewModel
 import com.preloved.app.ui.fragment.register.RegisterViewModel
 import com.preloved.app.ui.fragment.homepage.account.edit.EditProfileViewModel
 import com.preloved.app.ui.fragment.homepage.account.myorder.MyOrderViewModel
-import com.preloved.app.ui.fragment.homepage.account.wishlist.WishlistRepository
+import com.preloved.app.ui.fragment.homepage.account.wishlist.WishlistViewModel
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
 import com.preloved.app.ui.fragment.homepage.home.bid.edit.PopUpBidEditViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -89,5 +89,5 @@ val viewModelModule = module {
     viewModelOf(::BuyerInfoViewModel)
     viewModelOf(::MyOrderViewModel)
     viewModelOf(::PopUpBidEditViewModel)
-    viewModelOf(::WishlistRepository)
+    viewModelOf(::WishlistViewModel)
 }
