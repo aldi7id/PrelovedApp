@@ -304,7 +304,6 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
         }
 
     }
-
     override fun observeData() {
         super.observeData()
 

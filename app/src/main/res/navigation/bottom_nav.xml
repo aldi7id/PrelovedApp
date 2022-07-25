@@ -131,7 +131,7 @@
         <action
             android:id="@+id/action_previewProductFragment_to_saleFragment"
             app:destination="@id/saleFragment"
-            app:popUpTo="@id/previewProductFragment"
+            app:popUpTo="@id/sellFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

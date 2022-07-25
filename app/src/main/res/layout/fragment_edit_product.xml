@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:paddingBottom="100dp"
         >
             <ProgressBar
                 android:id="@+id/pb_loading"
