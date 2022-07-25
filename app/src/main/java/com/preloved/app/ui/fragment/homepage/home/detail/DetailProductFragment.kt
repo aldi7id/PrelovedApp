@@ -183,6 +183,8 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                                 btnGroup.visibility = View.VISIBLE
                                 idOrders = data[order].id.toString()
                                 lastBid = data[order].price.toString()
+                                Log.d("HAYO", idOrders)
+                                Log.d("HAYO", lastBid)
                             }
                             data[order].productId == args.productId && data[order].status == "accepted" -> {
                                 btnBuy.visibility = View.GONE
@@ -207,6 +209,8 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                                 btnBuy.text = "Declined"
                                 btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
                                 btnGroup.visibility = View.VISIBLE
+                                idOrders = data[order].id.toString()
+                                lastBid = data[order].price.toString()
                             }
                         }
                     }

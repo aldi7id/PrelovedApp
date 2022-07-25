@@ -92,7 +92,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             }
 
                             )
-                            val sorted = it.data?.sortedByDescending { it.id }
+                            val sorted = it.data?.sortedByDescending { it.id }?.filter { it.product != null }
                             saleHistoryAdapter.submitData(sorted)
                             getViewBinding().rvHistory.adapter = saleHistoryAdapter
                             getViewBinding().rvHistory.visibility = View.VISIBLE
@@ -147,7 +147,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
 
                         )
-                        val sortedSell = it.data?.sortedByDescending { it.id }
+                        val sortedSell = it.data?.sortedByDescending { it.id }?.filter { it.status == "sold" }
                         saleOrderAcceptedAdapter.submitData(sortedSell)
                         getViewBinding().rvTerjual.adapter = saleOrderAcceptedAdapter
                         getViewBinding().rvTerjual.visibility = View.VISIBLE
@@ -235,7 +235,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                         )
                                     }
                                 })
-                            val sorted = it.data.sortedByDescending { it.id }
+                            val sorted = it.data.sortedByDescending { it.id }?.filter { it.product.status != "sold" }
                             sellerOrderAdapter.submitData(sorted)
                             getViewBinding().rvDiminati.adapter = sellerOrderAdapter
                             getViewBinding().rvDiminati.visibility = View.VISIBLE

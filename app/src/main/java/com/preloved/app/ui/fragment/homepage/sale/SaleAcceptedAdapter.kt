@@ -39,30 +39,34 @@ class SaleAcceptedAdapter(private val OnItemClick: OnClickListener): RecyclerVie
     inner class ViewHolder(private val binding: ItemSelledBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SellerProductResponseItem) {
-            val basePrice = currency(data.basePrice)
-            //val priceNego = currency(data.price)
-            val date = convertDate(data.createdAt)
-            binding.apply {
-                Glide.with(binding.root)
-                    .load(data.imageUrl)
-                    .transform(CenterCrop(), RoundedCorners(12))
-                    .into(binding.ivProductImage)
-                tvNamaProduk.text = data.name
-                tvHargaAwalProduk.text = basePrice
-                tvHargaDitawarProduk.visibility = View.GONE
-                tvTanggal.text = date
-                if (data.status != "available") {
-//                    root.setOnClickListener {
-//                        OnItemClick.onClickItem(data)
-//                    }
+            if(data.status != "available") {
+                val basePrice = currency(data.basePrice)
+                //val priceNego = currency(data.price)
+                val date = convertDate(data.createdAt)
+                binding.apply {
+                    Glide.with(binding.root)
+                        .load(data.imageUrl)
+                        .transform(CenterCrop(), RoundedCorners(12))
+                        .into(binding.ivProductImage)
+                    tvNamaProduk.text = data.name
+                    tvHargaAwalProduk.text = basePrice
+                    tvHargaDitawarProduk.visibility = View.GONE
+                    tvTanggal.text = date
                 }
+            }
+
+//                if (data.status != "available") {
+////                    root.setOnClickListener {
+////                        OnItemClick.onClickItem(data)
+////                    }
+//                }
 //                if (data.status == "declined") {
 //                    root.alpha = 0.5f
 //                    tvHargaDitawarProduk.apply {
 //                        text = striketroughtText(this,priceNego)
 //                    }
 //                }
-            }
+
         }
     }
     interface OnClickListener {

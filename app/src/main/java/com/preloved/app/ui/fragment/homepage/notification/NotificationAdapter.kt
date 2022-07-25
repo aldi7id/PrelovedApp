@@ -60,6 +60,10 @@ class NotificationAdapter(
                                 }
                                 if(data.receiverId == data.product.userId){
                                     tvPesan.text = "Someone bid on your product"
+                                    if (data.product.status == "sold"){
+                                        tvTipeProduk.text = "Product Accepted"
+                                        tvPesan.text = "You accept this offer"
+                                    }
                                 } else {
                                     tvPesan.text = "Your offer has not been accepted by the seller, be patient!"
                                 }
@@ -97,12 +101,15 @@ class NotificationAdapter(
                                 tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
-                        else -> {
+                        "create" -> {
                             tvTipeProduk.text = "Product Add"
                             tvPesan.text = "Your Product Successfully Added"
                             tvHargaDitawarProduk.visibility = View.GONE
                             tvHargaAwalProduk.text = currency(data.basePrice.toInt())
                         }
+//                        else -> {
+
+//                        }
                     }
                     tvHargaDitawarProduk.text =
                         if (data.status == "declined") "Declined " + currency(data.bidPrice)

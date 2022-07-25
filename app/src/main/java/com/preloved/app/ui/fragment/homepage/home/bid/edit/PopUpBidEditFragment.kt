@@ -16,13 +16,14 @@ import com.preloved.app.data.network.model.request.bid.BidRequest
 import com.preloved.app.data.network.model.response.BuyerOrderEditResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import com.preloved.app.databinding.FragmentPopUpBidBinding
+import com.preloved.app.databinding.FragmentPopUpEditBidBinding
 import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidViewModel
 import com.preloved.app.ui.striketroughtText
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopUpBidEditFragment(private val productId: Int, private val orderId: Int, private val lastBid: Int) : BottomSheetDialogFragment()  {
-    private var bind: FragmentPopUpBidBinding? = null
+    private var bind: FragmentPopUpEditBidBinding? = null
     private val binding get() = bind!!
     private val viewModel : PopUpBidEditViewModel by viewModel()
     private var token = ""
@@ -31,7 +32,7 @@ class PopUpBidEditFragment(private val productId: Int, private val orderId: Int,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bind = FragmentPopUpBidBinding.inflate(inflater, container, false)
+        bind = FragmentPopUpEditBidBinding.inflate(inflater, container, false)
         return binding.root
     }
 
