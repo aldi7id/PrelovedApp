@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/ic_selected_wishlist.xml" value="0.134" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/ic_unselected_wishlist.xml" value="0.134" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/ic_wishlist.xml" value="0.134" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_detail_product.xml" value="0.25" />
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add_picture.xml" value="0.18" />
@@ -12,11 +16,8 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_box.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_dollar.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_enamdua.xml" value="0.1" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_exit.xml" value="0.177" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_icon_preloved.xml" value="0.1" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_love.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_notification.xml" value="0.1" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_order.xml" value="0.177" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_password.xml" value="0.1" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_profile.xml" value="0.1" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_rp.xml" value="0.18" />
@@ -45,7 +46,6 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_all.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_voucher.xml" value="0.15427350427350428" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_category_workout.xml" value="0.15427350427350428" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_detail_product.xml" value="0.22" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_edi_product.xml" value="0.1" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_edit_password.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_edit_product.xml" value="0.2038664323374341" />
@@ -53,10 +53,7 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.22" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_main.xml" value="0.1" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_my_order.xml" value="0.22" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_notification.xml" value="0.21682242990654205" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_pop_up_bid.xml" value="0.22" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_pop_up_edit_bid.xml" value="0.15427350427350428" />
+        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_notification.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_pop_up_tawaran.xml" value="0.22" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_preview_product.xml" value="0.22" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
@@ -67,7 +64,6 @@
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_add_product.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_diminati.xml" value="0.5" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_history.xml" value="0.5" />
-        <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_my_order.xml" value="0.22" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_notification.xml" value="0.33" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_product_home.xml" value="0.25" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/layout/item_selled.xml" value="0.33" />
