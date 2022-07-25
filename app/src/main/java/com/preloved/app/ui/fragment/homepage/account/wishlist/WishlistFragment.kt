@@ -62,7 +62,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
         getViewBinding().apply {
             val listCategoryAdapter = WishlistAdapter {
                 val passData = WishlistFragmentDirections.actionWishlistFragmentToDetailProductFragment2(
-                    productId = it.id
+                    productId = it.product.id
                 )
                 findNavController().navigate(passData)
             }
