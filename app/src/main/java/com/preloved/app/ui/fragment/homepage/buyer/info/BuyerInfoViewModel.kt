@@ -19,7 +19,7 @@ class BuyerInfoViewModel(val buyerInfoRepository: BuyerInfoRepository)
     private val _userSession: MutableLiveData<DatastorePreferences> = MutableLiveData()
     private val _buyerOrder: MutableLiveData<Resource<SellerOrderResponse>> = MutableLiveData()
     private val _responseOrder: MutableLiveData<Resource<ApproveOrderResponse>> = MutableLiveData()
-    private val _reponseProcut: MutableLiveData<Resource<ApproveProductResponse>> = MutableLiveData()
+    private val _reponseProcutAccepted: MutableLiveData<Resource<ApproveOrderResponse>> = MutableLiveData()
 
     override fun userSession() {
         viewModelScope.launch {
@@ -68,25 +68,25 @@ class BuyerInfoViewModel(val buyerInfoRepository: BuyerInfoRepository)
     }
 
     override fun statusOrderResult(): MutableLiveData<Resource<ApproveOrderResponse>> = _responseOrder
-    override fun statusProcut(
+    override fun statusProcutAccepted(
         token: String,
         productId: Int,
         requestApproveOrder: RequestApproveOrder
     ) {
-        _reponseProcut.value = Resource.Loading()
+        _reponseProcutAccepted.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = buyerInfoRepository.approveProduct(token, productId, requestApproveOrder)
+                val response = buyerInfoRepository.approveProductAccepted(token, productId, requestApproveOrder)
                 viewModelScope.launch(Dispatchers.Main) {
-                    _reponseProcut.value = Resource.Success(response)
+                    _reponseProcutAccepted.value = Resource.Success(response)
                 }
             } catch (e: Exception) {
                 viewModelScope.launch(Dispatchers.Main) {
-                    _reponseProcut.value = Resource.Error(null, e.message.orEmpty())
+                    _reponseProcutAccepted.value = Resource.Error(null, e.message.orEmpty())
                 }
             }
         }
     }
 
-    override fun statusProcutResult(): MutableLiveData<Resource<ApproveProductResponse>> = _reponseProcut
+    override fun statusProcutAcceptedResult(): MutableLiveData<Resource<ApproveOrderResponse>> = _reponseProcutAccepted
 }

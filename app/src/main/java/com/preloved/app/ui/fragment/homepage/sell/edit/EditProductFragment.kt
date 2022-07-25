@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -21,6 +22,7 @@ import com.preloved.app.data.local.datastore.DatastoreManager
 import com.preloved.app.data.network.model.response.PostProductResponse
 import com.preloved.app.data.network.model.response.SellerProductResponseItem
 import com.preloved.app.databinding.FragmentEditProductBinding
+import com.preloved.app.ui.fragment.homepage.home.detail.DetailProductFragmentArgs
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment.Companion.PRODUCT_ID
 import com.preloved.app.ui.fragment.homepage.sell.BottomSheetChooseCategoryFragment
 import com.preloved.app.ui.fragment.homepage.sell.edit.EditProductContract
@@ -37,16 +39,23 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding, EditProduct
     private var token = ""
     private var selectedPicture: File? = null
     private var location = ""
+    private val args by navArgs<EditProductFragmentArgs>()
 
 
     override fun initView() {
         viewModel.userSession()
         viewModel.getCategoryData()
         setOnClickListeners()
+        val idProducts = args.productId
+        Log.d("HAYO", idProducts.toString())
+        Log.d("HAYOO", args.toString())
     }
 
     override fun setOnClickListeners() {
         getViewBinding().apply {
+            ibBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
             etKategory.setOnClickListener {
                 val bottomFragment = BottomSheetChooseCategoryFragment(
                     update = {

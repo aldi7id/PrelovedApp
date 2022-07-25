@@ -67,6 +67,9 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding, EditPassw
 
     override fun setOnClickListeners() {
        getViewBinding().apply {
+           ibBack.setOnClickListener {
+               findNavController().popBackStack()
+           }
            btnEdit.setOnClickListener {
                if (checkFormValidation()) {
                    val oldPassword = etOldPassword.text.toString()

@@ -29,12 +29,12 @@ class BuyerInfoRepository(private val localDataSource: LocalDataSource,
         return userDataSource.approveOrder(token,id,requestApproveOrder)
     }
 
-    override suspend fun approveProduct(
+    override suspend fun approveProductAccepted(
         token: String,
         id: Int,
         requestApproveOrder: RequestApproveOrder
-    ): ApproveProductResponse {
-        return userDataSource.approveProduct(token,id,requestApproveOrder)
+    ): ApproveOrderResponse {
+        return userDataSource.approveOrder(token,id,requestApproveOrder)
     }
 
 }

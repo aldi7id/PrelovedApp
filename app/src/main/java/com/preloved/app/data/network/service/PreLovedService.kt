@@ -118,7 +118,6 @@ interface PreLovedService {
     @GET("history")
     suspend fun getHistory(@Header("access_token") token: String): List<HistoryResponseItem>
 
-
     companion object {
         @JvmStatic
         operator fun invoke(chuckerInterceptor: ChuckerInterceptor): PreLovedService{

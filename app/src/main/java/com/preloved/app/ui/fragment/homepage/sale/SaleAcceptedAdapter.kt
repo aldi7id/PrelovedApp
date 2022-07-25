@@ -18,47 +18,50 @@ import com.preloved.app.ui.currency
 import com.preloved.app.ui.striketroughtText
 
 class SaleAcceptedAdapter(private val OnItemClick: OnClickListener): RecyclerView.Adapter<SaleAcceptedAdapter.ViewHolder>() {
-    private val diffCallback = object : DiffUtil.ItemCallback<SellerProductResponseItem>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<SellerOrderResponse>() {
         override fun areItemsTheSame(
-            oldItem: SellerProductResponseItem,
-            newItem: SellerProductResponseItem
+            oldItem: SellerOrderResponse,
+            newItem: SellerOrderResponse
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: SellerProductResponseItem,
-            newItem: SellerProductResponseItem
+            oldItem: SellerOrderResponse,
+            newItem: SellerOrderResponse
         ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
 
     }
     private val differ = AsyncListDiffer(this, diffCallback)
-    fun submitData(value: List<SellerProductResponseItem>?) = differ.submitList(value)
+    fun submitData(value: List<SellerOrderResponse>?) = differ.submitList(value)
     inner class ViewHolder(private val binding: ItemSelledBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: SellerProductResponseItem) {
+        fun bind(data: SellerOrderResponse) {
             if(data.status != "available") {
-                val basePrice = currency(data.basePrice)
-                //val priceNego = currency(data.price)
+                val basePrice = currency(data.basePrice.toInt())
+                val priceNego = currency(data.price)
                 val date = convertDate(data.createdAt)
                 binding.apply {
                     Glide.with(binding.root)
-                        .load(data.imageUrl)
+                        .load(data.product.imageUrl)
                         .transform(CenterCrop(), RoundedCorners(12))
                         .into(binding.ivProductImage)
-                    tvNamaProduk.text = data.name
-                    tvHargaAwalProduk.text = basePrice
-                    tvHargaDitawarProduk.visibility = View.GONE
+                    tvNamaProduk.text = data.productName
+                    tvHargaAwalProduk.apply {
+                        text = striketroughtText(this, basePrice)
+                    }
+                    tvHargaDitawarProduk.text = "Selled: ".plus(priceNego)
                     tvTanggal.text = date
+                    root.setOnClickListener {
+                        OnItemClick.onClickItem(data)
+                    }
                 }
             }
 
 //                if (data.status != "available") {
-////                    root.setOnClickListener {
-////                        OnItemClick.onClickItem(data)
-////                    }
+
 //                }
 //                if (data.status == "declined") {
 //                    root.alpha = 0.5f
@@ -70,7 +73,7 @@ class SaleAcceptedAdapter(private val OnItemClick: OnClickListener): RecyclerVie
         }
     }
     interface OnClickListener {
-        fun onClickItem(data: SellerProductResponseItem)
+        fun onClickItem(data: SellerOrderResponse)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SaleAcceptedAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
