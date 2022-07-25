@@ -6,8 +6,14 @@
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/ic_selected_wishlist.xml" value="0.134" />
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/ic_unselected_wishlist.xml" value="0.134" />
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/drawable/ic_wishlist.xml" value="0.134" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_account.xml" value="0.25" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_category_all.xml" value="0.20102564102564102" />
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_detail_product.xml" value="0.25" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_detail_wishlist.xml" value="0.20416666666666666" />
         <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_pop_up_edit_bid.xml" value="0.20416666666666666" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_sell.xml" value="0.20416666666666666" />
+        <entry key="..\:/All Project Android/BinarAcademy/Final Project/PrelovedApp/app/src/main/res/layout/fragment_wishlist.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add.xml" value="0.1705" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add_picture.xml" value="0.18" />
         <entry key="..\:/Users/Anonymous/AndroidStudioProjects/PrelovedApp/app/src/main/res/drawable/ic_add_product.xml" value="0.18" />

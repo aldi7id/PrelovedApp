@@ -114,5 +114,6 @@
     <string name="enter_your_bid">Enter Your Bid Price</string>
     <string name="your_bid_forwaded">Your bid will be forwarded to the Seller. If the Seller agrees to your offer, the Seller will contact you.</string>
     <string name="your_bid_text">Your Bid</string>
+    <string name="wishlist_product">Wishlist Product</string>
 
 </resources>

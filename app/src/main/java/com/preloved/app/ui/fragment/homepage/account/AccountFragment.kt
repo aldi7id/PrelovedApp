@@ -39,6 +39,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
             tvChangeProfile.setOnClickListener{
                 findNavController().navigate(R.id.action_accountFragment_to_editProfileFragment,bundle)
             }
+            tvWishlist.setOnClickListener {
+                findNavController().navigate(R.id.action_accountFragment_to_wishlistFragment)
+            }
             tvExit.setOnClickListener {
                 AlertDialog
                     .Builder(requireContext())
