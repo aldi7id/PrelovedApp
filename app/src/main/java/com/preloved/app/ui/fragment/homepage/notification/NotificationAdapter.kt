@@ -1,6 +1,7 @@
 package com.preloved.app.ui.fragment.homepage.notification
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -54,51 +55,64 @@ class NotificationAdapter(
                     when (data.status) {
                         "bid" -> {
                             if (data.product != null){
+                                tvHargaAwalProduk.apply {
+                                    text = striketroughtText(this, currency(data.basePrice.toInt()))
+                                }
                                 if(data.receiverId == data.product.userId){
-                                    tvPesan.text = "Ada yang tawar produkmu!"
+                                    tvPesan.text = "Someone bid on your product"
                                 } else {
-                                    tvPesan.text = "Tawaranmu belum diterima oleh penjual, sabar ya!"
+                                    tvPesan.text = "Your offer has not been accepted by the seller, be patient!"
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
                         "declined" -> {
-                            tvTipeProduk.text = "Produk Ditolak"
+                            tvHargaAwalProduk.apply {
+                                text = striketroughtText(this, currency(data.basePrice.toInt()))
+                            }
+                            tvTipeProduk.text = "Product Declined"
                             if (data.product != null){
                                 if (data.receiverId == data.product.userId){
-                                    tvPesan.text = "Anda menolak Tawaran ini"
+                                    tvPesan.text = "You decline this offer"
                                 } else {
-                                    tvPesan.text = "Tawaran Anda ditolak oleh Penjual"
+                                    tvPesan.text = "Your offer was declined by the Seller"
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
                         "accepted" -> {
-                            tvTipeProduk.text = "Produk Diterima"
+                            tvHargaAwalProduk.apply {
+                                text = striketroughtText(this, currency(data.basePrice.toInt()))
+                            }
+                            tvTipeProduk.text = "Product Accepted"
                             if (data.product != null){
                                 if (data.receiverId == data.product.userId){
-                                    tvPesan.text = "Anda menerima Tawaran ini"
+                                    tvPesan.text = "You accept this product"
                                 } else {
-                                    tvPesan.text = "Tawaran Anda diterima oleh Penjual"
+                                    tvPesan.text = "Your offer is accepted by the Seller"
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
                             }
                         }
                         else -> {
-                            tvPesan.text = " "
+                            tvTipeProduk.text = "Product Add"
+                            tvPesan.text = "Your Product Successfully Added"
+                            tvHargaDitawarProduk.visibility = View.GONE
+                            tvHargaAwalProduk.text = currency(data.basePrice.toInt())
                         }
                     }
                     tvHargaDitawarProduk.text =
-                        if (data.status == "declined") "Ditolak " + currency(data.bidPrice)
-                        else if(data.status == "accepted") "Diterima " + currency(data.bidPrice)
-                        else "Ditawar " + currency(data.bidPrice)
+                        if (data.status == "declined") "Declined " + currency(data.bidPrice)
+                        else if(data.status == "accepted") "Accepted " + currency(data.bidPrice)
+                        else if(data.status == "bid") "Offer " + currency(data.bidPrice)
+                        else ""
                     tvNamaProduk.text = data.productName
-                    tvHargaAwalProduk.apply {
-                        text = striketroughtText(this, currency(data.basePrice.toInt()))
-                    }
+//                    tvHargaAwalProduk.apply {
+//                        text = striketroughtText(this, currency(data.basePrice.toInt()))
+//                    }
                     tvTanggal.text = data.transactionDate?.let { convertDate(it) }
                     if (!data.read){
                         Glide.with(binding.root)
