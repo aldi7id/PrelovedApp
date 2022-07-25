@@ -60,6 +60,11 @@ class NotificationAdapter(
                                 }
                                 if(data.receiverId == data.product.userId){
                                     tvPesan.text = "Someone bid on your product"
+                                    if(data.notificationType == "seller"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItemInfo(data)
+                                        }
+                                    }
                                     if (data.product.status == "sold"){
                                         tvTipeProduk.text = "Product Accepted"
                                         tvPesan.text = "You accept this offer"
@@ -70,6 +75,9 @@ class NotificationAdapter(
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
                             }
+//                            root.setOnClickListener{
+//                                onItemClick.onClickItem(data)
+//                            }
                         }
                         "declined" -> {
                             tvHargaAwalProduk.apply {
@@ -78,12 +86,21 @@ class NotificationAdapter(
                             tvTipeProduk.text = "Product Declined"
                             if (data.product != null){
                                 if (data.receiverId == data.product.userId){
+                                    if (data.notificationType == "seller")
                                     tvPesan.text = "You decline this offer"
                                 } else {
                                     tvPesan.text = "Your offer was declined by the Seller"
+                                    if (data.notificationType == "buyer"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItem(data)
+                                        }
+                                    }
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
+                            }
+                            root.setOnClickListener{
+                                onItemClick.onClickItem(data)
                             }
                         }
                         "accepted" -> {
@@ -94,11 +111,24 @@ class NotificationAdapter(
                             if (data.product != null){
                                 if (data.receiverId == data.product.userId){
                                     tvPesan.text = "You accept this product"
+                                    if(data.notificationType == "seller"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItemInfo(data)
+                                        }
+                                    }
                                 } else {
                                     tvPesan.text = "Your offer is accepted by the Seller"
+                                    if (data.notificationType == "buyer"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItem(data)
+                                        }
+                                    }
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
+                            }
+                            root.setOnClickListener{
+                                onItemClick.onClickItem(data)
                             }
                         }
                         "create" -> {
@@ -106,6 +136,9 @@ class NotificationAdapter(
                             tvPesan.text = "Your Product Successfully Added"
                             tvHargaDitawarProduk.visibility = View.GONE
                             tvHargaAwalProduk.text = currency(data.basePrice.toInt())
+                            root.setOnClickListener{
+                                onItemClick.onClickItemSell(data)
+                            }
                         }
 //                        else -> {
 
@@ -127,9 +160,6 @@ class NotificationAdapter(
                             .centerCrop()
                             .into(ivProductImage)
                     }
-                    root.setOnClickListener{
-                        onItemClick.onClickItem(data)
-                    }
                 }
             }
         }
@@ -137,5 +167,7 @@ class NotificationAdapter(
 
     interface OnClickListener{
         fun onClickItem(data: NotificationResponse)
+        fun onClickItemSell(data: NotificationResponse)
+        fun onClickItemInfo(data: NotificationResponse)
     }
 }

@@ -3,6 +3,7 @@ import android.app.ActionBar
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,7 @@ import com.preloved.app.databinding.FragmentBottomSheetBuyerInfoStatusBinding
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomSheetDialogFragment() {
+class BottomSheetBuyerInfoStatusFragment(private val idOrder: Int) : BottomSheetDialogFragment() {
     private var _binding: FragmentBottomSheetBuyerInfoStatusBinding? = null
     private val binding: FragmentBottomSheetBuyerInfoStatusBinding get() = _binding!!
     private var status: String = ""
@@ -68,10 +69,12 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                 rbSold.setOnClickListener {
                     btnSayaTertarikNego.setBackgroundColor(Color.parseColor("#EC698F"))
                     status = "accepted"
+                    Log.d("HAYOO", status)
                 }
                 rbCancel.setOnClickListener {
                     btnSayaTertarikNego.setBackgroundColor(Color.parseColor("#EC698F"))
                     status = "declined"
+                    Log.d("HAYOO", status)
                 }
                 btnSayaTertarikNego.setOnClickListener {
                     when (status) {
@@ -79,23 +82,27 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                             Toast.makeText(requireContext(), getString(R.string.choose_status), Toast.LENGTH_SHORT)
                                 .show()
                         }
-                        "sold" -> {
+                        "accepted" -> {
                             val body = RequestApproveOrder(
                                 status
                             )
-                            viewModel.statusOrder(token, idProduct, body)
+                            viewModel.statusProcutAccepted(token, idOrder, body)
+                            Toast.makeText(context, "Accept Clicked", Toast.LENGTH_SHORT).show()
+                            Log.d("HAYOO", idOrder.toString())
                         }
                         "declined" -> {
                             val body = RequestApproveOrder(
                                 status
                             )
-                            viewModel.statusOrder(token, idProduct, body)
+                            viewModel.statusProcutAccepted(token, idOrder, body)
+                            Toast.makeText(context, "Declined Clicked", Toast.LENGTH_SHORT).show()
+                            Log.d("HAYOO", idOrder.toString())
                         }
                     }
                 }
 
             }
-        viewModel.statusOrderResult().observe(viewLifecycleOwner) { response ->
+        viewModel.statusProcutAcceptedResult().observe(viewLifecycleOwner) { response ->
             when(response) {
                 is Resource.Loading -> {
                 }
@@ -114,5 +121,6 @@ class BottomSheetBuyerInfoStatusFragment(private val idProduct: Int) : BottomShe
                 }
             }
         }
+        Log.d("HAYO", status)
         }
     }

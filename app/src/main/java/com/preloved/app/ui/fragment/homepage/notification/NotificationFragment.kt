@@ -65,11 +65,24 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                         val notificationAdapter =
                             NotificationAdapter(object : NotificationAdapter.OnClickListener {
                                 override fun onClickItem(data: NotificationResponse) {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Notif Id = ${data.id}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                   val passdata = NotificationFragmentDirections.actionNotificationFragmentToDetailProductFragment2(
+                                       productId = data.productId
+                                   )
+                                    findNavController().navigate(passdata)
+                                }
+                                override fun onClickItemSell(data: NotificationResponse) {
+                                    val passdata = NotificationFragmentDirections.actionNotificationFragmentToEditProductFragment(
+                                        productId = data.productId
+                                    )
+                                    findNavController().navigate(passdata)
+                                }
+
+                                override fun onClickItemInfo(data: NotificationResponse) {
+                                    val passdata = NotificationFragmentDirections.actionNotificationFragmentToBuyerInfoFragment(
+                                        productId = data.productId,
+                                        orderId = data.orderId
+                                    )
+                                    findNavController().navigate(passdata)
                                 }
                             })
                         val sorted = it.data.sortedByDescending { it.id }

@@ -1,10 +1,11 @@
 package com.preloved.app.data.network.model.response
 
+
 import com.google.gson.annotations.SerializedName
 import com.preloved.app.data.network.model.Product
 import com.preloved.app.data.network.model.User
 
-data class NotificationResponse(
+data class NotificationNewResponseItem(
     @SerializedName("base_price")
     val basePrice: String,
     @SerializedName("bid_price")

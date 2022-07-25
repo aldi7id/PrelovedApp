@@ -92,11 +92,11 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             }
 
                             )
-                            val sorted = it.data?.sortedByDescending { it.id }?.filter { it.product != null }
+                            val sorted = it.data?.sortedByDescending { it.id }?.filter { it.product != null && it.status == "accepted" && it.product.status == "sold"}
                             saleHistoryAdapter.submitData(sorted)
                             getViewBinding().rvHistory.adapter = saleHistoryAdapter
                             getViewBinding().rvHistory.visibility = View.VISIBLE
-                            if(it.data?.size == 0){
+                            if(it.data?.size == 0 || sorted?.size == 0){
                                 getViewBinding().apply {
                                     lottieEmpty.visibility = View.VISIBLE
                                     tvLottieEmpty.visibility = View.VISIBLE
@@ -125,8 +125,8 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                 btnTerjual.setBackgroundColor(Color.parseColor("#06283D"))
                 btnHistory.setBackgroundColor(Color.parseColor("#EC698F"))
             }
-            viewModel.getSellerProductSold(token,statusProduct)
-            viewModel.getSellerProductSoldResult().observe(viewLifecycleOwner){
+            viewModel.getSellerProductOrder(token)
+            viewModel.getSellerProductOrderResult().observe(viewLifecycleOwner){
                 when (it) {
                     is Resource.Loading -> {
                         showLoading(true)
@@ -139,19 +139,22 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                         showLoading(false)
                         val saleOrderAcceptedAdapter = SaleAcceptedAdapter(object : SaleAcceptedAdapter.OnClickListener{
-                            override fun onClickItem(data: SellerProductResponseItem) {
-                                findNavController().navigate(
-                                    R.id.action_saleFragment_to_buyerInfoFragment,bundlePenawar
+                            override fun onClickItem(data: SellerOrderResponse) {
+                                bundlePenawar.putInt(ORDER_ID, data.id)
+                                val passdata = SaleFragmentDirections.actionSaleFragmentToBuyerInfoFragment(
+                                    productId = data.productId,
+                                    orderId = data.id
                                 )
+                                findNavController().navigate(passdata)
                             }
                         }
 
                         )
-                        val sortedSell = it.data?.sortedByDescending { it.id }?.filter { it.status == "sold" }
+                        val sortedSell = it.data?.sortedByDescending { it.id }?.filter { it.status == "accepted" }
                         saleOrderAcceptedAdapter.submitData(sortedSell)
                         getViewBinding().rvTerjual.adapter = saleOrderAcceptedAdapter
                         getViewBinding().rvTerjual.visibility = View.VISIBLE
-                        if(it.data?.size == 0){
+                        if(it.data?.size == 0 || sortedSell?.size == 0){
                             getViewBinding().apply {
                                 lottieEmpty.visibility = View.VISIBLE
                                 tvLottieEmpty.visibility = View.VISIBLE
@@ -203,35 +206,12 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             val sellerOrderAdapter =
                                 SaleOrderAdapter(object : SaleOrderAdapter.OnClickListener {
                                     override fun onClickItem(data: SellerOrderResponse) {
-                                        bundlePenawar.putString(
-                                            USER_NAME,
-                                            data.user.fullName
-                                        )
-                                        bundlePenawar.putString(
-                                            USER_CITY,
-                                            data.user.city.toString()
-                                        )
-                                        bundlePenawar.putInt(ORDER_ID, data.id)
-                                        bundlePenawar.putString(ORDER_STATUS, data.status)
-                                        bundlePenawar.putString(PRODUCT_NAME, data.product.name)
-                                        bundlePenawar.putString(
-                                            PRODUCT_PRICE,
-                                            data.product.basePrice.toString()
-                                        )
-                                        bundlePenawar.putString(
-                                            PRODUCT_BID,
-                                            data.price.toString()
-                                        )
-                                        bundlePenawar.putString(
-                                            PRODUCT_IMAGE,
-                                            data.product.imageUrl
-                                        )
-                                        bundlePenawar.putString(
-                                            PRODUCT_BID_DATE,
-                                            data.createdAt
+                                        val passdata = SaleFragmentDirections.actionSaleFragmentToBuyerInfoFragment(
+                                            orderId = data.id,
+                                            productId = data.productId
                                         )
                                         findNavController().navigate(
-                                            R.id.action_saleFragment_to_buyerInfoFragment, bundlePenawar
+                                           passdata
                                         )
                                     }
                                 })
@@ -239,7 +219,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                             sellerOrderAdapter.submitData(sorted)
                             getViewBinding().rvDiminati.adapter = sellerOrderAdapter
                             getViewBinding().rvDiminati.visibility = View.VISIBLE
-                            if(it.data.size == 0){
+                            if(it.data.size == 0 || sorted?.size == 0){
                                 getViewBinding().apply {
                                 lottieEmpty.visibility = View.VISIBLE
                                 tvLottieEmpty.visibility = View.VISIBLE
@@ -278,139 +258,143 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     is Resource.Loading -> {
                         getViewBinding().apply {
                             showLoading(true)
+                            tvLottieEmpty.visibility = View.GONE
+                            lottieEmpty.visibility = View.GONE
                         }
                     }
                     is Resource.Success -> {
-                        getViewBinding().apply {
-                            rvDiminati.visibility = View.GONE
-                            rvTerjual.visibility = View.GONE
-                            rvHistory.visibility = View.GONE
-                        }
-                        val availableProductSize = it.data?.filter { it.status == "available" }?.size
-                        if (it.data != null) {
-                            val saleProductAdapter =
-                                SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
-
-                                    override fun onClickItem(data: SellerProductResponseItem) {
-                                        bundleEdit.apply {
-                                            putInt(PRODUCT_ID, data.id)
-                                            putString(USER_CITY, data.location)
-                                        }
-                                        if(data.status == "available") {
-                                            findNavController().navigate(
-                                                R.id.action_saleFragment_to_editProductFragment, bundleEdit
-                                            )
-                                        } else {
-                                            AlertDialog.Builder(context)
-                                                .setTitle(getString(R.string.warning))
-                                                .setMessage(getString(R.string.message_cant_edit_product))
-                                                .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
-                                                    dialogP.dismiss()
-                                                }
-                                                .setCancelable(false)
-                                                .show()
-                                        }
-                                    }
-
-                                }
-
-                                )
-                            saleProductAdapter.submitData(it.data)
-                            getViewBinding().rvProduct.adapter = saleProductAdapter
-                            getViewBinding().rvProduct.visibility = View.VISIBLE
-                        }
-                        when(availableProductSize){
-                            0 -> {
-                                getViewBinding().apply {
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    //buttonGrup.visibility = View.GONE
-                                    addProductCard.visibility = View.VISIBLE
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                    tvAddProduct.text = getString(R.string.add_0)
-                                }
-                            }
-                            1 -> {
-                                getViewBinding().apply {
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    addProductCard.visibility = View.VISIBLE
-                                    tvAddProduct.text = getString(R.string.add_1)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-
-                            }
-                            2 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_2)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-
-                            }
-                            3 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_3)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-
-                            }
-                            4 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_4)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-                            }
-                            5 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_5)
-                                    addProductCard.setOnClickListener {
-                                        AlertDialog.Builder(context)
-                                            .setTitle(getString(R.string.sorry))
-                                            .setMessage(getString(R.string.remove_first))
-                                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
-                                                positiveButton.dismiss()
-                                            }
-                                            .show()
-                                    }
-                                }
-                            }
-                        }
-                        if(it.data?.size == 0){
-                            getViewBinding().apply {
-                                lottieEmpty.visibility = View.VISIBLE
-                                tvLottieEmpty.visibility = View.VISIBLE
-                                tvLottieEmpty.text = getString(R.string.no_products)
-                            }
-
-                        }else {
-                            getViewBinding().apply {
-                                lottieEmpty.visibility = View.GONE
-                                tvLottieEmpty.visibility = View.GONE
-                            }
-                        }
-                        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
+                        productList(it)
+//                        getViewBinding().apply {
+//                            rvDiminati.visibility = View.GONE
+//                            rvTerjual.visibility = View.GONE
+//                            rvHistory.visibility = View.GONE
+//                        }
+//                        val availableProductSize = it.data?.filter { it.status == "available" }?.size
+//                        if (it.data != null) {
+//                            val saleProductAdapter =
+//                                SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
+//
+//                                    override fun onClickItem(data: SellerProductResponseItem) {
+//                                        bundleEdit.apply {
+//                                            putInt(PRODUCT_ID, data.id)
+//                                            putString(USER_CITY, data.location)
+//                                        }
+//                                        if(data.status == "available") {
+//                                            findNavController().navigate(
+//                                                R.id.action_saleFragment_to_editProductFragment, bundleEdit
+//                                            )
+//                                        } else {
+//                                            AlertDialog.Builder(context)
+//                                                .setTitle(getString(R.string.warning))
+//                                                .setMessage(getString(R.string.message_cant_edit_product))
+//                                                .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
+//                                                    dialogP.dismiss()
+//                                                }
+//                                                .setCancelable(false)
+//                                                .show()
+//                                        }
+//                                    }
+//
+//                                }
+//
+//                                )
+//                            val sorted = it.data.sortedByDescending { it.id }
+//                            saleProductAdapter.submitData(sorted)
+//                            getViewBinding().rvProduct.adapter = saleProductAdapter
+//                            getViewBinding().rvProduct.visibility = View.VISIBLE
+//                        }
+//                        when(availableProductSize){
+//                            0 -> {
+//                                getViewBinding().apply {
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    //buttonGrup.visibility = View.GONE
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                    tvAddProduct.text = getString(R.string.add_0)
+//                                }
+//                            }
+//                            1 -> {
+//                                getViewBinding().apply {
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    tvAddProduct.text = getString(R.string.add_1)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//
+//                            }
+//                            2 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_2)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//
+//                            }
+//                            3 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_3)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//
+//                            }
+//                            4 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_4)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//                            }
+//                            5 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_5)
+//                                    addProductCard.setOnClickListener {
+//                                        AlertDialog.Builder(context)
+//                                            .setTitle(getString(R.string.sorry))
+//                                            .setMessage(getString(R.string.remove_first))
+//                                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
+//                                                positiveButton.dismiss()
+//                                            }
+//                                            .show()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        if(it.data?.size == 0){
+//                            getViewBinding().apply {
+//                                lottieEmpty.visibility = View.VISIBLE
+//                                tvLottieEmpty.visibility = View.VISIBLE
+//                                tvLottieEmpty.text = getString(R.string.no_products)
+//                            }
+//
+//                        }else {
+//                            getViewBinding().apply {
+//                                lottieEmpty.visibility = View.GONE
+//                                tvLottieEmpty.visibility = View.GONE
+//                            }
+//                        }
+//                        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                     }
                     is Resource.Error -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
@@ -508,142 +492,144 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                         }
                     }
                     is Resource.Success -> {
-                        showLoading(false)
-                        getViewBinding().apply {
-                            rvDiminati.visibility = View.GONE
-                            rvTerjual.visibility = View.GONE
-                            rvHistory.visibility = View.GONE
-                        }
-                        val availableProductSize = it.data?.filter { it.status == "available" }?.size
-                    if (it.data != null) {
-                        val saleProductAdapter =
-                            SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
-                                var listCategory = ""
-                                override fun onClickItem(data: SellerProductResponseItem) {
-                                   bundleEdit.apply {
-                                       putInt(PRODUCT_ID, data.id)
-                                       putString(USER_CITY, data.location)
-                                       for (kategori in data.categories){
-                                           listCategory += ", ${kategori.name}"
-                                       }
-                                       putString(PRODUCT_CATEGORY,listCategory.drop(2))
-                                       putString(PRODUCT_DESCRIPTION,data.description)
-                                       putString(PRODUCT_IMAGE,data.imageUrl)
-                                       putInt(PRODUCT_PRICE, data.basePrice)
-                                   }
-                                    if(data.status == "available") {
-                                        findNavController().navigate(
-                                            R.id.action_saleFragment_to_editProductFragment, bundleEdit
-                                        )
-                                    } else {
-                                        AlertDialog.Builder(context)
-                                            .setTitle(getString(R.string.warning))
-                                            .setMessage(getString(R.string.message_cant_edit_product))
-                                            .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
-                                                dialogP.dismiss()
-                                            }
-                                            .setCancelable(false)
-                                            .show()
-                                    }
-                                }
-                            })
-                        saleProductAdapter.submitData(it.data)
-                        getViewBinding().rvProduct.adapter = saleProductAdapter
-                        getViewBinding().rvProduct.visibility = View.VISIBLE
-
-                    }
-                        when(availableProductSize){
-                            0 -> {
-                                getViewBinding().apply {
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    //buttonGrup.visibility = View.GONE
-                                    addProductCard.visibility = View.VISIBLE
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                    tvAddProduct.text = getString(R.string.add_0)
-                                }
-                            }
-                            1 -> {
-                                getViewBinding().apply {
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    addProductCard.visibility = View.VISIBLE
-                                    tvAddProduct.text = getString(R.string.add_1)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-
-                            }
-                            2 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_2)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-
-                            }
-                            3 -> {
-                                getViewBinding().apply {
-                                addProductCard.visibility = View.VISIBLE
-                                lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                tvAddProduct.text = getString(R.string.add_3)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                            }
-
-                            }
-                            4 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_4)
-                                    addProductCard.setOnClickListener {
-                                        addProduct()
-                                    }
-                                }
-                            }
-                            5 -> {
-                                getViewBinding().apply {
-                                    addProductCard.visibility = View.VISIBLE
-                                    lottieEmpty.visibility = View.GONE
-                                    tvLottieEmpty.visibility = View.GONE
-                                    tvAddProduct.text = getString(R.string.add_5)
-                                    addProductCard.setOnClickListener {
-                                        AlertDialog.Builder(context)
-                                            .setTitle(getString(R.string.sorry))
-                                            .setMessage(getString(R.string.remove_first))
-                                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
-                                                positiveButton.dismiss()
-                                            }
-                                            .show()
-                                    }
-                                }
-                            }
-                        }
-                        if(it.data?.size == 0){
-                            getViewBinding().apply {
-                                lottieEmpty.visibility = View.VISIBLE
-                                tvLottieEmpty.visibility = View.VISIBLE
-                                tvLottieEmpty.text = getString(R.string.no_products)
-                            }
-
-                        }else {
-                            getViewBinding().apply {
-                                lottieEmpty.visibility = View.GONE
-                                tvLottieEmpty.visibility = View.GONE
-                            }
-                        }
-                        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
+                        productList(it)
+//                        showLoading(false)
+//                        getViewBinding().apply {
+//                            rvDiminati.visibility = View.GONE
+//                            rvTerjual.visibility = View.GONE
+//                            rvHistory.visibility = View.GONE
+//                        }
+//                        val availableProductSize = it.data?.filter { it.status == "available" }?.size
+//                    if (it.data != null) {
+//                        val saleProductAdapter =
+//                            SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
+//                                var listCategory = ""
+//                                override fun onClickItem(data: SellerProductResponseItem) {
+//                                   bundleEdit.apply {
+//                                       putInt(PRODUCT_ID, data.id)
+//                                       putString(USER_CITY, data.location)
+//                                       for (kategori in data.categories){
+//                                           listCategory += ", ${kategori.name}"
+//                                       }
+//                                       putString(PRODUCT_CATEGORY,listCategory.drop(2))
+//                                       putString(PRODUCT_DESCRIPTION,data.description)
+//                                       putString(PRODUCT_IMAGE,data.imageUrl)
+//                                       putInt(PRODUCT_PRICE, data.basePrice)
+//                                   }
+//                                    if(data.status == "available") {
+//                                        findNavController().navigate(
+//                                            R.id.action_saleFragment_to_editProductFragment, bundleEdit
+//                                        )
+//                                    } else {
+//                                        AlertDialog.Builder(context)
+//                                            .setTitle(getString(R.string.warning))
+//                                            .setMessage(getString(R.string.message_cant_edit_product))
+//                                            .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
+//                                                dialogP.dismiss()
+//                                            }
+//                                            .setCancelable(false)
+//                                            .show()
+//                                    }
+//                                }
+//                            })
+//                        val sorted = it.data.sortedByDescending { it.id }
+//                        saleProductAdapter.submitData(sorted)
+//                        getViewBinding().rvProduct.adapter = saleProductAdapter
+//                        getViewBinding().rvProduct.visibility = View.VISIBLE
+//
+//                    }
+//                        when(availableProductSize){
+//                            0 -> {
+//                                getViewBinding().apply {
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    //buttonGrup.visibility = View.GONE
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                    tvAddProduct.text = getString(R.string.add_0)
+//                                }
+//                            }
+//                            1 -> {
+//                                getViewBinding().apply {
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    tvAddProduct.text = getString(R.string.add_1)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//
+//                            }
+//                            2 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_2)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//
+//                            }
+//                            3 -> {
+//                                getViewBinding().apply {
+//                                addProductCard.visibility = View.VISIBLE
+//                                lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                tvAddProduct.text = getString(R.string.add_3)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                            }
+//
+//                            }
+//                            4 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_4)
+//                                    addProductCard.setOnClickListener {
+//                                        addProduct()
+//                                    }
+//                                }
+//                            }
+//                            5 -> {
+//                                getViewBinding().apply {
+//                                    addProductCard.visibility = View.VISIBLE
+//                                    lottieEmpty.visibility = View.GONE
+//                                    tvLottieEmpty.visibility = View.GONE
+//                                    tvAddProduct.text = getString(R.string.add_5)
+//                                    addProductCard.setOnClickListener {
+//                                        AlertDialog.Builder(context)
+//                                            .setTitle(getString(R.string.sorry))
+//                                            .setMessage(getString(R.string.remove_first))
+//                                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
+//                                                positiveButton.dismiss()
+//                                            }
+//                                            .show()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        if(it.data?.size == 0){
+//                            getViewBinding().apply {
+//                                lottieEmpty.visibility = View.VISIBLE
+//                                tvLottieEmpty.visibility = View.VISIBLE
+//                                tvLottieEmpty.text = getString(R.string.no_products)
+//                            }
+//
+//                        }else {
+//                            getViewBinding().apply {
+//                                lottieEmpty.visibility = View.GONE
+//                                tvLottieEmpty.visibility = View.GONE
+//                            }
+//                        }
+//                        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
                     }
                     is Resource.Error -> {
                         var message = ""
@@ -657,7 +643,146 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
             }
         }
     }
+    private fun productList(it: Resource<List<SellerProductResponseItem>>){
+        showLoading(false)
+        getViewBinding().apply {
+            rvDiminati.visibility = View.GONE
+            rvTerjual.visibility = View.GONE
+            rvHistory.visibility = View.GONE
+        }
+        val availableProductSize = it.data?.filter { it.status == "available" }?.size
+        if (it.data != null) {
+            val saleProductAdapter =
+                SaleProductAdapter(object  : SaleProductAdapter.OnclickListener{
+                    var listCategory = ""
+                    override fun onClickItem(data: SellerProductResponseItem) {
+                        bundleEdit.apply {
+                            putInt(PRODUCT_ID, data.id)
+                            putString(USER_CITY, data.location)
+                            for (kategori in data.categories){
+                                listCategory += ", ${kategori.name}"
+                            }
+                            putString(PRODUCT_CATEGORY,listCategory.drop(2))
+                            putString(PRODUCT_DESCRIPTION,data.description)
+                            putString(PRODUCT_IMAGE,data.imageUrl)
+                            putInt(PRODUCT_PRICE, data.basePrice)
+                        }
+                        if(data.status == "available") {
+                            findNavController().navigate(
+                                R.id.action_saleFragment_to_editProductFragment, bundleEdit
+                            )
+                        } else {
+                            AlertDialog.Builder(context)
+                                .setTitle(getString(R.string.warning))
+                                .setMessage(getString(R.string.message_cant_edit_product))
+                                .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
+                                    dialogP.dismiss()
+                                }
+                                .setCancelable(false)
+                                .show()
+                        }
+                    }
+                })
+            val sorted = it.data.sortedByDescending { it.id }
+            saleProductAdapter.submitData(sorted)
+            getViewBinding().rvProduct.adapter = saleProductAdapter
+            getViewBinding().rvProduct.visibility = View.VISIBLE
 
+        }
+        when(availableProductSize){
+            0 -> {
+                getViewBinding().apply {
+                    lottieEmpty.visibility = View.GONE
+                    tvLottieEmpty.visibility = View.GONE
+                    //buttonGrup.visibility = View.GONE
+                    addProductCard.visibility = View.VISIBLE
+                    addProductCard.setOnClickListener {
+                        addProduct()
+                    }
+                    tvAddProduct.text = getString(R.string.add_0)
+                }
+            }
+            1 -> {
+                getViewBinding().apply {
+                    lottieEmpty.visibility = View.GONE
+                    tvLottieEmpty.visibility = View.GONE
+                    addProductCard.visibility = View.VISIBLE
+                    tvAddProduct.text = getString(R.string.add_1)
+                    addProductCard.setOnClickListener {
+                        addProduct()
+                    }
+                }
+
+            }
+            2 -> {
+                getViewBinding().apply {
+                    addProductCard.visibility = View.VISIBLE
+                    lottieEmpty.visibility = View.GONE
+                    tvLottieEmpty.visibility = View.GONE
+                    tvAddProduct.text = getString(R.string.add_2)
+                    addProductCard.setOnClickListener {
+                        addProduct()
+                    }
+                }
+
+            }
+            3 -> {
+                getViewBinding().apply {
+                    addProductCard.visibility = View.VISIBLE
+                    lottieEmpty.visibility = View.GONE
+                    tvLottieEmpty.visibility = View.GONE
+                    tvAddProduct.text = getString(R.string.add_3)
+                    addProductCard.setOnClickListener {
+                        addProduct()
+                    }
+                }
+
+            }
+            4 -> {
+                getViewBinding().apply {
+                    addProductCard.visibility = View.VISIBLE
+                    lottieEmpty.visibility = View.GONE
+                    tvLottieEmpty.visibility = View.GONE
+                    tvAddProduct.text = getString(R.string.add_4)
+                    addProductCard.setOnClickListener {
+                        addProduct()
+                    }
+                }
+            }
+            5 -> {
+                getViewBinding().apply {
+                    addProductCard.visibility = View.VISIBLE
+                    lottieEmpty.visibility = View.GONE
+                    tvLottieEmpty.visibility = View.GONE
+                    tvAddProduct.text = getString(R.string.add_5)
+                    addProductCard.setOnClickListener {
+                        AlertDialog.Builder(context)
+                            .setTitle(getString(R.string.sorry))
+                            .setMessage(getString(R.string.remove_first))
+                            .setPositiveButton(getString(R.string.OK)) { positiveButton, _ ->
+                                positiveButton.dismiss()
+                            }
+                            .show()
+                    }
+                }
+            }
+        }
+        if(it.data?.size == 0){
+            getViewBinding().apply {
+                lottieEmpty.visibility = View.VISIBLE
+                tvLottieEmpty.visibility = View.VISIBLE
+                tvLottieEmpty.text = getString(R.string.no_products)
+            }
+
+        }else {
+            getViewBinding().apply {
+                lottieEmpty.visibility = View.GONE
+                tvLottieEmpty.visibility = View.GONE
+            }
+        }
+        getViewBinding().btnProduk.setBackgroundColor(Color.parseColor("#06283D"))
+
+    }
     private fun addProduct() {
         findNavController().navigate(R.id.action_saleFragment_to_sellFragment)
     }

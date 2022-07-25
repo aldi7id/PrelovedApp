@@ -58,7 +58,7 @@ class CategoryMomAndBabyFragment : BaseFragment<FragmentCategoryMomandbabyBindin
                     )
                     findNavController().navigate(passData)
                 }
-                listAdapter.submitList(data?.filter {it.status == "available"})
+                listAdapter.submitList(data?.filter {it.status == "available"}?.sortedByDescending { it.id })
                 rvCategory.adapter = listAdapter
             }
         }

@@ -1,3 +1,4 @@
+
 import android.app.ActionBar
 import android.app.AlertDialog
 import android.util.Log
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -20,6 +22,7 @@ import com.preloved.app.databinding.FragmentBuyerInfoBinding
 import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoContract
 import com.preloved.app.ui.fragment.homepage.buyer.info.BuyerInfoViewModel
+import com.preloved.app.ui.fragment.homepage.home.detail.DetailProductFragmentArgs
 import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.properties.Delegates
@@ -40,6 +43,8 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
     private var idProduct by Delegates.notNull<Int>()
     private var idOrder by Delegates.notNull<Int>()
 
+    private val args by navArgs<BuyerInfoFragmentArgs>()
+
 
     override fun initView() {
         viewModel.userSession()
@@ -52,8 +57,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                 findNavController().popBackStack()
             }
             btnTerima.setOnClickListener {
-                val bundle = arguments
-                val idOrder = bundle?.getInt(SaleFragment.ORDER_ID)
+                val idOrder = args.orderId
                 AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.warning))
                     .setMessage(getString(R.string.accept_offer))
@@ -74,8 +78,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                     .show()
             }
             btnTolak.setOnClickListener {
-                val bundle = arguments
-                val idOrder = bundle?.getInt(SaleFragment.ORDER_ID)
+                val idOrder = args.orderId
                 AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.warning))
                     .setMessage(getString(R.string.decline_the_offer))
@@ -103,7 +106,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
             btnStatus.setOnClickListener {
                 Log.d("HAYO3",idProduct.toString())
                 val bottomFragmentStatus = BottomSheetBuyerInfoStatusFragment(
-                    idProduct = idProduct
+                    idOrder = idOrder
                 )
                 bottomFragmentStatus.show(parentFragmentManager, "Tag")
             }
@@ -185,10 +188,8 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
                     .show()
             } else {
                 token = it.access_token
-
-                val bundle = arguments
-                val idOrderBuyer = bundle?.getInt(SaleFragment.ORDER_ID)
-                viewModel.getSellerOrderById(token, idOrderBuyer!!)
+                val idOrderBuyer = args.orderId
+                viewModel.getSellerOrderById(token, idOrderBuyer)
             }
         }
         viewModel.getSellerOrderByIdResult().observe(viewLifecycleOwner) { response ->
