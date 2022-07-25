@@ -86,9 +86,15 @@ class NotificationAdapter(
                             tvTipeProduk.text = "Product Declined"
                             if (data.product != null){
                                 if (data.receiverId == data.product.userId){
+                                    if (data.notificationType == "seller")
                                     tvPesan.text = "You decline this offer"
                                 } else {
                                     tvPesan.text = "Your offer was declined by the Seller"
+                                    if (data.notificationType == "buyer"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItem(data)
+                                        }
+                                    }
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
@@ -105,8 +111,18 @@ class NotificationAdapter(
                             if (data.product != null){
                                 if (data.receiverId == data.product.userId){
                                     tvPesan.text = "You accept this product"
+                                    if(data.notificationType == "seller"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItemInfo(data)
+                                        }
+                                    }
                                 } else {
                                     tvPesan.text = "Your offer is accepted by the Seller"
+                                    if (data.notificationType == "buyer"){
+                                        root.setOnClickListener{
+                                            onItemClick.onClickItem(data)
+                                        }
+                                    }
                                 }
                             } else {
                                 tvPesan.text = "Product Already Delete By Seller"
