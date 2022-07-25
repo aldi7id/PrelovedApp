@@ -32,37 +32,53 @@ interface PreLovedService {
     @PUT("auth/user")
     suspend fun putUserData(
         @Header("access_token") token: String,
-        @Body data: RequestBody): UserResponse
+        @Body data: RequestBody
+    ): UserResponse
 
     @PUT("auth/change-password")
     suspend fun putChangePassword(
         @Header("access_token") token: String,
-        @Body data: RequestBody): UpdatePasswordResponse
+        @Body data: RequestBody
+    ): UpdatePasswordResponse
 
     @POST("seller/product")
-    suspend fun postProductData(@Header("access_token") token: String,
-                                @Body data: RequestBody) : PostProductResponse
+    suspend fun postProductData(
+        @Header("access_token") token: String,
+        @Body data: RequestBody
+    ): PostProductResponse
 
     @GET("seller/category")
-    suspend fun getCategoryData() : List<CategoryResponseItem>
+    suspend fun getCategoryData(): List<CategoryResponseItem>
 
     @GET("seller/product")
     suspend fun getSellerProduct(@Header("access_token") token: String): List<SellerProductResponseItem>
 
     @GET("seller/order")
     suspend fun getSellerOrder(@Header("access_token") token: String): List<SellerOrderResponse>
+
     @GET("seller/order")
-    suspend fun getSellerOrderAccepted(@Header("access_token") token: String,
-                                       @Query("status")  status: String): List<SellerOrderResponse>
+    suspend fun getSellerOrderAccepted(
+        @Header("access_token") token: String,
+        @Query("status") status: String
+    ): List<SellerOrderResponse>
+
     @GET("seller/product")
-    suspend fun getSellerProductSold(@Header("access_token") token: String,
-                                       @Query("status")  status: String): List<SellerProductResponseItem>
+    suspend fun getSellerProductSold(
+        @Header("access_token") token: String,
+        @Query("status") status: String
+    ): List<SellerProductResponseItem>
+
     @GET("seller/product/{id}")
-    suspend fun getSellerProductId(@Header("access_token") token: String,
-                                   @Path("id") id:Int) : SellerProductResponseItem
+    suspend fun getSellerProductId(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): SellerProductResponseItem
+
     @PUT("seller/product/{id}")
-    suspend fun updateSellerProduct(@Header("access_token") token: String,
-    @Path("id") id:Int, @Body data: RequestBody) : PostProductResponse
+    suspend fun updateSellerProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int, @Body data: RequestBody
+    ): PostProductResponse
 
     // NOTIFICATION
     @GET("notification")
@@ -73,6 +89,7 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): Response<SellerDeleteResponse>
+
     //BUYER
     @GET("buyer/order")
     suspend fun getBuyerOrder(
@@ -90,9 +107,12 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): BuyerOrderResponse
+
     @PUT("buyer/order/{id}")
-    suspend fun updateBuyerOrder(@Header("access_token") token: String,
-                                    @Path("id") id:Int, @Body data: RequestBody) : BuyerOrderEditResponse
+    suspend fun updateBuyerOrder(
+        @Header("access_token") token: String,
+        @Path("id") id: Int, @Body data: RequestBody
+    ): BuyerOrderEditResponse
 
     //SELLER
     @GET("seller/order/{id}")
@@ -100,6 +120,7 @@ interface PreLovedService {
         @Header("access_token") token: String,
         @Path("id") id: Int
     ): SellerOrderResponse
+
     @PATCH("seller/order/{id}")
     suspend fun approveOrder(
         @Header("access_token") token: String,
@@ -121,7 +142,7 @@ interface PreLovedService {
 
     companion object {
         @JvmStatic
-        operator fun invoke(chuckerInterceptor: ChuckerInterceptor): PreLovedService{
+        operator fun invoke(chuckerInterceptor: ChuckerInterceptor): PreLovedService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(chuckerInterceptor)

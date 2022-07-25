@@ -1,8 +1,9 @@
 package com.preloved.app.ui.fragment.homepage.home.detail
 
-import MyOrderFragment.Companion.USER_ORDER
 import android.app.ActionBar
 import android.app.AlertDialog
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -19,18 +20,16 @@ import com.preloved.app.R
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastoreManager
-import com.preloved.app.data.network.model.BuyerOrderResponse
+import com.preloved.app.data.local.datastore.DatastorePreferences
+import com.preloved.app.data.network.model.request.wishlist.WishlistRequest
 import com.preloved.app.data.network.model.response.bid.get.GetBidResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.whislist.GetWishlistResponse
 import com.preloved.app.databinding.FragmentDetailProductBinding
 import com.preloved.app.ui.currency
 import com.preloved.app.ui.fragment.homepage.home.bid.PopUpBidFragment
 import com.preloved.app.ui.fragment.homepage.home.bid.edit.PopUpBidEditFragment
-import com.preloved.app.ui.fragment.homepage.sale.SaleFragment
-import com.preloved.app.ui.fragment.homepage.sell.SellFragment
-import com.preloved.app.ui.listCategory
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.properties.Delegates
 
 class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailProductViewModel>(
     FragmentDetailProductBinding::inflate
@@ -40,7 +39,8 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
     private var token = ""
     private var idOrders = ""
     private var lastBid = ""
-
+    private var wishlist = true
+    private var wishlistId = 0
 
     override val viewModel: DetailProductViewModel by viewModel()
 
@@ -121,6 +121,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 }
             }
             getTokenAccessResult().observe(viewLifecycleOwner){
+                getDataAction(it)
                 if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN) {
                     AlertDialog.Builder(context)
                         .setTitle(getString(R.string.warning))
@@ -137,7 +138,6 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                                 }
                             }
                             viewModel.getTokenAccessResult().removeObservers(viewLifecycleOwner)
-
                         }
                         .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                             //ToHomeFragment
@@ -160,8 +160,47 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
 
                     }
                     is Resource.Success -> {
-                        showToastSuccess()
+                        showToastSuccess("Your Order Success Delete")
                         findNavController().popBackStack()
+                    }
+                    is Resource.Error -> {
+
+                    }
+                }
+            }
+            postWishlistProductResult().observe(viewLifecycleOwner) {
+                when(it) {
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        showToastSuccess("Product has been add to your wishlist")
+                    }
+                    is Resource.Error -> {
+
+                    }
+                }
+            }
+            getWishlistProductResult().observe(viewLifecycleOwner) {
+                when(it) {
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        getWishlist(it.data)
+                    }
+                    is Resource.Error -> {
+
+                    }
+                }
+            }
+            deleteWishlistProductByIdResult().observe(viewLifecycleOwner) {
+                when(it) {
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        showToastSuccess("Your wishlist product has been deleted")
                     }
                     is Resource.Error -> {
 
@@ -171,46 +210,98 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
         }
     }
 
-    private fun getDataOrder(data: GetBidResponse?) {
+    private fun getWishlist(wishlistProduct: GetWishlistResponse?) {
+        getViewBinding().apply {
+            wishlistProduct?.size?.let {
+                for (sizeWishlist in 0 until it) {
+                    when {
+                        wishlistProduct[sizeWishlist].productId == args.productId -> {
+                            Toast.makeText(requireContext(), "${wishlistProduct[sizeWishlist].productId}\n${args.productId}", Toast.LENGTH_SHORT).show()
+                            btnWishlist.setImageResource(R.drawable.ic_selected_wishlist)
+                            wishlistId = wishlistProduct[sizeWishlist].id
+                            wishlist = false
+                        }
+                        wishlistProduct[sizeWishlist].productId != args.productId -> {
+                            Toast.makeText(requireContext(), "${wishlistProduct[sizeWishlist].productId}\n${args.productId}", Toast.LENGTH_SHORT).show()
+                            btnWishlist.setImageResource(R.drawable.ic_unselected_wishlist)
+                            wishlist = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getDataAction(data: DatastorePreferences?) {
         viewModel.apply {
             with(getViewBinding()) {
-                data?.size?.let {
-                    for (order in 0 until it) {
-                        when {
-                            data[order].productId == args.productId && data[order].status == "pending" -> {
-                                btnBuy.isEnabled = false
-                                btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
-                                btnGroup.visibility = View.VISIBLE
-                                idOrders = data[order].id.toString()
-                                lastBid = data[order].price.toString()
-                                Log.d("HAYO", idOrders)
-                                Log.d("HAYO", lastBid)
-                            }
-                            data[order].productId == args.productId && data[order].status == "accepted" -> {
-                                btnBuy.visibility = View.GONE
-                                AlertDialog.Builder(context)
-                                    .setTitle(getString(R.string.congratulations))
-                                    .setMessage(getString(R.string.your_bid))
-                                    .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
-                                        dialogP.dismiss()
-
-                                    }
-                                    .show()
-                            }
-                            data[order].productId == args.productId && data[order].status == "declined" -> {
+                data?.let { data ->
+                    btnBuy.setOnClickListener {
+                        when(data.access_token) {
+                            DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
                                 AlertDialog.Builder(context)
                                     .setTitle(getString(R.string.warning))
-                                    .setMessage(getString(R.string.Unfortunately))
-                                    .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
+                                    .setMessage(getString(R.string.please_login))
+                                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                                         dialogP.dismiss()
+                                        when(args.status) {
+                                            0 -> {
+                                                findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
+                                            }
+                                            else -> {
+                                                findNavController().navigate(R.id.action_detailProductFragment2_to_loginFragment3)
+                                            }
+                                        }
                                     }
+                                    .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
+                                        dialogN.dismiss()
+                                    }
+                                    .setCancelable(false)
                                     .show()
-                                btnBuy.isEnabled = false
-                                btnBuy.text = "Declined"
-                                btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
-                                btnGroup.visibility = View.VISIBLE
-                                idOrders = data[order].id.toString()
-                                lastBid = data[order].price.toString()
+                            }
+                            else -> {
+                                PopUpBidFragment(args.productId).show(parentFragmentManager, "")
+                            }
+                        }
+                    }
+                    btnWishlist.setOnClickListener {
+                        when(data.access_token) {
+                            DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
+                                AlertDialog.Builder(context)
+                                    .setTitle(getString(R.string.warning))
+                                    .setMessage(getString(R.string.please_login))
+                                    .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                        dialogP.dismiss()
+                                        when(args.status) {
+                                            0 -> {
+                                                findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
+                                            }
+                                            else -> {
+                                                findNavController().navigate(R.id.action_detailProductFragment2_to_loginFragment3)
+                                            }
+                                        }
+                                    }
+                                    .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
+                                        dialogN.dismiss()
+                                    }
+                                    .setCancelable(false)
+                                    .show()
+                            }
+                            else -> {
+                                when (wishlist) {
+                                    true -> {
+                                        postWishlistProduct(data.access_token, WishlistRequest(args.productId))
+                                        Handler(Looper.getMainLooper()).postDelayed({
+                                            getWishlistProduct(data.access_token)
+                                        }, 1000)
+                                    }
+                                    false -> {
+                                        deleteWishlistProductById(data.access_token, wishlistId)
+                                        Handler(Looper.getMainLooper()).postDelayed({
+                                            getWishlistProduct(data.access_token)
+                                        }, 1000)
+                                    }
+                                }
                             }
                         }
                     }
@@ -219,9 +310,55 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
         }
     }
 
-    private fun showToastSuccess() {
+    private fun getDataOrder(data: GetBidResponse?) {
+        getViewBinding().apply {
+            data?.size?.let {
+                for (order in 0 until it) {
+                    when {
+                        data[order].productId == args.productId && data[order].status == "pending" -> {
+                            btnBuy.isEnabled = false
+                            btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
+                            btnGroup.visibility = View.VISIBLE
+                            idOrders = data[order].id.toString()
+                            lastBid = data[order].price.toString()
+                            Log.d("HAYO", idOrders)
+                            Log.d("HAYO", lastBid)
+                        }
+                        data[order].productId == args.productId && data[order].status == "accepted" -> {
+                            btnBuy.visibility = View.GONE
+                            AlertDialog.Builder(context)
+                                .setTitle(getString(R.string.congratulations))
+                                .setMessage(getString(R.string.your_bid))
+                                .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
+                                    dialogP.dismiss()
+
+                                }
+                                .show()
+                        }
+                        data[order].productId == args.productId && data[order].status == "declined" -> {
+                            AlertDialog.Builder(context)
+                                .setTitle(getString(R.string.warning))
+                                .setMessage(getString(R.string.Unfortunately))
+                                .setPositiveButton(getString(R.string.OK)) { dialogP, _ ->
+                                    dialogP.dismiss()
+                                }
+                                .show()
+                            btnBuy.isEnabled = false
+                            btnBuy.text = "Declined"
+                            btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
+                            btnGroup.visibility = View.VISIBLE
+                            idOrders = data[order].id.toString()
+                            lastBid = data[order].price.toString()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showToastSuccess(message: String) {
         val snackBarView =
-            Snackbar.make(getViewBinding().root, "Your Order Success Delete", Snackbar.LENGTH_LONG)
+            Snackbar.make(getViewBinding().root, message, Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
@@ -238,6 +375,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()
     }
+
     private fun getDataProduct(dataCategory: CategoryDetailResponse?) {
         viewModel.apply {
             with(getViewBinding()) {
@@ -258,35 +396,8 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     tvUsername.text = it.user.fullName
                     tvUserLocation.text = it.user.city
                     tvItemDescription.text = it.description
-                    btnBuy.setOnClickListener {
-                        getTokenAccessResult().observe(viewLifecycleOwner) { token ->
-                            when(token.access_token) {
-                                DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
-                                    AlertDialog.Builder(context)
-                                        .setTitle(getString(R.string.warning))
-                                        .setMessage(getString(R.string.please_login))
-                                        .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
-                                            dialogP.dismiss()
-                                            when(args.status) {
-                                                0 -> {
-                                                    findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
-                                                }
-                                                else -> {
-                                                    findNavController().navigate(R.id.action_detailProductFragment2_to_loginFragment3)
-                                                }
-                                            }
-                                        }
-                                        .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
-                                            dialogN.dismiss()
-                                        }
-                                        .setCancelable(false)
-                                        .show()
-                                }
-                                else -> {
-                                    PopUpBidFragment(args.productId).show(parentFragmentManager, "")
-                                }
-                            }
-                        }
+                    getTokenAccessResult().observe(viewLifecycleOwner) { token ->
+                        getWishlistProduct(token.access_token)
                     }
                 }
             }

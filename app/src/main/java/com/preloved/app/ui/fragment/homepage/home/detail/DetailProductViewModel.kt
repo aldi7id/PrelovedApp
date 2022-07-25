@@ -6,8 +6,12 @@ import com.preloved.app.base.arch.BaseViewModellmpl
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.local.datastore.DatastorePreferences
 import com.preloved.app.data.network.model.BuyerOrderResponse
+import com.preloved.app.data.network.model.request.wishlist.WishlistRequest
 import com.preloved.app.data.network.model.response.bid.get.GetBidResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
+import com.preloved.app.data.network.model.response.whislist.AddWishlistResponse
+import com.preloved.app.data.network.model.response.whislist.DeleteWishlistResponse
+import com.preloved.app.data.network.model.response.whislist.GetWishlistResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,10 +22,17 @@ class DetailProductViewModel(
     private val getDataToken = MutableLiveData<DatastorePreferences>()
     private val getDataBuyerOrder = MutableLiveData<Resource<GetBidResponse>>()
     private val _deleteOrder = MutableLiveData<Resource<BuyerOrderResponse>>()
+    private val postDataWishlist = MutableLiveData<Resource<AddWishlistResponse>>()
+    private val getDataWishlist = MutableLiveData<Resource<GetWishlistResponse>>()
+    private val deleteDataWishlist = MutableLiveData<Resource<DeleteWishlistResponse>>()
 
     override fun getTokenAccessResult(): MutableLiveData<DatastorePreferences> = getDataToken
     override fun getDetailProductResult(): MutableLiveData<Resource<CategoryDetailResponse>> = getDetailProduct
     override fun getBuyerOrderResult(): MutableLiveData<Resource<GetBidResponse>> = getDataBuyerOrder
+    override fun deleteBuyerOrderResult(): MutableLiveData<Resource<BuyerOrderResponse>> = _deleteOrder
+    override fun postWishlistProductResult(): MutableLiveData<Resource<AddWishlistResponse>> = postDataWishlist
+    override fun getWishlistProductResult(): MutableLiveData<Resource<GetWishlistResponse>> = getDataWishlist
+    override fun deleteWishlistProductByIdResult(): MutableLiveData<Resource<DeleteWishlistResponse>> = deleteDataWishlist
 
     override fun getTokenAccess() {
         viewModelScope.launch {
@@ -79,5 +90,49 @@ class DetailProductViewModel(
         }
     }
 
-    override fun deleteBuyerOrderResult(): MutableLiveData<Resource<BuyerOrderResponse>> = _deleteOrder
+    override fun postWishlistProduct(tokenAccess: String, wishlistRequest: WishlistRequest) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val responseWishlist = detailProductRepository.postWishlistProduct(tokenAccess, wishlistRequest)
+                viewModelScope.launch(Dispatchers.Main) {
+                    postDataWishlist.value = Resource.Success(responseWishlist)
+                }
+            } catch (e: Exception) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    postDataWishlist.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    override fun getWishlistProduct(tokenAccess: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val responseWishlist = detailProductRepository.getWishlistProduct(tokenAccess)
+                viewModelScope.launch(Dispatchers.Main) {
+                    getDataWishlist.value = Resource.Success(responseWishlist)
+                }
+            } catch (e: Exception) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    getDataWishlist.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    override fun deleteWishlistProductById(tokenAccess: String, productId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val responseWishlist = detailProductRepository.deleteWishlistProductById(tokenAccess, productId)
+                viewModelScope.launch(Dispatchers.Main) {
+                    deleteDataWishlist.value = Resource.Success(responseWishlist)
+                }
+            } catch (e: Exception) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    deleteDataWishlist.value = Resource.Error(null, e.message.orEmpty())
+                }
+            }
+        }
+    }
+
 }
