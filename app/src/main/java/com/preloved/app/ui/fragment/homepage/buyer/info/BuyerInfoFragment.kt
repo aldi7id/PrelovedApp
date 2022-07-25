@@ -140,7 +140,7 @@ class BuyerInfoFragment : BaseFragment<FragmentBuyerInfoBinding, BuyerInfoViewMo
             if(data.user.imageUrl != null){
                 imagePenawar = data.user.imageUrl
             } else {
-                imagePenawar = "https://icon-library.com/images/null-icon/null-icon-10.jpg"
+                imagePenawar = "https://www.pngrepo.com/png/362137/180/profile.png"
             }
             productName = data.productName
             productPrice = data.basePrice

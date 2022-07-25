@@ -83,7 +83,7 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                                 override fun onClickItem(data: HistoryResponseItem) {
                                     val passData = SaleFragmentDirections.actionSaleFragmentToDetailProductFragment2(
                                         productId = data.productId,
-                                        status = 0
+                                        status = 1
                                     )
                                     findNavController().navigate(
                                         passData

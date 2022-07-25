@@ -12,6 +12,7 @@ import com.preloved.app.data.network.model.HistoryResponseItem
 import com.preloved.app.databinding.ItemHistoryBinding
 import com.preloved.app.ui.convertDate
 import com.preloved.app.ui.currency
+import com.preloved.app.ui.striketroughtText
 
 class SaleHistoryAdapter(private val OnItemClick: OnClickListener) : RecyclerView.Adapter<SaleHistoryAdapter.ViewHolder>() {
     private val diffCallback = object  : DiffUtil.ItemCallback<HistoryResponseItem>() {
@@ -35,30 +36,39 @@ class SaleHistoryAdapter(private val OnItemClick: OnClickListener) : RecyclerVie
     inner class ViewHolder(private val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HistoryResponseItem) {
-            val basePrice = currency(data.product.basePrice)
-            val priceNego = currency(data.price)
-            val date = convertDate(data.createdAt)
-            binding.apply {
-                Glide.with(binding.root)
-                    .load(data.product.imageUrl)
-                    .transform(CenterCrop(), RoundedCorners(12))
-                    .into(binding.ivProductImage)
-                tvNamaProduk.text = data.product.name
-                tvHargaAwalProduk.text = basePrice
-                tvHargaDitawarProduk.text = "Selled $priceNego"
-                tvTanggal.text = date
-                if (data.status != "declined") {
-                    root.setOnClickListener {
-                        OnItemClick.onClickItem(data)
+            if(data.product != null && data.status == "accepted"){
+                val basePrice = currency(data.product.basePrice)
+                val priceNego = currency(data.price)
+                val date = convertDate(data.createdAt)
+                binding.apply {
+                    Glide.with(binding.root)
+                        .load(data.imageUrl)
+                        .transform(CenterCrop(), RoundedCorners(12))
+                        .into(binding.ivProductImage)
+                    tvNamaProduk.text = data.productName
+                    tvHargaAwalProduk.apply {
+                        text = striketroughtText(this,basePrice)
                     }
-                }
+                    tvHargaDitawarProduk.text = "Selled $priceNego"
+                    tvTanggal.text = date
+                    if (data.status == "accepted") {
+                        root.setOnClickListener {
+                            OnItemClick.onClickItem(data)
+                        }
+                    }
 //                if (data.status == "declined") {
 //                    root.alpha = 0.5f
 //                    tvHargaDitawarProduk.apply {
 //                        text = striketroughtText(this,priceNego)
 //                    }
 //                }
+                }
+            } else {
+                binding.apply {
+                    tvHargaAwalProduk.text = "Product Has Been Deleted"
+                }
             }
+
         }
     }
     interface OnClickListener {
