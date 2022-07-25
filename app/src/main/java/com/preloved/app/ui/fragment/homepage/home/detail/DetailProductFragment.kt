@@ -85,8 +85,8 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
 
     override fun getDataDetail() {
         viewModel.apply {
-            getDetailProductById(args.productId)
             getTokenAccess()
+            getDetailProductById(args.productId)
         }
     }
 
@@ -142,7 +142,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                         .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                             //ToHomeFragment
                             dialogN.dismiss()
-                            findNavController().navigate(R.id.homeFragment)
+                            findNavController().popBackStack()
 
                         }
                         .setCancelable(false)
@@ -278,6 +278,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                                         }
                                         .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                                             dialogN.dismiss()
+                                            findNavController().popBackStack()
                                         }
                                         .setCancelable(false)
                                         .show()

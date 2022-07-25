@@ -35,6 +35,7 @@
             app:destination="@id/buyerInfoFragment"
             app:popUpTo="@id/notificationFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
     <fragment
         android:id="@+id/sellFragment"
@@ -122,6 +123,10 @@
         <action
             android:id="@+id/action_loginFragment3_to_registerFragment2"
             app:destination="@id/registerFragment2" />
+        <argument
+            android:name="status"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"

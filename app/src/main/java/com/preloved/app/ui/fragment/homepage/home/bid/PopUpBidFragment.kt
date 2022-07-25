@@ -12,6 +12,7 @@ import com.preloved.app.data.network.model.request.bid.BidRequest
 import com.preloved.app.data.network.model.response.bid.post.PostBidResponse
 import com.preloved.app.data.network.model.response.category.detail.CategoryDetailResponse
 import com.preloved.app.databinding.FragmentPopUpBidBinding
+import com.preloved.app.ui.currency
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopUpBidFragment(
@@ -119,7 +120,7 @@ class PopUpBidFragment(
                     tvProductCategory.text = it.categories.joinToString{ data ->
                         data.name
                     }
-                    tvProductPrice.text = "Rp. ${it.basePrice}"
+                    tvProductPrice.text = currency(it.basePrice)
                 }
             }
         }
