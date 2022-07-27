@@ -36,10 +36,6 @@ jobs:
       # Setup Permission
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      # Run Test
-      - name: Run Tests
-        run: ./gradlew test
-      
       # Build Debug APK
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
