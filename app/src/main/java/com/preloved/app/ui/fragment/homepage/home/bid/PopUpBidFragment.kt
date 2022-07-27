@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.preloved.app.R
 import com.preloved.app.base.model.Resource
 import com.preloved.app.data.network.model.request.bid.BidRequest
 import com.preloved.app.data.network.model.response.bid.post.PostBidResponse
@@ -16,7 +18,7 @@ import com.preloved.app.ui.currency
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopUpBidFragment(
-    private val productId: Int
+    private val productId: Int, private val statusdes: Int
 ): BottomSheetDialogFragment() {
     private var bind: FragmentPopUpBidBinding? = null
     private val binding get() = bind!!
@@ -132,6 +134,13 @@ class PopUpBidFragment(
                 "pending" -> {
                     Toast.makeText(requireContext(), "Your bid product Success", Toast.LENGTH_SHORT).show()
                     dismiss()
+                    //Navigate To My Order
+                    //findNavController().navigate(R.id.action_detailProductFragment2_to_myOrderFragment)
+                    if(statusdes == 1){
+                        findNavController().navigate(R.id.action_detailProductFragment2_to_myOrderFragment)
+                    } else {
+                        findNavController().navigate(R.id.action_detailProductFragment_to_mainFragment)
+                    }
                 }
             }
         }

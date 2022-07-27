@@ -224,6 +224,9 @@
         <action
             android:id="@+id/action_detailProductFragment2_to_loginFragment3"
             app:destination="@id/loginFragment3" />
+        <action
+            android:id="@+id/action_detailProductFragment2_to_myOrderFragment"
+            app:destination="@id/myOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyerInfoFragment"

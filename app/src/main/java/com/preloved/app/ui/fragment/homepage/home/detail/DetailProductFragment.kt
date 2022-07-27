@@ -44,6 +44,13 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
 
     override val viewModel: DetailProductViewModel by viewModel()
 
+    override fun showContent(isVisible: Boolean) {
+        super.showContent(isVisible)
+        getViewBinding().apply {
+            groupContent.isVisible = isVisible
+            btnGroupFirst.isVisible = isVisible
+        }
+    }
     override fun initView() {
         getDataDetail()
         onClick()
@@ -66,7 +73,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     .setPositiveButton(getString(R.string.sure)) { dialogP, _ ->
                         viewModel.deleteBuyerOrder(
                             token = token,
-                            id  = idOrders.toInt()
+                            id = idOrders.toInt()
                         )
                         dialogP.dismiss()
                     }
@@ -78,7 +85,10 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     .show()
             }
             btnEdit.setOnClickListener {
-                PopUpBidEditFragment(args.productId, idOrders.toInt(), lastBid.toInt()).show(parentFragmentManager, "")
+                PopUpBidEditFragment(args.productId, idOrders.toInt(), lastBid.toInt()).show(
+                    parentFragmentManager,
+                    ""
+                )
             }
         }
     }
@@ -94,12 +104,14 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
     override fun observeData() {
         viewModel.apply {
             getDetailProductResult().observe(viewLifecycleOwner) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
                         showLoading(true)
+                        showContent(false)
                     }
                     is Resource.Success -> {
                         showLoading(false)
+                        showContent(true)
                         getDataProduct(it.data)
                     }
                     is Resource.Error -> {
@@ -108,7 +120,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 }
             }
             getBuyerOrderResult().observe(viewLifecycleOwner) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
 
                     }
@@ -120,16 +132,16 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     }
                 }
             }
-            getTokenAccessResult().observe(viewLifecycleOwner){
+            getTokenAccessResult().observe(viewLifecycleOwner) {
                 getDataAction(it)
-                if(it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN) {
+                if (it.access_token == DatastoreManager.DEFAULT_ACCESS_TOKEN) {
                     AlertDialog.Builder(context)
                         .setTitle(getString(R.string.warning))
                         .setMessage(getString(R.string.please_login))
                         .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                             //ToLogin Fragment
                             dialogP.dismiss()
-                            when(args.status) {
+                            when (args.status) {
                                 0 -> {
                                     findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
                                 }
@@ -155,12 +167,12 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 viewModel.getTokenAccessResult().removeObservers(viewLifecycleOwner)
             }
             deleteBuyerOrderResult().observe(viewLifecycleOwner) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
 
                     }
                     is Resource.Success -> {
-                        showToastSuccess()
+                        showToastSuccess("Delete Order Success")
                         findNavController().popBackStack()
                     }
                     is Resource.Error -> {
@@ -169,7 +181,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 }
             }
             postWishlistProductResult().observe(viewLifecycleOwner) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
 
                     }
@@ -182,7 +194,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 }
             }
             getWishlistProductResult().observe(viewLifecycleOwner) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
 
                     }
@@ -195,7 +207,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 }
             }
             deleteWishlistProductByIdResult().observe(viewLifecycleOwner) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
 
                     }
@@ -216,13 +228,11 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 for (sizeWishlist in 0 until it) {
                     when {
                         wishlistProduct[sizeWishlist].productId == args.productId -> {
-                            Toast.makeText(requireContext(), "${wishlistProduct[sizeWishlist].productId}\n${args.productId}", Toast.LENGTH_SHORT).show()
                             btnWishlist.setImageResource(R.drawable.ic_selected_wishlist)
                             wishlistId = wishlistProduct[sizeWishlist].id
                             wishlist = false
                         }
                         wishlistProduct[sizeWishlist].productId != args.productId -> {
-                            Toast.makeText(requireContext(), "${wishlistProduct[sizeWishlist].productId}\n${args.productId}", Toast.LENGTH_SHORT).show()
                             btnWishlist.setImageResource(R.drawable.ic_unselected_wishlist)
                             wishlist = true
                         }
@@ -237,14 +247,14 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
             with(getViewBinding()) {
                 data?.let { data ->
                     btnBuy.setOnClickListener {
-                        when(data.access_token) {
+                        when (data.access_token) {
                             DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
                                 AlertDialog.Builder(context)
                                     .setTitle(getString(R.string.warning))
                                     .setMessage(getString(R.string.please_login))
                                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                                         dialogP.dismiss()
-                                        when(args.status) {
+                                        when (args.status) {
                                             0 -> {
                                                 findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
                                             }
@@ -260,19 +270,19 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                                     .show()
                             }
                             else -> {
-                                PopUpBidFragment(args.productId).show(parentFragmentManager, "")
+                                PopUpBidFragment(args.productId, args.status).show(parentFragmentManager, "")
                             }
                         }
                     }
                     btnWishlist.setOnClickListener {
-                        when(data.access_token) {
+                        when (data.access_token) {
                             DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
                                 AlertDialog.Builder(context)
                                     .setTitle(getString(R.string.warning))
                                     .setMessage(getString(R.string.please_login))
                                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                                         dialogP.dismiss()
-                                        when(args.status) {
+                                        when (args.status) {
                                             0 -> {
                                                 findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
                                             }
@@ -290,7 +300,10 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                             else -> {
                                 when (wishlist) {
                                     true -> {
-                                        postWishlistProduct(data.access_token, WishlistRequest(args.productId))
+                                        postWishlistProduct(
+                                            data.access_token,
+                                            WishlistRequest(args.productId)
+                                        )
                                         Handler(Looper.getMainLooper()).postDelayed({
                                             getWishlistProduct(data.access_token)
                                         }, 1000)
@@ -317,15 +330,18 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     when {
                         data[order].productId == args.productId && data[order].status == "pending" -> {
                             btnBuy.isEnabled = false
-                            btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
+                            btnBuy.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.grey_shade
+                                )
+                            )
                             btnGroup.visibility = View.VISIBLE
                             idOrders = data[order].id.toString()
                             lastBid = data[order].price.toString()
-                            Log.d("HAYO", idOrders)
-                            Log.d("HAYO", lastBid)
                         }
                         data[order].productId == args.productId && data[order].status == "accepted" -> {
-                            btnBuy.visibility = View.GONE
+                            btnGroupFirst.visibility = View.GONE
                             AlertDialog.Builder(context)
                                 .setTitle(getString(R.string.congratulations))
                                 .setMessage(getString(R.string.your_bid))
@@ -345,7 +361,12 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                                 .show()
                             btnBuy.isEnabled = false
                             btnBuy.text = "Declined"
-                            btnBuy.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_shade))
+                            btnBuy.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.grey_shade
+                                )
+                            )
                             btnGroup.visibility = View.VISIBLE
                             idOrders = data[order].id.toString()
                             lastBid = data[order].price.toString()
@@ -370,7 +391,12 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary))
+        snackBarView.view.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.primary
+            )
+        )
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()
@@ -385,7 +411,7 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                         .centerCrop()
                         .into(ivItem)
                     tvTitleItem.text = it.name
-                    tvCategoryItem.text = it.categories.joinToString{ data ->
+                    tvCategoryItem.text = it.categories.joinToString { data ->
                         data.name
                     }
                     tvPriceItem.text = currency(it.basePrice)
@@ -398,33 +424,37 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                     tvItemDescription.text = it.description
                     getTokenAccessResult().observe(viewLifecycleOwner) { token ->
                         getWishlistProduct(token.access_token)
-                    btnBuy.setOnClickListener {
-                        getTokenAccessResult().observe(viewLifecycleOwner) { token ->
-                            when(token.access_token) {
-                                DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
-                                    AlertDialog.Builder(context)
-                                        .setTitle(getString(R.string.warning))
-                                        .setMessage(getString(R.string.please_login))
-                                        .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
-                                            dialogP.dismiss()
-                                            when(args.status) {
-                                                0 -> {
-                                                    findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
-                                                }
-                                                else -> {
-                                                    findNavController().navigate(R.id.action_detailProductFragment2_to_loginFragment3)
+                        btnBuy.setOnClickListener {
+                            getTokenAccessResult().observe(viewLifecycleOwner) { token ->
+                                when (token.access_token) {
+                                    DatastoreManager.DEFAULT_ACCESS_TOKEN -> {
+                                        AlertDialog.Builder(context)
+                                            .setTitle(getString(R.string.warning))
+                                            .setMessage(getString(R.string.please_login))
+                                            .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
+                                                dialogP.dismiss()
+                                                when (args.status) {
+                                                    0 -> {
+                                                        findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
+                                                    }
+                                                    else -> {
+                                                        findNavController().navigate(R.id.action_detailProductFragment2_to_loginFragment3)
+                                                    }
                                                 }
                                             }
-                                        }
-                                        .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
-                                            dialogN.dismiss()
-                                            findNavController().popBackStack()
-                                        }
-                                        .setCancelable(false)
-                                        .show()
-                                }
-                                else -> {
-                                    PopUpBidFragment(args.productId).show(parentFragmentManager, "")
+                                            .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
+                                                dialogN.dismiss()
+                                                findNavController().popBackStack()
+                                            }
+                                            .setCancelable(false)
+                                            .show()
+                                    }
+                                    else -> {
+                                        PopUpBidFragment(args.productId, args.status).show(
+                                            parentFragmentManager,
+                                            ""
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -432,6 +462,6 @@ class DetailProductFragment : BaseFragment<FragmentDetailProductBinding, DetailP
                 }
             }
         }
-    }
 
+    }
 }
