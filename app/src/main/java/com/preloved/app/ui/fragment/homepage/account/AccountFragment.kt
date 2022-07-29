@@ -77,13 +77,16 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
                         dialogP.dismiss()
-                        findNavController().navigate(R.id.action_accountFragment_to_loginFragment3)
+                        val passData = AccountFragmentDirections.actionAccountFragmentToLoginFragment3(
+                            status = 1
+                        )
+                        findNavController().navigate(passData)
 
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->
                         //ToHomeFragment
                         dialogN.dismiss()
-                        findNavController().navigate(R.id.homeFragment)
+                        findNavController().popBackStack()
 
                     }
                     .setCancelable(false)

@@ -334,7 +334,10 @@ class SellFragment : BaseFragment<FragmentSellBinding, SellViewModel>(
                         .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                             //ToLogin Fragment
                             dialogP.dismiss()
-                            findNavController().navigate(R.id.action_sellFragment_to_loginFragment3)
+                            val passData = SellFragmentDirections.actionSellFragmentToLoginFragment3(
+                                status = 1
+                            )
+                            findNavController().navigate(passData)
                             viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
 
                         }

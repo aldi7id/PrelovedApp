@@ -58,6 +58,12 @@ class MainFragment : Fragment() {
                 R.id.editProductFragment -> {
                     binding.navigationBar.visibility = View.GONE
                 }
+                R.id.editPasswordFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
+                R.id.wishlistFragment -> {
+                    binding.navigationBar.visibility = View.GONE
+                }
                 else -> {
                     binding.navigationBar.visibility = View.VISIBLE
                 }

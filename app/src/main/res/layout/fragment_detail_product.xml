@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.homepage.home.detail.DetailProductFragment">
-
-    <ImageButton
-        android:id="@+id/ib_back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/circle_shape"
-        android:elevation="8dp"
-        android:src="@drawable/ic_back"
-        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:id="@+id/sv_detail"
@@ -28,10 +15,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="80dp">
-
+            android:paddingBottom="150dp">
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="iv_item,cv_detail_item,cv_info_seller,rv_description"
+                />
             <ImageView
                 android:id="@+id/iv_item"
                 android:layout_width="match_parent"
@@ -71,8 +64,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
                     android:ellipsize="end"
-                    android:maxLines="1"
                     android:fontFamily="@font/poppinsregular"
+                    android:maxLines="1"
                     android:text="Pakaian"
                     android:textSize="14sp" />
 
@@ -137,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="4dp"
+                app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_info_seller">
@@ -168,34 +161,64 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
+    <ImageButton
+        android:id="@+id/ib_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/circle_shape"
+        android:elevation="8dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_group_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/shape_transparent"
+        >
     <Button
         android:id="@+id/btn_buy"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_wishlist"
-        app:layout_constraintBottom_toTopOf="@id/btn_group"
-        android:text="Tawar"
-        android:textAllCaps="false"
         android:fontFamily="@font/poppinsmedium"
+        android:text="Bid"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="14sp"
-        android:textColor="@color/white"/>
+        app:layout_constraintBottom_toTopOf="@id/btn_group"
+        app:layout_constraintEnd_toStartOf="@id/btn_wishlist"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/btn_wishlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/ic_unselected_wishlist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_buy"
         app:layout_constraintBottom_toBottomOf="@id/btn_buy"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_buy"
+        app:layout_constraintTop_toTopOf="@id/btn_buy"
         tools:ignore="ContentDescription" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_group"
@@ -203,61 +226,55 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:visibility="gone"
-        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_buy"
         app:layout_constraintStart_toStartOf="@id/btn_buy"
-        app:layout_constraintBottom_toBottomOf="parent">
+        tools:visibility="visible">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:gravity="center">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_delete"
-            style="@style/ThemeOverlay.Material3.Button"
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:text="Delete"
-            android:layout_marginRight="10dp"
-            app:backgroundTint="@color/gray"
-            app:layout_constraintEnd_toStartOf="@+id/btn_edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:gravity="center"
+                android:weightSum="1">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete"
+                    style="@style/ThemeOverlay.Material3.Button"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Delete"
+                    app:backgroundTint="@color/gray"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:gravity="center">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_edit"
-            style="@style/ThemeOverlay.Material3.Button"
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:text="Edit"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_edit"
+                    style="@style/ThemeOverlay.Material3.Button"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:text="Edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ProgressBar
-        android:id="@+id/pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
-        tools:visibility="visible"
-        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,10 @@
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="status"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -67,5 +71,9 @@
         <action
             android:id="@+id/action_detailProductFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_bottom_nav"
+            app:destination="@id/bottom_nav" />
     </fragment>
+    <include app:graph="@navigation/bottom_nav" />
 </navigation>

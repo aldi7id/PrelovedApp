@@ -420,7 +420,10 @@ class SaleFragment : BaseFragment<FragmentSaleBinding, SaleViewModel>
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
                         dialogP.dismiss()
-                        findNavController().navigate(R.id.action_saleFragment_to_loginFragment3)
+                        val passData = SaleFragmentDirections.actionSaleFragmentToLoginFragment3(
+                            status = 1
+                        )
+                        findNavController().navigate(passData)
                         viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
 
                     }

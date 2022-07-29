@@ -1,5 +1,6 @@
 package com.preloved.app.ui.fragment.homepage.account.wishlist
 
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.preloved.app.base.arch.BaseFragment
 import com.preloved.app.base.model.Resource
@@ -13,7 +14,12 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
 ), WishlistContract.View {
 
     override val viewModel: WishlistViewModel by viewModel()
-
+    override fun showLoading(isVisible: Boolean) {
+        super.showLoading(isVisible)
+        getViewBinding().apply {
+            pbLoading.isVisible = isVisible
+        }
+    }
     override fun initView() {
         getViewBinding().apply {
             getData()
@@ -62,7 +68,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding, WishlistViewModel
         getViewBinding().apply {
             val listCategoryAdapter = WishlistAdapter {
                 val passData = WishlistFragmentDirections.actionWishlistFragmentToDetailProductFragment2(
-                    productId = it.product.id
+                    productId = it.productId
                 )
                 findNavController().navigate(passData)
             }

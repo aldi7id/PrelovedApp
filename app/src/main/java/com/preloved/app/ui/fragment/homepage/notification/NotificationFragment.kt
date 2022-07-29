@@ -34,7 +34,10 @@ class NotificationFragment : BaseFragment<FragmentNotificationBinding, Notificat
                     .setPositiveButton(getString(R.string.login)) { dialogP, _ ->
                         //ToLogin Fragment
                         dialogP.dismiss()
-                        findNavController().navigate(R.id.action_notificationFragment_to_loginFragment3)
+                        val passdata = NotificationFragmentDirections.actionNotificationFragmentToLoginFragment3(
+                            status = 1
+                        )
+                        findNavController().navigate(passdata)
                         viewModel.userSessionResult().removeObservers(viewLifecycleOwner)
                     }
                     .setNegativeButton(getString(R.string.later)) { dialogN, _ ->

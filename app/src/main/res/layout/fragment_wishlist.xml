@@ -47,15 +47,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <ProgressBar
-            android:id="@+id/pb_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list_category"
@@ -67,5 +59,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/card_item_category"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        tools:visibility="visible"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
