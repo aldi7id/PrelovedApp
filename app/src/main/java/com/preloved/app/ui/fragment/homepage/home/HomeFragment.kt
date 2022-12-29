@@ -2,6 +2,8 @@ package com.preloved.app.ui.fragment.homepage.home
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,8 +52,20 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onView()
         onClick()
         tabLayoutView()
+    }
+
+    private fun onView() {
+        binding.apply {
+            swipeRefreshLayout.setOnRefreshListener {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    swipeRefreshLayout.isRefreshing = false
+                    tabLayoutView()
+                }, 2000)
+            }
+        }
     }
 
     private fun onClick() {

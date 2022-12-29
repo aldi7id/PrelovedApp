@@ -1,6 +1,9 @@
 package com.preloved.app.ui.fragment.homepage.home.search
 
+import android.os.Handler
+import android.os.Looper
 import android.widget.SearchView.OnQueryTextListener
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.preloved.app.R
@@ -15,11 +18,20 @@ class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchP
     FragmentSearchProductBinding::inflate
 ), SearchProductContract.View {
     private val args by navArgs<SearchProductFragmentArgs>()
+    private lateinit var searchData: String
     override val viewModel: SearchProductViewModel by viewModel()
 
     override fun initView() {
-        getProduct()
+        onView()
         onClick()
+        getProduct()
+    }
+
+    private fun onView() {
+        viewModel.apply {
+            getDataSearchProduct(args.search.toString())
+            searchProduct()
+        }
     }
 
     private fun onClick() {
@@ -31,25 +43,41 @@ class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchP
         }
     }
 
-    override fun getProduct() {
-        viewModel.apply {
-            with(getViewBinding()) {
-                getDataSearchProduct(args.search.toString())
-                with(svSearchItem) {
-                    setOnQueryTextListener(object : OnQueryTextListener {
-                        override fun onQueryTextSubmit(p0: String?): Boolean {
-                            getDataSearchProduct(p0.toString())
-                            return false
-                        }
-
-                        override fun onQueryTextChange(p0: String?): Boolean {
-                            return false
-                        }
-                    })
+    private fun searchProduct() {
+        getViewBinding().svSearchItem.apply {
+            setOnQueryTextListener(object : OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    searchData = p0.toString()
+                    viewModel.getDataSearchProduct(searchData)
+                    return false
                 }
 
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    return false
+                }
+            })
+        }
+    }
+
+    override fun getProduct() {
+        getViewBinding().apply {
+            swipeRefreshLayout.setOnRefreshListener {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    viewModel.getDataSearchProduct(searchData)
+                    swipeRefreshLayout.isRefreshing = false
+                }, 2000)
             }
         }
+    }
+
+    override fun showLoading(isVisible: Boolean) {
+        super.showLoading(isVisible)
+        getViewBinding().pbLoading.isVisible = isVisible
+    }
+
+    override fun showContent(isVisible: Boolean) {
+        super.showContent(isVisible)
+        getViewBinding().rvListCategory.isVisible = isVisible
     }
 
     override fun observeData() {
@@ -58,12 +86,15 @@ class SearchProductFragment : BaseFragment<FragmentSearchProductBinding, SearchP
                 when(it){
                     is Resource.Loading -> {
                         showLoading(true)
+                        showContent(false)
                     }
                     is Resource.Success -> {
                         showLoading(false)
+                        showContent(true)
                         getSearchProduct(it.data)
                     }
                     is Resource.Error -> {
+                        showContent(true)
                         showLoading(false)
                     }
                 }
